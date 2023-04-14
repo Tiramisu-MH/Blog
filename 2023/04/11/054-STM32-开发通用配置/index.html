@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            STM32CubeMX-Keil 通用配置 |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">STM32CubeMX-Keil 通用配置</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-04-11 22:48:07</span>
+        <span class="mobile">2023-04-11 22:48</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/STM32/">STM32</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Keil5/">Keil5</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/CubeMX/">CubeMX</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>615 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <p>在实际项目开发中，我们会发现，有很多配置是通用的，有很多代码是复用的。本文总结了 STM32CubeMX 和 Keil5 MDK 的一些通用设置，以供 STM32 项目开发时查阅，帮助开发者快速配置好所需环境。</p>
+<h3 id="STM32CubeMX-通用配置"><a href="#STM32CubeMX-通用配置" class="headerlink" title="STM32CubeMX 通用配置"></a>STM32CubeMX 通用配置</h3><h4 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h4><p>打开 STM32CubeMX 软件，点击 <code>ACCESS TO MCU SELECTOR</code>，在左上搜索框输入芯片型号（如 <code>429ig</code>），在右下角选择自己的芯片，右上角点击 <code>Start Project</code>。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230404220608706.png" alt="image-20230404220608706" style="zoom:70%;" />
+
+<center>图 1.1 芯片型号选择</center>
+
+<h4 id="配置-SYS"><a href="#配置-SYS" class="headerlink" title="配置 SYS"></a>配置 SYS</h4><p><code>Debug</code> 选择 <code>Serial Wire(SW)</code>。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230404220953836.png" alt="image-20230404220953836" style="zoom: 102%;" />
+
+<center>图 1.2 SYS 配置</center>
+
+<h4 id="配置-RCC"><a href="#配置-RCC" class="headerlink" title="配置 RCC"></a>配置 RCC</h4><p><code>HSE</code> 选择 <code>Crystal/Ceramic Resonator</code>。</p>
+<p>打开 <code>Clock Configuration</code> 界面，配置如图，选择 <code>HSE</code> 和 <code>PLLCLK</code>，在 <code>HCLK(MHz)</code> 框中输入 168 后回车，自动配置所有数据。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230404221647685.png" alt="image-20230404221647685" style="zoom:99%;" />
+
+<center>图 1.3 RCC 配置</center>
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230404221440617.png" alt="image-20230404221440617" style="zoom: 83%;" />
+
+<center>图 1.4 Clock Configuration 界面配置</center>
+
+<h4 id="配置工程"><a href="#配置工程" class="headerlink" title="配置工程"></a>配置工程</h4><p>配置包括工程名称、存储位置、IDE 选择、代码生成等选项，如下图所示。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230404222946177.png" alt="image-20230404222946177" style="zoom:87%;" />
+
+<center>图 1.5 工程文件名称等配置</center>
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230404222803173.png" alt="image-20230404222803173" style="zoom:87%;" />
+
+<center>图 1.6 代码生成配置</center>
+
+<h4 id="生成代码"><a href="#生成代码" class="headerlink" title="生成代码"></a>生成代码</h4><p>右上角点击 <code>GENERATE CODE</code>，接着点击 <code>Close</code>。（如果直接点 <code>Open Project</code>，Keil5 中没有代码提示。）</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411231055330.png" alt="image-20230411231055330" style="zoom:75%;" />
+
+<center>图 1.7 生成代码操作</center>
+
+<h3 id="Keil5-MDK-通用配置"><a href="#Keil5-MDK-通用配置" class="headerlink" title="Keil5 MDK 通用配置"></a>Keil5 MDK 通用配置</h3><h4 id="打开项目工程文件"><a href="#打开项目工程文件" class="headerlink" title="打开项目工程文件"></a>打开项目工程文件</h4><p>找到存储位置，路径：<code>E:\Data\DuoJi\TEST\MDK-ARM</code>，双击打开 <code>xxx.uvprojx</code> 文件。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230404225006620.png" alt="image-20230404225006620" style="zoom:111%;" />
+
+<center>图 2.1 项目工程文件位置</center>
+
+<h4 id="编译代码"><a href="#编译代码" class="headerlink" title="编译代码"></a>编译代码</h4><p>打开项目后的第一件事：编译代码，关联出头文件。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411232200457.png" alt="image-20230411232200457" style="zoom:131%;" />
+
+<center>图 2.2 编译代码</center>
+
+<h4 id="仿真器连接配置"><a href="#仿真器连接配置" class="headerlink" title="仿真器连接配置"></a>仿真器连接配置</h4><p>点击 <code>魔法棒</code> → <code>Debug</code> → 选择 <code>DAP</code> → <code>Setting</code>，可以看到已经识别到了芯片。然后点击 <code>Flash Download</code> → <code>Reset and Run</code>，为了能够下载进程序后，就开始运行代码，不用手动再去点一下复位键。配置完成后，点 <code>OK</code>。</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411232411409.png" alt="image-20230411232411409" style="zoom:80%;" /></th>
+<th align="center"><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411232537940.png" alt="image-20230411232537940" style="zoom:95%;" /></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411232702468.png" alt="image-20230411232702468"></td>
+<td align="center"><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411233154977.png" alt="image-20230411233154977"></td>
+</tr>
+</tbody></table>
+<center>图 2.3 仿真器连接配置</center>
+
+<h4 id="下载程序"><a href="#下载程序" class="headerlink" title="下载程序"></a>下载程序</h4><p>写完代码后，先编译一下，再下载到开发板。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411233442568.png" alt="image-20230411233442568" style="zoom:120%;" />
+
+<center>图 2.4 下载程序流程</center>
+
+<h3 id="宏定义-LED-灯"><a href="#宏定义-LED-灯" class="headerlink" title="宏定义 LED 灯"></a>宏定义 LED 灯</h3><p>写在 <code>main.c</code> 文件中的 main() 函数外。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET) <span class="comment">//LED0 亮</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET) <span class="comment">//LED0 灭</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET) <span class="comment">//LED1 亮</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET) <span class="comment">//LED1 灭</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_TOG() HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1) <span class="comment">//LED0 闪烁</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_TOG() HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0) <span class="comment">//LED1 闪烁</span></span></span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="宏定义按键"><a href="#宏定义按键" class="headerlink" title="宏定义按键"></a>宏定义按键</h3><p>写在 <code>main.c</code> 文件中的 main() 函数外。判断按键是否按下，使用 <code>if(KEY0 == 0)</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> KEY0 HAL_GPIO_ReadPin(GPIOH,GPIO_PIN_3)</span></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> KEY1 HAL_GPIO_ReadPin(GPIOH,GPIO_PIN_2)</span></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> KEY2 HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)</span></span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br></pre></td></tr></table></figure>
+
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">STM32CubeMX-Keil 通用配置</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-04-11 22:48:07</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/04/11/054-STM32-开发通用配置/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Keil5/">#Keil5</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/CubeMX/">#CubeMX</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/04/11/058-%E6%88%90%E4%B8%BA%E7%82%B9%E7%81%AF%E5%A4%A7%E5%B8%88-LEDMaster/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">成为点灯大师 LEDMaster</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32CubeMX-%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">STM32CubeMX 通用配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">创建工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-SYS"><span class="nav-number">1.2.</span> <span class="nav-text">配置 SYS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-RCC"><span class="nav-number">1.3.</span> <span class="nav-text">配置 RCC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%B7%A5%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">配置工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E4%BB%A3%E7%A0%81"><span class="nav-number">1.5.</span> <span class="nav-text">生成代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Keil5-MDK-%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">Keil5 MDK 通用配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E9%A1%B9%E7%9B%AE%E5%B7%A5%E7%A8%8B%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">打开项目工程文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E4%BB%A3%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">编译代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BF%E7%9C%9F%E5%99%A8%E8%BF%9E%E6%8E%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">仿真器连接配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.4.</span> <span class="nav-text">下载程序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89-LED-%E7%81%AF"><span class="nav-number">3.</span> <span class="nav-text">宏定义 LED 灯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89%E6%8C%89%E9%94%AE"><span class="nav-number">4.</span> <span class="nav-text">宏定义按键</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

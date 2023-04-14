@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            ADB 与 Anaconda 使用 |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">ADB 与 Anaconda 使用</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-03-12 09:36:22</span>
+        <span class="mobile">2023-03-12 09:36</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/ADB/">ADB</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Anaconda/">Anaconda</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.6k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h3 id="概念扫盲"><a href="#概念扫盲" class="headerlink" title="概念扫盲"></a>概念扫盲</h3><h4 id="ADB"><a href="#ADB" class="headerlink" title="ADB"></a>ADB</h4><p>ADB（Android Debug Bridge）是 Android 开发工具包（SDK）中的一个工具，它提供了与 Android 设备通信的桥梁，可以在计算机和 Android 设备之间建立连接，并以命令行的方式执行一些操作，例如安装应用程序、发送文本消息、复制文件等。在使用 adb 前，需要确保已经将 Android SDK 安装在计算机上。</p>
+<h4 id="Anoconda"><a href="#Anoconda" class="headerlink" title="Anoconda"></a>Anoconda</h4><p>Anaconda 是一个 Python 的发行版，它包含了 Python 解释器、一堆常用的 Python 库以及一个可视化的集成开发环境（IDE）。Anaconda 中包含的 Python 库包括了科学计算、数据分析、机器学习等领域常用的各种库，如NumPy、Pandas、Matplotlib、SciPy、Scikit-learn 等等，这些库的版本和依赖都已经被管理好了，用户可以非常方便地进行安装、更新、切换等操作。除此之外，Anaconda 还提供了 conda 这一包管理工具，通过它，用户可以非常方便地管理安装在自己电脑上的 Python 包，这也是 Anaconda 相较于 Python 官方发行版的一大优势。总之，Anaconda 是一个非常强大、易于使用的 Python 发行版，适用于科学计算、数据分析、机器学习等领域的从业者和爱好者。</p>
+<h3 id="驱动（软件-x2F-环境）安装配置"><a href="#驱动（软件-x2F-环境）安装配置" class="headerlink" title="驱动（软件&#x2F;环境）安装配置"></a>驱动（软件&#x2F;环境）安装配置</h3><p>本次测试使用平台：Windows 11（22H2） + Redmi Note 8（MIUI 12.0.3）。</p>
+<h4 id="ADB-1"><a href="#ADB-1" class="headerlink" title="ADB"></a>ADB</h4><ol>
+<li><p>下载 ADB 驱动，下面两个地址的 Windows 包都是一样的，第二个日期更新一些。我使用了第二个。</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://developer.android.com/studio/releases/platform-tools?hl=zh-cn" >SDK 平台工具版本说明  | Android 开发者  | Android Developers<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://adb.clockworkmod.com/" >Universal ADB Drivers (clockworkmod.com)<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+</li>
+<li><p>安装 Python。由于之前已经安装过，所以这一步略过。</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.python.org/downloads/" >Download Python | Python.org<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+</li>
+<li><p>配置环境变量。将 adb 的安装路径保存到 PATH 变量中，确保 <code>adb</code> 命令可以被识别到。</p>
+<ul>
+<li><code>Win + s</code> 搜索【控制面板】→【系统】→【高级系统设置】→【环境变量】</li>
+<li>在【环境变量】窗口找到【系统变量】下的【path】变量→【编辑】→【新建】</li>
+<li>输入 adb 的安装路径：在资源管理器的地址栏复制该路径，粘贴到【编辑环境变量】窗口。</li>
+<li>依次点【确定】，关闭所有窗口。</li>
+<li><code>win + R </code> 搜索 <code>cmd</code>，打开命令行窗口，输入 adb，返回 <code>Android Debug Bridge version 1.0.31 ……</code> 表示已成功安装 adb。输入 <code>adb devices</code>，返回 <code>List of devices attached</code>，下面显示设备序列号号，表示已连接，否则为空。</li>
+</ul>
+</li>
+</ol>
+<h4 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h4><blockquote>
+<p>考虑到生产环境的规范性，实验与项目之间不受干扰，请尽量使用新的虚拟环境来完成实验。</p>
+</blockquote>
+<p>Windows 开辟新的虚拟环境操作步骤：</p>
+<ol>
+<li><p>下载 Anaconda：<a class="link"   target="_blank" rel="noopener" href="https://www.anaconda.com/" >Anaconda | The World’s Most Popular Data Science Platform<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p>安装 Anaconda：下图为勾选配置的选项，第一项意思是不推荐勾选，将 Anaconda 添加到 PATH 环境变量中会让计算机上的其他程序（如 Python Tools for Visual Studio、PyCharm、Wing IDE、PyDev 和 MSI 二进制软件包）自动将 Anaconda 检测为系统上的主要 Python 3.9 版本，可能导致一些问题，需要卸载重装 Anaconda 才能解决。第二项的意思是允许其他程序（同上）自动检测 Anaconda 作为系统上的主要 Python 3.9。（安装时我没有细读，全部勾选了）</p>
+<img src="C:\Users\Obliviate\AppData\Roaming\Typora\typora-user-images\image-20230312102038124.png" alt="image-20230312102038124" style="zoom:80%;" />
+</li>
+<li><p>创建虚拟环境</p>
+<ul>
+<li><p>第一种方式：安装好后，在应用程序中找到 Anaconda 打开，找到【Environment】进行创建。</p>
+</li>
+<li><p>第二种方式：使用命令行创建虚拟环境，需以管理员身份运行 cmd（<code>win + s</code> 搜索【命令提示符或 cmd】，右键【以管理员身份运行】（今天测试，不用管理员身份也可以）</p>
+</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">conda info --envs #查看所有虚拟环境</span><br><span class="line">conda create -n wechat_env python=<span class="number">3</span> #创建名为 wechat_env 的虚拟环境，且使用 Python3</span><br><span class="line">activate wechat_env #Windows 下激活虚拟环境</span><br><span class="line">conda install package_name #安装所需要的包，如 matplotlib 等</span><br><span class="line"></span><br><span class="line">#进入虚拟环境会有前置符号表示如下</span><br><span class="line">(wechat_env) 路径名</span><br><span class="line"></span><br><span class="line">conda deactivate #退出虚拟环境，之前的 deactivate wechat_env 已经不适用了</span><br><span class="line">conda remove -n wechat_env --all #需要先退出，才能删除虚拟环境</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>完全卸载 Anaconda：【控制面板】→【所有控制面板项】→【程序和功能】→【Anaconda】→右键【卸载】</p>
+</li>
+</ol>
+<h4 id="Android-手机配置"><a href="#Android-手机配置" class="headerlink" title="Android 手机配置"></a>Android 手机配置</h4><p>Redmi note 8（MIUI 12.0.3）操作步骤：</p>
+<ol>
+<li>【设置】→【我的设备】→【全部参数】，找到【MIUI 版本】，连续点击多次，进入【开发者模式】</li>
+<li>【设置】→【更多设置】→【开发者选项】，打开【USB 调试】、【USB 调试（安全设置）】、USB 设置为 MTP 模式。</li>
+<li>使用数据线连接电脑与手机。打开 <code>cmd</code>，执行 <code>adb devices</code>，返回设备 ID 表示成功连接。</li>
+</ol>
+<h3 id="ADB-测试"><a href="#ADB-测试" class="headerlink" title="ADB 测试"></a>ADB 测试</h3><ol>
+<li><p>连接手机与电脑，选择 MTP 模式。（MIUI 自动弹出）</p>
+</li>
+<li><p>运行 cmd。输入 <code>adb devices</code>。返回设备 ID，测试成功。</p>
+</li>
+<li><p>在 cmd 中分别输入以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">adb shell screencap -p /sdcard/test.png <span class="comment">#截图</span></span><br><span class="line">adb pull /sdcard/test.png . <span class="comment">#将截图上传到电脑（目录为当前命令行显示的目录）</span></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"><span class="comment">#返回结果显示</span></span><br><span class="line">1120 KB/s (259599 bytes <span class="keyword">in</span> 0.226s)</span><br></pre></td></tr></table></figure>
+
+<p>在电脑当前所在目录下看到名为 test.png 的截图，测试成功。</p>
+</li>
+<li><p>打开抖音，输入以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb shell input swipe 540 1265 540 965 200</span><br><span class="line"><span class="comment">#这个命令在Android设备的屏幕上执行了一个从坐标（540,1265）到坐标（540,965）的滑动手势，耗时200毫秒。</span></span><br></pre></td></tr></table></figure>
+
+<p>抖音切换视频，测试成功。</p>
+</li>
+<li><p>监听设备输入事件，并输出到命令行窗口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">adb shell <span class="comment">#进入设备的 shell 环境</span></span><br><span class="line">getevent -l <span class="comment">#开始监听。触摸设备屏幕，命令行窗口会输出一些信息，包括触摸事件的坐标（16 进制）</span></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line">dev/input/event2: EV_ABS       ABS_MT_TRACKING_ID   00008ea1</span><br><span class="line">/dev/input/event2: EV_ABS       ABS_MT_PRESSURE      0000002f</span><br><span class="line">/dev/input/event2: EV_ABS       ABS_MT_TOUCH_MAJOR   00000003</span><br><span class="line">/dev/input/event2: EV_ABS       ABS_MT_POSITION_X    000003ec</span><br><span class="line">/dev/input/event2: EV_ABS       ABS_MT_POSITION_Y    00000533</span><br><span class="line">/dev/input/event2: EV_KEY       BTN_TOUCH            DOWN</span><br><span class="line">/dev/input/event2: EV_SYN       SYN_REPORT           00000000</span><br><span class="line">/dev/input/event2: EV_ABS       ABS_MT_PRESSURE      0000002e</span><br><span class="line">/dev/input/event2: EV_SYN       SYN_REPORT           00000000</span><br><span class="line">/dev/input/event2: EV_ABS       ABS_MT_TRACKING_ID   ffffffff</span><br><span class="line">/dev/input/event2: EV_KEY       BTN_TOUCH            UP</span><br><span class="line">/dev/input/event2: EV_SYN       SYN_REPORT           00000000</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其他命令</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adb shell wm size #宽度和高度</span><br><span class="line">adb shell wm density #手机屏幕密度</span><br><span class="line">adb shell input tap x y #根据（x, y）坐标点按屏幕</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>经过测试，在 Redmi Note 8 1080x2340 的屏幕上，抖音 APP 点赞按钮的坐标是（1004, 1331），关注按钮的坐标是（933, 1100）。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/wangshub/wechat_jump_game/wiki/Android-%E5%92%8C-iOS-%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4" >Android 和 iOS 操作步骤 · wangshub&#x2F;wechat_jump_game Wiki (github.com)<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://onfix.cn/course/3838?bid=1&mid=106" >小米（Mi） 红米（Redmi）Note 8小米（Mi） 红米（Redmi）Note 8 如何打开“开发者选项”和“USB调试”图文教程刷机解锁 (onfix.cn)<i class="fas fa-external-link-alt"></i></a></li>
+</ol>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">ADB 与 Anaconda 使用</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-03-12 09:36:22</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/03/12/036-ADB-与-Anaconda-使用/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/ADB/">#ADB</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Anaconda/">#Anaconda</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/03/15/037-%E4%BD%BF%E7%94%A8-OpenCV-%E8%87%AA%E5%8A%A8%E7%82%B9%E8%B5%9E%E6%8A%96%E9%9F%B3%E5%B0%8F%E7%8C%AB/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">使用 OpenCV 自动点赞抖音小猫</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/03/09/035-Python-%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Python 爬虫入门</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%E6%89%AB%E7%9B%B2"><span class="nav-number">1.</span> <span class="nav-text">概念扫盲</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ADB"><span class="nav-number">1.1.</span> <span class="nav-text">ADB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Anoconda"><span class="nav-number">1.2.</span> <span class="nav-text">Anoconda</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A9%B1%E5%8A%A8%EF%BC%88%E8%BD%AF%E4%BB%B6-x2F-%E7%8E%AF%E5%A2%83%EF%BC%89%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">驱动（软件&#x2F;环境）安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ADB-1"><span class="nav-number">2.1.</span> <span class="nav-text">ADB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Anaconda"><span class="nav-number">2.2.</span> <span class="nav-text">Anaconda</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-%E6%89%8B%E6%9C%BA%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">Android 手机配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ADB-%E6%B5%8B%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">ADB 测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

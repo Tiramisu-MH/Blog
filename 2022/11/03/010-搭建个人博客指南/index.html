@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            搭建个人博客指南 |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">搭建个人博客指南</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2022-11-03 21:44:27</span>
+        <span class="mobile">2022-11-03 21:44</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%9F%9F%E5%90%8D/">域名</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/IP/">IP</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.3k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <p>扫盲博客、网站搭建相关知识。这个世界上有多少种框架？什么是域名？什么是 IP？什么是服务器？IPv4 和 IPv6 分别是什么？统统解答。</p>
+<h2 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h2><h3 id="大佬"><a href="#大佬" class="headerlink" title="大佬"></a>大佬</h3><p>独立博客，有自己网站，自己写代码</p>
+<h3 id="普通人"><a href="#普通人" class="headerlink" title="普通人"></a>普通人</h3><p>独立博客，有自己的网站，套用模板</p>
+<ol>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://wordpress.org/" >WordPress<i class="fas fa-external-link-alt"></i></a>：基于 PHP 和 MySQL 的免费开源内容管理系统。</p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://docsify.js.org/" >Docsify<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://docs.gitbook.com/" >Gitbook<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://vuepress.vuejs.org/" >VuePress<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://www.gohugo.org/" >Hugo<i class="fas fa-external-link-alt"></i></a>：用 Go 语言编写的静态网站生成器。</p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="http://octopress.org/" >Octopress<i class="fas fa-external-link-alt"></i></a>：使用 Ruby 语言编写，基于 Jekyll 设计的博客框架。</p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="http://jekyllcn.com/" >Jekyll<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/"><strong>Hexo</strong></a>：<strong>目前在用</strong></p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://blog.getpelican.com/" >Pelican<i class="fas fa-external-link-alt"></i></a>：由 Python 语言编写的静态网站生成器</p>
+</li>
+<li><p><a class="link"   target="_blank" rel="noopener" href="https://b3log.org/solo/" >Solo<i class="fas fa-external-link-alt"></i></a>：使用 Java 语言编写</p>
+</li>
+</ol>
+<h3 id="懒人"><a href="#懒人" class="headerlink" title="懒人"></a>懒人</h3><p>社区平台</p>
+<ul>
+<li>CSDN</li>
+<li>博客园</li>
+<li>Medium</li>
+<li>SegmentFault</li>
+<li>简书</li>
+<li>知乎</li>
+<li>微博</li>
+<li>公众号</li>
+<li>QQ 空间</li>
+</ul>
+<h2 id="知识点扫盲"><a href="#知识点扫盲" class="headerlink" title="知识点扫盲"></a>知识点扫盲</h2><h3 id="域名、服务器与-IP"><a href="#域名、服务器与-IP" class="headerlink" title="域名、服务器与 IP"></a>域名、服务器与 IP</h3><ul>
+<li>域名是一个网址名，就是当你访问某个网站的首页时，浏览器地址栏里看到的那一串东歘，如 baidu.com</li>
+<li>服务器是一台 24h 不停运转的远程电脑，它有 CPU、内存、硬盘，存放你网站运行所需的所有数据，包括程序脚本和数据库。</li>
+</ul>
+<p>这个世界上有那么多服务器，要找到自己的服务器，必然得有一个地址，IP（Internet Protocol Address, 国际协议地址）地址就是服务器的地址。</p>
+<p>域名就好比你的名字，IP 地址就好比你的身份证号码。记住一个人的身份证号码很难，记住他 &#x2F; 她的名字就容易得多。稍有不同的是，人名可以重复，域名是唯一的。</p>
+<p><strong>网域名称</strong>（英语：Domain Name，简称：Domain），简称<strong>域名</strong>、<strong>网域</strong>，是由一串用点分隔的字符组成的互联网上某一台计算机或计算机组的名称，用于在数据传输时标识计算机的电子方位。域名可以说是一个 IP 地址的代称，目的是为了便于记忆后者。例如，<a class="link"   href="https://link.zhihu.com/?target=http://wikipedia.org" >http://wikipedia.org<i class="fas fa-external-link-alt"></i></a> 是一个域名，和 IP 地址 208.80.152.2 相对应。人们可以直接访问 <a class="link"   href="https://link.zhihu.com/?target=http://wikipedia.org" >http://wikipedia.org<i class="fas fa-external-link-alt"></i></a> 来代替 IP 地址，然后域名系统（DNS）就会将它转化成便于机器识别的 IP 地址。这样，人们只需要记忆 <a class="link"   href="https://link.zhihu.com/?target=http://wikipedia.org" >http://wikipedia.org<i class="fas fa-external-link-alt"></i></a> 这一串带有特殊含义的字符，而不需要记忆没有含义的数字。</p>
+<h4 id="域名的组成"><a href="#域名的组成" class="headerlink" title="域名的组成"></a>域名的组成</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> www. baidu. com</span><br><span class="line">三级域 二级域 顶级域</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>顶级域：<strong>不是所有的网站都以.com 结尾</strong>，比如 996.icu 这个网站，就是 .icu 结尾。尾缀的词汇远比你想象的多得多，比如 .me .io .ink .tech .net .org 等等都可以用来做尾缀，只是没有 .com 那么出名而已，谁让那么多用户都习惯性地在任何网站后面加上 .com 呢。</p>
+</li>
+<li><p>二级域：你要好好斟酌一下的名字。好名字都被注册光了，尤其 4 个字母的，基本上想都不要想了。其实是支持中文的，但是不建议。</p>
+</li>
+<li><p>三级域：购买后你可以自由分配。<strong>不是所有前缀都是 www.</strong> 只是它最出名而已。你也可以用 blog. 甚至 abcd. 没有任何限制，而且你可以同时有多个不同的三级域名。一个服务器可以运行多个网站，你可以让不同的域名指向不同的网站。</p>
+</li>
+</ul>
+<p>我们购买的通常是二级域 + 顶级域，也就是如同 <a class="link"   href="https://link.zhihu.com/?target=http://baidu.com" >http://baidu.com<i class="fas fa-external-link-alt"></i></a> 的形式，至于前缀你可以自由分配，统统属于你。</p>
+<h4 id="什么是域名解析"><a href="#什么是域名解析" class="headerlink" title="什么是域名解析"></a>什么是域名解析</h4><p>域名解析就是把域名指向服务器的 IP 地址。在你购买完域名和服务器之后，这两者是分离的，你需要在域名提供商的网站里添加一条或几条对应关系。</p>
+<h4 id="IPv4-与-IPv6-是什么？"><a href="#IPv4-与-IPv6-是什么？" class="headerlink" title="IPv4 与 IPv6 是什么？"></a>IPv4 与 IPv6 是什么？</h4><blockquote>
+<p><strong>网际协议版本 4</strong>（英语：Internet Protocol version 4，缩写：<strong>IPv4</strong>，又称<strong>互联网通信协议第四版</strong>）是网际协议开发过程中的第四个修订版本，也是此协议第一个被广泛部署和使用的版本。其后继版本为 IPv6，直到 2011 年，IANA IPv4 位址完全用尽时，IPv6 仍处在部署的初期。</p>
+</blockquote>
+<ul>
+<li>IPv4 的 IP 位址是由 32 位所组成，分 4 组，每组是 8 位二进制，并以「.」做区隔，不过这样的表示法太长，不便记忆，所以通常都以 10 进制的方法表示，而每个部份的数字会呈现 0 至 255 的整数，譬如本站的 IP 位址为 101.133.211.86。</li>
+<li>而 IPv6 的 IP 位址则是 128 位组成，分 8 组，每组是 4 位十六进制（1 个十六进制位相当于 4 个二进制位）。而区隔每个部分的方式亦与 IPv4 不同，是以「:」表示。譬如 1079:0BD3:6ED4:1D71:414B:2E2A:7144:72BE。</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><strong>[1] Page</strong>: <a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/361423810" >新手建站、搭建个人博客指南 - 知乎 (zhihu.com)<i class="fas fa-external-link-alt"></i></a></p>
+<p><strong>[2] Page</strong>: <a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/7002911266385707022" >搭建个人博客，最想推荐的 10 大框架，强烈建议收藏 - 掘金 (juejin.cn)<i class="fas fa-external-link-alt"></i></a></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">搭建个人博客指南</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2022-11-03 21:44:27</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2022/11/03/010-搭建个人博客指南/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E5%9F%9F%E5%90%8D/">#域名</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/IP/">#IP</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2022/11/03/011-ROG-%E8%A7%A6%E6%8E%A7%E6%9D%BF%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">ROG 触控板使用说明</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2022/11/03/009-Typora-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Typora 使用说明</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E4%BD%AC"><span class="nav-number">1.1.</span> <span class="nav-text">大佬</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E4%BA%BA"><span class="nav-number">1.2.</span> <span class="nav-text">普通人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%87%92%E4%BA%BA"><span class="nav-number">1.3.</span> <span class="nav-text">懒人</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E6%89%AB%E7%9B%B2"><span class="nav-number">2.</span> <span class="nav-text">知识点扫盲</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8E-IP"><span class="nav-number">2.1.</span> <span class="nav-text">域名、服务器与 IP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-number">2.1.1.</span> <span class="nav-text">域名的组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="nav-number">2.1.2.</span> <span class="nav-text">什么是域名解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv4-%E4%B8%8E-IPv6-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">2.1.3.</span> <span class="nav-text">IPv4 与 IPv6 是什么？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

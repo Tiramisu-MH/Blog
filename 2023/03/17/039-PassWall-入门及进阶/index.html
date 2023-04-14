@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            PassWall-入门及进阶 |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">PassWall-入门及进阶</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-03-17 17:24:43</span>
+        <span class="mobile">2023-03-17 17:24</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/PassWall/">PassWall</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%8A%82%E7%82%B9/">节点</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.1k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h3 id="Openwrt-上网配置"><a href="#Openwrt-上网配置" class="headerlink" title="Openwrt 上网配置"></a>Openwrt 上网配置</h3><p>在左栏点开【服务】，可以看到已经预装了很多插件。这篇文章详细讲解 PassWall 的基本使用和进阶教程。左图是我的，右图是参考链接博主<sup>[1]</sup>的。可以看出来很明显的不一样。</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230317172829389.png" alt="image-20230317172829389" style="zoom:50%;" /></th>
+<th align="center"><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230317173059002.png" alt="image-20230317173059002" style="zoom:50%;" /></th>
+</tr>
+</thead>
+</table>
+<h3 id="PassWall-基本使用教程"><a href="#PassWall-基本使用教程" class="headerlink" title="PassWall 基本使用教程"></a>PassWall 基本使用教程</h3><p>打开 PassWall，可以看到上方菜单栏有非常多的选项。而我们不需要关注那么多，只需要了解【基本设置】、【节点列表】、【自动切换】、【高级设置】、【节点订阅】、【规则列表】、【访问控制】。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230317182909708.png" alt="image-20230317182909708" style="zoom:36.5%;" />
+
+<h4 id="订阅机场链接"><a href="#订阅机场链接" class="headerlink" title="订阅机场链接"></a>订阅机场链接</h4><p>打开机场，复制订阅链接。如果有多个订阅链接，选择复制 SSR 订阅链接。</p>
+<p>回到 PassWall，打开【节点订阅】，拉到最下面，点击<code>添加</code>，依次输入<code>备注（可选）</code>、<code>订阅 URL（必填）</code>。其他一概默认即可。点击<code>保存&amp;应用</code>。返回至【节点订阅】界面后，点击上面的<code>手动订阅</code>，会跳转到【查看日志】界面，订阅成功后会显示一共解析出多少个节点。【节点订阅】界面内容一概默认即可，尤其不要勾选<code>通过代理订阅</code>。打开【节点列表】界面，可以看到解析出的所有节点。另外，Ping 值没有任何意义。一般考虑带宽和拥堵情况来判断节点的好坏。</p>
+<h4 id="使用节点"><a href="#使用节点" class="headerlink" title="使用节点"></a>使用节点</h4><p>打开【基本设置】界面，点开<code>主要</code>，TCP 节点选择一个节点，UDP 节点选择<code>与 TCP 节点相同</code>，勾选<code>主开关</code>。点击右下角<code>保存&amp;应用</code>，然后测试<code>谷歌连接</code>，有数值即可，不必在意数值大小，没有参考意义。此时就可以打开 YouTube。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230317184428471.png" alt="image-20230317184428471" style="zoom:80%;" />
+
+<blockquote>
+<p>关于【基本设置】界面的几点说明：</p>
+<p>DNS：不要去动它。</p>
+<p>模式：如果想要调整，只调整<code>TCP 默认代理模式</code> 即可，其他都不要去动它。①不代理：字面意思；②全局代理：字面意思；③GFW 列表：仅那些被防火墙屏蔽的网站才走代理；④中国列表外：国内的所有网站都不走代理，国外的所有网站都走代理（不管是否屏蔽）；⑤中国列表：回国模式，国外网友想翻回国内。</p>
+<p>日志：不要去动它。</p>
+<p>FAQ：小提示，不需要去管它。</p>
+</blockquote>
+<h3 id="PassWall-进阶使用教程"><a href="#PassWall-进阶使用教程" class="headerlink" title="PassWall 进阶使用教程"></a>PassWall 进阶使用教程</h3><h4 id="自动切换"><a href="#自动切换" class="headerlink" title="自动切换"></a>自动切换</h4><p>自动切换 &#x3D; 故障转移。比如说正在使用 A 节点，A 突然不能用了，自动切换到 B，B 突然不能用了，自动切换到 C。</p>
+<p>打开【自动切换】界面。勾选<code>启用</code>，添加<code>TCP 备用节点的列表</code>。勾选<code>TCP 恢复切换</code>，意思是当 TCP 主节点恢复可以使用后，自动切换到主节点。点击<code>保存&amp;应用</code>。设置好后，【自动切换】就会去帮我们自动循环使用这些节点。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230317190351779.png" alt="image-20230317190351779" style="zoom:50%;" />
+
+<h4 id="规则列表"><a href="#规则列表" class="headerlink" title="规则列表"></a>规则列表</h4><p>打开【规则列表】界面。直连列表 &#x3D; 不代理的网站列表（无论之前在【基本设置】界面选择了什么模式）。代理列表与之相反。</p>
+<h4 id="访问控制"><a href="#访问控制" class="headerlink" title="访问控制"></a>访问控制</h4><p>【访问控制】控制的是局域网内的设备，也就是连接到该路由器的设备。主要是来决定是否让它科学上网？使用什么节点科学上网？使用什么模式科学上网？</p>
+<p>专业名词：桥接、AP、有线中继……（必须在同一网段才能控制）。</p>
+<h4 id="高级设置"><a href="#高级设置" class="headerlink" title="高级设置"></a>高级设置</h4><p>我的这个 PassWall 好像是被阉割过的。但是高级设置并用不到。和访问控制搭配食用。用于决定某设备走哪个节点，走什么模式等。</p>
+<h4 id="分流"><a href="#分流" class="headerlink" title="分流"></a>分流</h4><p>打开【节点列表】界面，点击<code>添加</code>，<code>类型</code>选择 <code>V2ray</code>（<code>Xray</code> 目前可直接兼容 <code>V2ray</code> 并使用），<code>协议</code>选择<code>分流</code>，然后对分流规则里提供的网站分别选择节点，<code>前置代理</code>勾选就是使用默认节点，所以关闭即可。然后回到【基本设置】界面，在<code>主要</code>→<code>TCP 节点</code>中可以选择 <code>Xray 分流：[分流总节点]</code>，下面又是对给网站的一个配置。（好像也不需要）</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230317222222560.png" alt="image-20230317222222560" style="zoom:80%;" />
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>[1] <a class="link"   target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=H83J0JPD1-k&t=666s" >「275」 小白必看！OpenWrt下科学插件PassWall&amp;SSRP家教级入门和进阶使用 - YouTube<i class="fas fa-external-link-alt"></i></a></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">PassWall-入门及进阶</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-03-17 17:24:43</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/03/17/039-PassWall-入门及进阶/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/PassWall/">#PassWall</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E8%8A%82%E7%82%B9/">#节点</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/03/21/040-%E8%B7%AF%E7%94%B1%E5%99%A8%E6%B5%8B%E9%80%9F%E6%8A%A5%E5%91%8A/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">路由器测速报告</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/03/17/038-Redmi-AX6S-%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7-Openwrt/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Redmi AX6S 路由器刷 Openwrt</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Openwrt-%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">Openwrt 上网配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PassWall-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">PassWall 基本使用教程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A2%E9%98%85%E6%9C%BA%E5%9C%BA%E9%93%BE%E6%8E%A5"><span class="nav-number">2.1.</span> <span class="nav-text">订阅机场链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%8A%82%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">使用节点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PassWall-%E8%BF%9B%E9%98%B6%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">PassWall 进阶使用教程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%88%87%E6%8D%A2"><span class="nav-number">3.1.</span> <span class="nav-text">自动切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E5%88%97%E8%A1%A8"><span class="nav-number">3.2.</span> <span class="nav-text">规则列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="nav-number">3.3.</span> <span class="nav-text">访问控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.4.</span> <span class="nav-text">高级设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%B5%81"><span class="nav-number">3.5.</span> <span class="nav-text">分流</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

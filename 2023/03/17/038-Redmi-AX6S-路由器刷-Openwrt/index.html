@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            Redmi AX6S 路由器刷 Openwrt |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Redmi AX6S 路由器刷 Openwrt</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-03-17 15:26:17</span>
+        <span class="mobile">2023-03-17 15:26</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%8A%98%E8%85%BE/">折腾</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Openwrt/">Openwrt</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/AX6S/">AX6S</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.3k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <p>随着使用设备越来越多，每台设备上都要安装相应的科学上网软件，变得越来越麻烦。看到网上有给软路由的刷机教程，顺藤摸瓜，找到了给路由器刷机的教程<sup>[3]</sup>。看得十分心痒痒，直接开搞。</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
+<li>一台红米 AX6S（京东购入，￥279，自带网线）</li>
+<li>AX6S 刷机包<sup>[1]</sup></li>
+</ul>
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><h4 id="路由器刷入有漏洞的固件版本"><a href="#路由器刷入有漏洞的固件版本" class="headerlink" title="路由器刷入有漏洞的固件版本"></a>路由器刷入有漏洞的固件版本</h4><p>开箱新买来的红米 AX6S，插上电源，插上网线，等待前面指示灯亮起（共两个，System 和 Internet），其中可能是因为刚买来的缘故，Internet 灯是黄色的，System 等是蓝色的（正常）。</p>
+<p>打开笔记本电脑的无线网络设置，找到【xiaomi-router-rb03_miap3395】的 WiFi 名称，连接（开放式，不需要密码）。</p>
+<p>连接成功后，打开浏览器，在地址栏输入 <code>192.168.31.1</code>，进入 AX6S 路由器的后台。按照提示进行初始设置，设置完成后。重新进入路由器的后台，密码为你刚刚所设置的路由器密码。</p>
+<p>点击右上角【Redmi_AX6S】，点击【系统升级】→【手动升级】→【浏览】，找到 AX6S 刷机包，选择 <code>miwifi_rb03_firmware_stable_1.2.7（内测版）.bin</code> 文件，点击【开始升级】。</p>
+<p>等待<span style = "background:#87CEFA;"><strong>路由器指示灯变蓝色</strong></span>后，在无线网络设置中找到这台 AX6S 对应的 WiFi 名称（如果没修改还是之前的），输入密码，打开浏览器，输入上述地址，重新进入后台。如图，可以看到界面有水印，版本为开发版 1.2.7。刷入成功！</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230317155904970.png" alt="image-20230317155904970" style="zoom:73%;" />
+
+<h4 id="计算路由器-Root-密码"><a href="#计算路由器-Root-密码" class="headerlink" title="计算路由器 Root 密码"></a>计算路由器 Root 密码</h4><p>网址：<a class="link"   target="_blank" rel="noopener" href="https://miwifi.dev/ssh" >Xiaomi Router Developer Guide &amp; Tools (miwifi.dev)<i class="fas fa-external-link-alt"></i></a></p>
+<p>打开该网址，输入自己路由器设备的 SN 码，如上图右下角或路由器背面。计算得到 Root 密码。（最好复制到记事本或者哪里，方便之后查看和输入）</p>
+<h4 id="使用-Putty-工具解锁-SSH"><a href="#使用-Putty-工具解锁-SSH" class="headerlink" title="使用 Putty 工具解锁 SSH"></a>使用 Putty 工具解锁 SSH</h4><p>打开 AX6S 刷机包，找到 putty 文件夹，双击打开 <code>putty_x64_0.70汉化版.exe</code>。按下图依次输入和点击，端口会自动从 22 变成 23，这个不用管。</p>
+<p><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230317160734949.png" alt="image-20230317160734949"></p>
+<p>打开后输入用户名 <code>root</code>，密码：刚刚计算所得到的（不显示）。（小技巧：复制该密码，回到登录界面，右键直接粘贴，然后回车）。可以看到大大的 ARE U OK。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230317161307302.png" alt="image-20230317161307302" style="zoom:73.5%;" />
+
+<p>复制粘贴下面的代码进去，然后敲回车。即可解锁 SSH。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nvram <span class="built_in">set</span> ssh_en=1 &amp; nvram <span class="built_in">set</span> uart_en=1 &amp; nvram <span class="built_in">set</span> boot_wait=on &amp; nvram <span class="built_in">set</span> bootdelay=3 &amp; nvram <span class="built_in">set</span> flag_try_sys1_failed=0 &amp; nvram <span class="built_in">set</span> flag_try_sys2_failed=1</span><br><span class="line">nvram <span class="built_in">set</span> flag_boot_rootfs=0 &amp; nvram <span class="built_in">set</span> <span class="string">&quot;boot_fw1=run boot_rd_img;bootm&quot;</span></span><br><span class="line">nvram <span class="built_in">set</span> flag_boot_success=1 &amp; nvram commit &amp; /etc/init.d/dropbear <span class="built_in">enable</span> &amp; /etc/init.d/dropbear start</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-WinSCP-工具刷入-Openwrt-底包"><a href="#使用-WinSCP-工具刷入-Openwrt-底包" class="headerlink" title="使用 WinSCP 工具刷入 Openwrt 底包"></a>使用 WinSCP 工具刷入 Openwrt 底包</h4><p>打开 AX6S 刷机包，找到 WinSCP 文件夹，双击打开 <code>WinSCP.exe</code>，按下图依次选择、输入和点击。密码依然是刚刚算出来的密码。点击登录后，会跳出【警告】，选择【跳过】即可。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230317161956946.png" alt="image-20230317161956946" style="zoom:75%;" />
+
+<p>进入后，依次点击右侧栏的 <code>…</code> → <code>tmp</code> 文件夹。打开 AX6S 刷机包，找到 ax6s 文件夹，把 <code>factory.bin</code> 文件拖拽到 <code>tmp</code> 文件夹空白处，等待上传。上传成功后，打开刚刚的 Putty 界面，复制粘贴以下命令，敲回车。然后等待路由器重启（Rebooting……）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mtd -r write /tmp/factory.bin firmware</span><br></pre></td></tr></table></figure>
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230317170004096.png" alt="image-20230317170004096" style="zoom:72%;" />
+
+<p>路由器自动重启完成后，即<span style = "background:#87CEFA;"><strong>路由器指示灯变蓝色</strong></span>。进入无线网络设置，找到 Openwrt5G &#x2F; Openwrt 连接，如果需要密码就是 12345678。</p>
+<h4 id="配置-Openwrt"><a href="#配置-Openwrt" class="headerlink" title="配置 Openwrt"></a>配置 Openwrt</h4><p>打开浏览器，输入 192.168.6.1（如果不知道这个地址，可以打开 cmd 命令行，输入 <code>tracert www.baidu.com</code>，看到的第一个网络（ImmortalWrt.lan，后面的 IP 就是它的网关）。进入 Openwrt 后台登录界面，依次输入用户名：root，密码：password，进入管理界面（简陋版）。</p>
+<p>在左边栏依次点击【系统】→【备份&#x2F;升级】，找到【刷写新的固件】，取消勾选【保留配置】，点击【浏览】，选择 AX6S 刷机包下 ax6s 文件夹中的 <code>sys.bin</code>，点击【刷写固件】→【处理】。等待刷写固件。待路由器指示灯变蓝，在 WiFi 列表中找到 Openwrt5G &#x2F; Openwrt 连接，重新进入后台管理界面，可以看到左边栏多了很多东西。刷写成功！</p>
+<h5 id="上网配置"><a href="#上网配置" class="headerlink" title="上网配置"></a>上网配置</h5><p>（下一篇详细讲解）</p>
+<h5 id="无线配置-2"><a href="#无线配置-2" class="headerlink" title="无线配置[2]"></a>无线配置<sup>[2]</sup></h5><p>左边栏依次点击【网络】→【无线】，可以看到有两个配置，一个是普通，一个是 5G。分别对其设置：点击【基本设置】，修改名称、加密（选最长的 WPAPSKWPA2PSK）、密码，然后点击【保存&amp;应用】。修改成功后，在左边栏依次点击【系统】→【重启】，等待<span style = "background:#87CEFA;"><strong>路由器指示灯变蓝色</strong></span>，再连接即可。</p>
+<hr>
+<p>增加新的固件<sup>[4]</sup>。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>[1] <a class="link"   target="_blank" rel="noopener" href="https://wwe.lanzouf.com/iFmEM01l545c" >AX6S 刷机包 - 蓝奏云 (lanzouf.com)<i class="fas fa-external-link-alt"></i></a></p>
+<p>[2] <a class="link"   target="_blank" rel="noopener" href="http://nihaodd.com/jiaocheng/4.php" >openwrt&#x2F;lede无线WIFI名称及密码设置教程图文教程 - OpenWrt &#x2F; LEDE - 你好多多DIY (nihaodd.com)<i class="fas fa-external-link-alt"></i></a></p>
+<p>[3] <a class="link"   target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3bdHMSA58YA&t=594s" >红米AX6S路由器刷OpenWrt固件，实现软路由功能，科学上网速度起飞 - YouTube<i class="fas fa-external-link-alt"></i></a></p>
+<p>[4] <a class="link"   target="_blank" rel="noopener" href="https://wwp.lanzoul.com/iIFgB0fofhzc" >ax6s-openwrt固件.zip - 蓝奏云 (lanzoul.com)<i class="fas fa-external-link-alt"></i></a></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">Redmi AX6S 路由器刷 Openwrt</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-03-17 15:26:17</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/03/17/038-Redmi-AX6S-路由器刷-Openwrt/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Openwrt/">#Openwrt</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/AX6S/">#AX6S</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/03/17/039-PassWall-%E5%85%A5%E9%97%A8%E5%8F%8A%E8%BF%9B%E9%98%B6/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">PassWall-入门及进阶</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/03/15/037-%E4%BD%BF%E7%94%A8-OpenCV-%E8%87%AA%E5%8A%A8%E7%82%B9%E8%B5%9E%E6%8A%96%E9%9F%B3%E5%B0%8F%E7%8C%AB/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">使用 OpenCV 自动点赞抖音小猫</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E5%85%A5%E6%9C%89%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%9B%BA%E4%BB%B6%E7%89%88%E6%9C%AC"><span class="nav-number">2.1.</span> <span class="nav-text">路由器刷入有漏洞的固件版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E8%B7%AF%E7%94%B1%E5%99%A8-Root-%E5%AF%86%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">计算路由器 Root 密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Putty-%E5%B7%A5%E5%85%B7%E8%A7%A3%E9%94%81-SSH"><span class="nav-number">2.3.</span> <span class="nav-text">使用 Putty 工具解锁 SSH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-WinSCP-%E5%B7%A5%E5%85%B7%E5%88%B7%E5%85%A5-Openwrt-%E5%BA%95%E5%8C%85"><span class="nav-number">2.4.</span> <span class="nav-text">使用 WinSCP 工具刷入 Openwrt 底包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Openwrt"><span class="nav-number">2.5.</span> <span class="nav-text">配置 Openwrt</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8A%E7%BD%91%E9%85%8D%E7%BD%AE"><span class="nav-number">2.5.1.</span> <span class="nav-text">上网配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E7%BA%BF%E9%85%8D%E7%BD%AE-2"><span class="nav-number">2.5.2.</span> <span class="nav-text">无线配置[2]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

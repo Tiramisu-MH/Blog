@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            STM32 HAL 库实现 ADC 采样 |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">STM32 HAL 库实现 ADC 采样</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-04-11 16:22:30</span>
+        <span class="mobile">2023-04-11 16:22</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/STM32/">STM32</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/HAL/">HAL</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ADC/">ADC</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.4k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h3 id="例程-1：ADC-单次数据采样与电压换算"><a href="#例程-1：ADC-单次数据采样与电压换算" class="headerlink" title="例程 1：ADC 单次数据采样与电压换算"></a>例程 1：ADC 单次数据采样与电压换算</h3><p><strong>要求</strong>：在 STM32F429IGTx 中进行 STM32 应用开发，完成以下的功能。</p>
+<ul>
+<li>将 ADC_IN0 设置为 12 位 ADC，右对齐，启用中断。</li>
+<li>分别用查询和中断这 2 种方式，每隔 0.5 秒采样一次 ADC 数据。</li>
+<li>将每次读取到的 ADC 采样值转换为对应的电压值，发送到上位机（需用到串口）。</li>
+<li>LED1 作为采样指示灯，在 ADC 转换过程中点亮，其余时间熄灭。LED0 作为系统检测灯常亮。</li>
+</ul>
+<p>【注】配置 GPIO、ADC1、USART1。</p>
+<ol>
+<li>GPIO 比较好配置，就 LED0、LED1 的引脚设为 Output。</li>
+<li>配置 ADC1，PA0 设为 ADC1_IN0，然后勾选 IN0。参数设置模块的 Data Alignment 默认 Right alignment（右对齐）即可，同样其他都默认，NVIC 中断使能勾选。</li>
+<li>配置 USART1，Mode 选 Asynchronous（异步），参数设置模块波特率改为 9600 Bits&#x2F;s，其他默认。由于串口没有用到中断，所以 NVIC 模块不需要使能。</li>
+</ol>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li>打开 STM32CubeMX 软件，按照 <code>STM32CubeMX 通用配置</code><sup>[1]</sup>配置完成后。将 PB0、PB1 引脚分别设置为 <code>GPIO_Out</code>。如图所示：</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411162944353.png" alt="image-20230411162944353" style="zoom:67%;" />
+
+<center>图 1.1 LED 灯引脚配置</center>
+
+<ol start="2">
+<li>配置 ADC。将 PA0 引脚设置为 <code>ADC1_IN0</code>，然后勾选 <code>ADC1</code>→<code>IN0</code>。如图所示：</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411163909279.png" alt="image-20230411163909279" style="zoom:80%;" />
+
+<center>图 1.2 ADC1 引脚、参数配置</center>
+
+<p><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411164125549.png" alt="image-20230411164125549"></p>
+<center>图 1.3 ADC1 中断使能</center>
+
+<ol start="3">
+<li>配置串口 USART1。选择异步通信，波特率设置为 9600。配置完成后，PA9、PA10 引脚会自动变成绿色。由于本要求中只写了<strong>将每次读取到的 ADC 采样值转换为对应的电压值，发送到上位机</strong>，且在代码中使用阻塞式发送，因此就没有必要开启中断了。</li>
+</ol>
+<p><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411164502352.png" alt="image-20230411164502352"></p>
+<center>图 1.4 USART1 配置</center>
+
+<ol start="4">
+<li><p>进行 <code>STM32CubeMX 通用配置</code> <sup>[1]</sup>的第 5 步：生成代码。</p>
+</li>
+<li><p>打开工程文件。按照 <code>Keil5 MDK 通用配置</code> <sup>[1]</sup>完成后开始编写代码。</p>
+<p>打开 <code>main.c</code> 文件。</p>
+<p><strong>方式 1：查询</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数外↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/* 第一步：引入头文件，以使用 sprintf() 函数 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span> </span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/* 第二步：宏定义 LED 灯开关 */</span>    </span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第三步-1：定义变量。采样到数据存储在 ADC_Value 中，ADC_Volt 用于运算 */</span></span><br><span class="line"><span class="comment">/* 第三步-2：定义 str_buff[64]，用于向上位机发送数据，用在 sprintf() 函数中 */</span></span><br><span class="line"><span class="type">uint16_t</span> ADC_Value = <span class="number">0</span>, ADC_Volt = <span class="number">0</span>;</span><br><span class="line"><span class="type">uint8_t</span> str_buff[<span class="number">64</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第五步：写发送数据到上位机的功能函数 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">UR1_Send_Info</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* 将电压值取余，分别放到个位和小数位上 */</span></span><br><span class="line">    <span class="built_in">sprintf</span>((<span class="type">char</span> *)str_buff, <span class="string">&quot;采样值：%d，电压值：%d.%d%d%dv\r\n&quot;</span>, ADC_Value, ADC_Volt/<span class="number">1000</span>, (ADC_Volt%<span class="number">1000</span>)/<span class="number">100</span>, (ADC_Volt%<span class="number">100</span>)/<span class="number">10</span>, ADC_Volt%<span class="number">10</span>);</span><br><span class="line">    <span class="comment">/* 阻塞式串口发送函数，将缓冲数组 str_buff 发送到上位机，显示在串口调试助手中 */</span></span><br><span class="line">	HAL_UART_Transmit(&amp;huart1, str_buff, <span class="keyword">sizeof</span>(str_buff), <span class="number">10000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第四步-1：查询方式 */</span></span><br><span class="line"><span class="comment">/* 功能函数：采样数据（写完后放在 main() 函数中运行 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ADC1_Get_Value</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	HAL_ADC_Start(&amp;hadc1); <span class="comment">//启动 ADC1</span></span><br><span class="line">	LED1_OFF(); <span class="comment">//关闭 LED1，表示 ADC 开始转换</span></span><br><span class="line">    </span><br><span class="line">	<span class="comment">/* 判断查询转换函数，如果确实是在转换（HAL_OK），则读 ADC1 的值 */</span></span><br><span class="line">	<span class="keyword">if</span>(HAL_ADC_PollForConversion(&amp;hadc1, <span class="number">10</span>) == HAL_OK)</span><br><span class="line">	&#123;</span><br><span class="line">		ADC_Value = HAL_ADC_GetValue(&amp;hadc1); <span class="comment">//得到 ADC1 的值</span></span><br><span class="line">		ADC_Volt = ADC_Value * <span class="number">3300</span> / <span class="number">4096</span>; <span class="comment">//计算电压值的转换公式，3300mv = 3.3v，4096 是 2 的 12 次方，因为是 12 位的 ADC</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	UR1_Send_Info(); <span class="comment">//在上面写此功能函数，一定要写在上面。或者写在下面，但是一定要在上面声明</span></span><br><span class="line">	LED1_ON(); <span class="comment">//开启 LED1，表示 ADC 转换完成</span></span><br><span class="line">	</span><br><span class="line">	HAL_ADC_Stop(&amp;hadc1); <span class="comment">//关闭 ADC1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line"></span><br><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数内↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/*第四步-2，运行该采样功能函数*/</span></span><br><span class="line">    ADC1_Get_Value();</span><br><span class="line">    HAL_Delay(<span class="number">500</span>);</span><br><span class="line"><span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>方式 2：中断</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数外↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/* 第一步：引入头文件，以使用 sprintf() 函数 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span> </span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/* 第二步：宏定义 LED 灯开关 */</span>    </span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第三步-1：定义变量。采样到数据存储在 ADC_Value 中，ADC_Volt 用于运算 */</span></span><br><span class="line"><span class="comment">/* 第三步-2：定义 str_buff[64]，用于向上位机发送数据，用在 sprintf() 函数中 */</span></span><br><span class="line"><span class="type">uint16_t</span> ADC_Value = <span class="number">0</span>, ADC_Volt = <span class="number">0</span>;</span><br><span class="line"><span class="type">uint8_t</span> str_buff[<span class="number">64</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第五步：写发送数据到上位机的功能函数 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">UR1_Send_Info</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* 将电压值取余，分别放到个位和小数位上 */</span></span><br><span class="line">    <span class="built_in">sprintf</span>((<span class="type">char</span> *)str_buff, <span class="string">&quot;采样值：%d，电压值：%d.%d%d%dv\r\n&quot;</span>, ADC_Value, ADC_Volt/<span class="number">1000</span>, (ADC_Volt%<span class="number">1000</span>)/<span class="number">100</span>, (ADC_Volt%<span class="number">100</span>)/<span class="number">10</span>, ADC_Volt%<span class="number">10</span>);</span><br><span class="line">    <span class="comment">/* 阻塞式串口发送函数，将缓冲数组 str_buff 发送到上位机，显示在串口调试助手中 */</span></span><br><span class="line">	HAL_UART_Transmit(&amp;huart1, str_buff, <span class="keyword">sizeof</span>(str_buff), <span class="number">10000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第四步-1：重写 ADC 中断回调函数 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_ADC_ConvCpltCallback</span><span class="params">(ADC_HandleTypeDef* hadc)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(hadc-&gt;Instance == ADC1) <span class="comment">//如果有多个 ADC，就要先用 if 来判断是不是 ADC1</span></span><br><span class="line">	&#123;</span><br><span class="line">		ADC_Value = HAL_ADC_GetValue(&amp;hadc1); <span class="comment">//得到 ADC1 的采样值</span></span><br><span class="line">		ADC_Volt = ADC_Value * <span class="number">3300</span> / <span class="number">4096</span>; <span class="comment">//转换为电压，3300mv = 3.3v，4096 是 2 的 12 次方，因为是 12 位的 ADC</span></span><br><span class="line">		UR1_Send_Info(); <span class="comment">//发送函数，写在了上面</span></span><br><span class="line">		LED1_ON(); <span class="comment">//因为在主函数中，LED1 先灭掉了，才启动的中断服务函数</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line"></span><br><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数内↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/*第四步-2，运行该采样功能函数*/</span></span><br><span class="line">    LED1_OFF(); <span class="comment">//中断启动前关掉 LED1</span></span><br><span class="line">    HAL_ADC_Start_IT(&amp;hadc1); <span class="comment">//以中断方式启动 ADC1</span></span><br><span class="line">    HAL_Delay(<span class="number">500</span>); <span class="comment">//延时 0.5s，然后运行中断回调函数里面的内容（最后一句：LED1 开启）</span></span><br><span class="line">    HAL_ADC_Stop_IT(&amp;hadc1);   <span class="comment">//运行完后关闭 ADC1，然后继续循环</span></span><br><span class="line">    <span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411174232128.png" alt="image-20230411174232128" style="zoom:67%;" />
+
+<center>图 1.5 串口调试助手接收到的采样数值</center>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">STM32 HAL 库实现 ADC 采样</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-04-11 16:22:30</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/04/11/057-STM32-HAL-库实现-ADC-采样/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/HAL/">#HAL</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/ADC/">#ADC</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/04/11/058-%E6%88%90%E4%B8%BA%E7%82%B9%E7%81%AF%E5%A4%A7%E5%B8%88-LEDMaster/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">成为点灯大师 LEDMaster</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/04/10/056-STM32-HAL-%E5%BA%93%E5%AE%9E%E7%8E%B0%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">STM32 HAL 库实现串口通信</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E7%A8%8B-1%EF%BC%9AADC-%E5%8D%95%E6%AC%A1%E6%95%B0%E6%8D%AE%E9%87%87%E6%A0%B7%E4%B8%8E%E7%94%B5%E5%8E%8B%E6%8D%A2%E7%AE%97"><span class="nav-number">1.</span> <span class="nav-text">例程 1：ADC 单次数据采样与电压换算</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

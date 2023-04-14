@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            Git 版本控制 |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Git 版本控制</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-01-24 21:47:31</span>
+        <span class="mobile">2023-01-24 21:47</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Git/">Git</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.7k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <ol>
+<li><p>进入文件夹，右键 Git Bash Here</p>
+</li>
+<li><p>初始化，让 git 帮助我们管理当前文件夹。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检测状态：查看可以用 Git 管的文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用 Git 管理具体文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add 具体文件名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用 <code>git status</code> 查看，发现被管理的文件变绿了，没有被管理的还是红色的。</p>
+<ul>
+<li>红色：新增文件 &#x2F; 或修改的老文件 → 需要 <code>git add 文件名</code></li>
+<li>绿色：git 已经管理起来了 → 需要 <code>git commit -m &#39;描述信息&#39;</code></li>
+<li>透明色（看不到）表示已经全部被管理起来了。</li>
+</ul>
+</li>
+<li><p>使用 Git 管理所有文件的快捷命令（add 后面加个点）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;version 1&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用 <code>git status</code> 查看，发现什么都没有了，意味着所有的文件已经被管理起来，并生成版本了。</p>
+</li>
+<li><p>对文件内容进行修改。使用 <code>git status</code> 查看，检测到有文件被修改。需要继续使用 <code>git add</code> 的命令将其管理起来，可以后面接具体的文件名，也可以使用【点】，把所有被修改的文件都管理起来。管理起来后，使用 <code>git commit -m &#39;描述信息&#39;</code> 生成版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;version 2&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看版本记录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>报错！需要生成个人的信息配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">&quot;you@example.com&quot;</span></span><br><span class="line">git config --global user.nam <span class="string">&quot;Your Name&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>命令行生成文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">touch</span> test.py</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回滚功能，回滚到之前的版本（版本号使用 <code>git log</code> 查看）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 版本号</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回滚到之后的版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br><span class="line">git reset --hard 版本号</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230124224702538.png" alt="image-20230124224702538"></p>
+</li>
+<li><p>使用 <code>git checkout -- 文件名</code> 或 <code>git restore 文件名</code> 将工作区对文件的修改撤销。</p>
+</li>
+<li><p>使用 <code>git reset HEAD 文件名</code> 或 <code>git restore --staged 文件名</code> 将暂存区的文件撤回到工作区。</p>
+</li>
+<li><p>主干线 Master。</p>
+</li>
+<li><p>查看 &#x2F; 创建 &#x2F; 切换分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br><span class="line">git branch 分支名</span><br><span class="line">git checkout 分支名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将分支合并到 Master：首先将分支切换回 Master，然后执行合并代码，之后删除该分支。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master //注意一定要切换分支，分清楚谁来合并谁</span><br><span class="line">git merge 要合并的分支名</span><br><span class="line">git branch -d 已合并的分支名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并时报错：产生冲突，需要<strong>手动解决</strong>。解决完后，使用 <code>git status</code> 检测到有文件被修改，使用 <code>git add .</code> 进行管理，使用 <code>git commit -m &#39;描述信息&#39;</code> 进行提交。</p>
+</li>
+<li><p><strong>工作流</strong>，一般不在 Master 分支写代码，都在 dev 上写。稳定了再合并到 Master 分支。</p>
+</li>
+</ol>
+<h4 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h4><ol>
+<li><p>流程 1：注册账号→创建仓库→本地代码推送。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin 远程仓库地址 //起别名，可以叫 origin，也可以叫别的</span><br><span class="line">git push -u origin master</span><br><span class="line">git push -u origin dev    //有几个分支推送几个分支</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>流程 2：从 Github 拉到本地</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> 远程仓库地址</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在新电脑上开发，切换到 dev 分支，保证 dev 分支中的代码是最新的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br><span class="line">git merge master //把 master 中的代码合并到 dev 中 [仅执行一次]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>写完后还要推送到 Github 上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin dev //把 -u 简写掉</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回到家中，先切换到 dev 分支，再把代码从远程仓库拉下来。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout dev</span><br><span class="line">git pull origin dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>写完后，再执行一系列的命令。如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">touch</span> a2.py</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;在家深夜写的代码 a2.py&#x27;</span></span><br><span class="line">git push origin dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>到公司后，又要把家里写的代码从远程仓库拉下来。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>……（重复以上步骤）</p>
+</li>
+<li><p>开发完毕后，上线。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">touch</span> a3.py</span><br><span class="line">git add .gi</span><br><span class="line">git checkout master</span><br><span class="line">git merge dev</span><br><span class="line">git push origin master</span><br><span class="line"></span><br><span class="line">//把 dev 分支也推送到远程仓库</span><br><span class="line">git checkout dev</span><br><span class="line">git merge dev //一个习惯，其实都已经是最新的了</span><br><span class="line">git push origin dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>偶然事件</strong>：在公司忘记推送代码。在家又写了新的代码推送到了远程仓库中。到了公司将远程仓库的代码拉下来，会和之前在公司忘记推送的代码产生冲突，需手动合并。</p>
+</li>
+</ol>
+<h4 id="rebase（变基）命令"><a href="#rebase（变基）命令" class="headerlink" title="rebase（变基）命令"></a>rebase（变基）命令</h4><p>使 git log 简洁。注意：如果有已推送到远程仓库的代码，就不要合并它了。</p>
+<ol>
+<li><p>将自己的提交记录合并，合并的是文件版本号之后的所有版本。多个记录合并成一个记录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i 文件的版本号</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>强行将 dev 分支插入到 master 分支中去。(没有弄懂)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> --graph --pretty=format:<span class="string">&quot;%h %s&quot;</span> //图形化查看分支提交记录</span><br><span class="line"></span><br><span class="line">//在 dev 分支中写代码</span><br><span class="line">git checkout dev</span><br><span class="line"><span class="built_in">touch</span> s1.py</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;s1&#x27;</span></span><br><span class="line"></span><br><span class="line">//在 master 分支中写代码</span><br><span class="line">git checkout master</span><br><span class="line"><span class="built_in">touch</span> s2.py</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;s2&#x27;</span></span><br><span class="line"></span><br><span class="line">//切回到 dev 分支中 rebase</span><br><span class="line">git checkout dev</span><br><span class="line">git rebase master</span><br><span class="line"></span><br><span class="line">//切回到 master 分支中把 dev 的代码 merge 过来</span><br><span class="line">git checkout master</span><br><span class="line">git merge dev</span><br><span class="line"></span><br><span class="line">//以上即可完成</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>云端和本地代码的合并。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git pull origin dev</span><br><span class="line">↓</span><br><span class="line">git fetch origin dev</span><br><span class="line">git rebase origin/dev</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="多人协作工作流"><a href="#多人协作工作流" class="headerlink" title="多人协作工作流"></a>多人协作工作流</h3><ol>
+<li><p>在 Github 中创建组织，在组织中创建项目。（需要收费）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin 远程仓库地址</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于 tag 做版本控制。相当于把一长串的哈希值用标签来表示。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a 版本号 -m <span class="string">&#x27;描述信息&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把 tag 也推送到远程仓库中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --tags</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建并切换到 dev 分支。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把 dev 分支推送到远程仓库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin dev</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="给开源软件贡献代码"><a href="#给开源软件贡献代码" class="headerlink" title="给开源软件贡献代码"></a>给开源软件贡献代码</h3><ol>
+<li><p>fork 源代码（可以导到自己的个人账户里面）。</p>
+</li>
+<li><p>在自己的仓库中修改，然后上传到自己的远程仓库中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> 远程仓库地址</span><br><span class="line"><span class="built_in">cd</span> tensorflow/  //进入该文件夹</span><br><span class="line"><span class="built_in">touch</span> bug.py    //修改了bug，假设是创建了文件</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>给源代码作者提交修改 bug 的申请（pull request）。</p>
+</li>
+</ol>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ol>
+<li><p>三个配置文件 <code>local</code>  <code>global</code>  <code>system</code>。</p>
+<ul>
+<li><p>项目配置文件：项目&#x2F;.git&#x2F;config</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="built_in">local</span> user.name <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">git config --<span class="built_in">local</span> user.name <span class="string">&#x27;xxx@xx.com&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全局配置文件：~&#x2F;.git&#x2F;config</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">git config --global user.name <span class="string">&#x27;xxx@xx.com&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>系统配置文件：&#x2F;etc&#x2F;.git&#x2F;config</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">     git config --system user.name <span class="string">&#x27;xxx&#x27;</span></span><br><span class="line">     git config --system user.name <span class="string">&#x27;xxx@xx.com&#x27;</span></span><br><span class="line">     </span><br><span class="line">     需要有 root 权限</span><br><span class="line"></span><br><span class="line">2. 应用场景</span><br><span class="line"></span><br><span class="line">3. 免密登录</span><br><span class="line"></span><br><span class="line">   - URL 中体现</span><br><span class="line">   - SSH 实现</span><br><span class="line">   - git 自动管理凭证</span><br><span class="line"></span><br><span class="line">4. gitignore 忽略文件</span><br><span class="line"></span><br><span class="line">   让 Git 不再管理当前目录下的某些文件，更多可参考 github 中的 ignore（搜索即可）</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>*.h<br>!a.h<br>files&#x2F;<br>*.py[c|a|d]</p>
+<pre><code>
+</code></pre>
+</li>
+<li><p>任务管理</p>
+<ul>
+<li>issues：文档以及任务管理，也可以作为查找遇到的问题的方式。</li>
+<li>wiki：项目介绍</li>
+</ul>
+</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1uD4y1V77L?p=1&vd_source=988bef447181962dfedd9c12da816e87" >01 git是什么？_bilibili_哔哩哔哩_bilibili<i class="fas fa-external-link-alt"></i></a></li>
+</ol>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">Git 版本控制</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-01-24 21:47:31</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/01/24/024-Git-版本控制/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Git/">#Git</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/01/29/025-Git-Bash-%E7%9A%84%E5%AD%97%E4%BD%93%E8%83%8C%E6%99%AF%E5%92%8C%E9%A2%9C%E8%89%B2%E6%98%BE%E7%A4%BA/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">Git Bash 的字体背景和颜色显示</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/01/19/023-Xshell-%E8%BF%9E%E6%8E%A5-VM-%E8%99%9A%E6%8B%9F%E6%9C%BA/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Xshell 连接 VM 虚拟机</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Github"><span class="nav-number">1.</span> <span class="nav-text">Github</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rebase%EF%BC%88%E5%8F%98%E5%9F%BA%EF%BC%89%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">rebase（变基）命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E4%BA%BA%E5%8D%8F%E4%BD%9C%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-number"></span> <span class="nav-text">多人协作工作流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%99%E5%BC%80%E6%BA%90%E8%BD%AF%E4%BB%B6%E8%B4%A1%E7%8C%AE%E4%BB%A3%E7%A0%81"><span class="nav-number"></span> <span class="nav-text">给开源软件贡献代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number"></span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number"></span> <span class="nav-text">参考</span></a>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

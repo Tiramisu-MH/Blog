@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            PWM 从入门到入土 |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">PWM 从入门到入土</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-04-07 16:02:07</span>
+        <span class="mobile">2023-04-07 16:02</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/STM32/">STM32</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/PWM/">PWM</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2.2k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>在嵌入式开发中，除了对电路进行简单的数字量控制（如【打开&#x2F;关闭】，也就是“状态”控制），还会进行一些模拟电路控制（也就是“程度”控制）。举个栗子：比如现在控制一盏灯，简单的开关灯，就是对数字量（0、1）的控制；而控制灯的亮度，如把灯调得暗一些，就是对模拟量的控制。PWM 就是用来做“程度”控制的一种技术。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>PWM（Pulse Width Modulation，脉宽调制）是一种调制技术，用于控制模拟信号的幅度、频率和相位等特性。PWM 技术通过改变信号的脉冲宽度，来控制信号的平均电压值和电平持续时间，从而实现对模拟信号的控制。</p>
+<p>在 PWM 技术中，一个周期的时间被分为若干个等分的时间片，每个时间片内的电平状态由信号的脉冲宽度决定，通常用占空比（Duty Cycle）表示，即高电平时间与一个周期的比值。例如，如果一个周期的时间为 1 秒，高电平时间为 0.5 秒，则占空比为 50%。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230407175807992.png" alt="image-20230407175807992" style="zoom:80%;" />
+
+<center>图 1.1 PWM 输出原理图</center>
+
+<p><strong>图注</strong>：定时器工作模式为<strong>向上计数</strong>，当 CNT&lt;CCRx 时，输出低电平，当 CNT&gt;CCRx 时，输出高电平。当 CNT&#x3D;ARR 时，重新归零，然后重新向上计数，依次循环。改变 CCRx 的值，就可以改变 PWM 的占空比。改变 ARR 的值，就可以改变 PWM 的输出频率。</p>
+<p><strong>举栗</strong>：定时器 TIM2 的 APB1 桥频率为 84MHz，PSC &#x3D; 84 -1，经过预分频器，频率变成了 1MHz（&#x3D;1&#x2F;10<sup>6</sup>&#x3D;0.001ms），ARR 设置为 1000-1，则相当于 1KHz（&#x3D; 1ms）重载一次，也就意味着 1ms 产生一次中断。①如果想要 0.2s 产生一次中断，则将 ARR 的值设为 200x10<sup>3</sup>-1，如果想要 0.5s 产生一次中断，则将 ARR 的值设为 500x10<sup>3</sup>-1。②如果想要占空比为 50%，则将 CCRx 的值设置为 ARR 的一半。</p>
+<h3 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h3><h4 id="例程-1：PWM-呼吸灯"><a href="#例程-1：PWM-呼吸灯" class="headerlink" title="例程 1：PWM 呼吸灯"></a>例程 1：PWM 呼吸灯</h4><h5 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h5><ol>
+<li>打开 STM32CubeMX 软件，按照 <code>STM32CubeMX 通用配置</code><sup>[1]</sup>配置完成后。将 PB0、PB1 引脚分别设置为 <code>TIM3_CH3</code>、<code>TIM3_CH4</code>。接着配置 TIM3 的 CH3、CH4，如图所示：</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230407230043429.png" alt="image-20230407230043429" style="zoom:80%;" />
+
+<center>图 3.1 LED 灯引脚定时器功能配置</center>
+
+
+<ol start="2">
+<li><p>配置完成后生成代码。打开 Keil5 MDK 工程文件，按照 <code>Keil5 MDK 通用配置</code><sup>[1]</sup>配置完成后，开始编写代码。</p>
+<p>打开 <code>main.c</code> 文件。在【main】函数中开启 PWM。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line">HAL_TIM_PWM_Start(&amp;htim3, TIM_CHANNEL_3);</span><br><span class="line">HAL_TIM_PWM_Start(&amp;htim3, TIM_CHANNEL_4);</span><br><span class="line"><span class="comment">/* USER CODE END 2 */</span></span><br></pre></td></tr></table></figure>
+
+<p>在【main】函数中的【while】循环中写 PWM 控制呼吸灯功能。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Infinite loop */</span></span><br><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/** LED0 配置 **/</span></span><br><span class="line">    <span class="comment">/* LED0 逐渐熄灭 */</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">uint16_t</span> pwmVal=<span class="number">0</span>; pwmVal&lt;<span class="number">1000</span>; pwmVal++)</span><br><span class="line">    &#123;</span><br><span class="line">        __HAL_TIM_SetCompare(&amp;htim3, TIM_CHANNEL_4, pwmVal);</span><br><span class="line">        HAL_Delay(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* LED0 逐渐点亮 */</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">uint16_t</span> pwmVal=<span class="number">1000</span>; pwmVal&gt;<span class="number">0</span>; pwmVal--)</span><br><span class="line">    &#123;</span><br><span class="line">        __HAL_TIM_SetCompare(&amp;htim3, TIM_CHANNEL_4, pwmVal);</span><br><span class="line">        HAL_Delay(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** LED1 配置 **/</span></span><br><span class="line">    <span class="comment">/* LED1 逐渐熄灭 */</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">uint16_t</span> pwmVal=<span class="number">0</span>; pwmVal&lt;<span class="number">1000</span>; pwmVal++)</span><br><span class="line">    &#123;</span><br><span class="line">        __HAL_TIM_SetCompare(&amp;htim3, TIM_CHANNEL_3, pwmVal);</span><br><span class="line">        HAL_Delay(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* LED1 逐渐点亮 */</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">uint16_t</span> pwmVal=<span class="number">1000</span>; pwmVal&gt;<span class="number">0</span>; pwmVal--)</span><br><span class="line">    &#123;</span><br><span class="line">        __HAL_TIM_SetCompare(&amp;htim3, TIM_CHANNEL_3, pwmVal);</span><br><span class="line">        HAL_Delay(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译代码，下载到开发板。例程成功运行。</p>
+</li>
+</ol>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>Q1：<code>pwmVal</code> 变量的值与 LED 灯亮度的关系？</p>
+<p>A1：当 <code>pwmVal</code> 的值从 0 到 1000 变化时，PWM 波形的占空比会从 0% 逐渐变化到 100%。具体来说，当 pwmVal 为 0 时，PWM 波形的占空比为 0%，即输出为低电平；当 pwmVal 为 1000 时，PWM 波形的占空比为 100%，即输出为高电平。正点原子阿波罗这款开发板的 LED 等是低电平亮、高电平灭，因此，当 <code>pwmVal</code> 的值增加时，占空比增加，高电平增加，亮度变暗。当 <code>pwmVal</code> 的值减小时，占空比减小，低电平增加，亮度变亮。<code>pwmVal</code> 的值与 LED 灯亮度呈<strong>反比</strong>关系。</p>
+<table>
+<thead>
+<tr>
+<th align="center">pwmVal</th>
+<th align="center">占空比</th>
+<th align="center">高电平</th>
+<th align="center">亮度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">↑</td>
+<td align="center">↑</td>
+<td align="center">↑</td>
+<td align="center">↓</td>
+</tr>
+<tr>
+<td align="center">↓</td>
+<td align="center">↓</td>
+<td align="center">↓</td>
+<td align="center">↑</td>
+</tr>
+</tbody></table>
+<p>Q2：【HAL_Delay】函数的作用？ </p>
+<p>A2：【HAL_Delay】函数的作用是产生延时，使程序在逐渐增加或降低 LED 亮度的过程中，能够有足够的时间让人眼观察到亮度变化。如果没有 Delay 函数，LED 的亮度会在很短的时间内逐渐变亮或变暗，人眼很难察觉到亮度变化。延时时间越长，越能充分观察到 LED 亮度的变化。但是如果延时时间过长，则会影响程序的响应速度。另外，建议使用【HAL_Delay】作为延时函数而不是另外写一个，因为这个更准确，可以产生 1ms 延时。如下面这个函数，通过循环计数的方式实现延时，即在一个循环中执行一定的操作，直到计数器减为 0，从而产生一定的延时，但是其单位是 CPU 时钟周期或者是毫秒，就不够准确了，所以还是不要用了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Delay</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> t)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(t--);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h4 id="例程-2：PWM-舵机"><a href="#例程-2：PWM-舵机" class="headerlink" title="例程 2：PWM 舵机"></a>例程 2：PWM 舵机</h4><blockquote>
+<p>功能实现：①使用 TIM2 中断控制 LED0 的闪烁，用于检测显示程序正在实时运行。②使用 TIM3_CH1 控制 PA6 引脚输出 PWM，控制舵机（SG90 180°）。③使用按键 KEY0 控制 PWM 输出。④使用按键 KEY1 控制 LED1 的亮灭，用于检测显示程序正在实时运行。</p>
+</blockquote>
+<h5 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h5><ol>
+<li>打开 STM32CubeMX 软件，按照 <code>STM32CubeMX 通用配置</code><sup>[1]</sup>配置完成后。将 LED 灯引脚 PB0、PB1 引脚设置为 <code>GPIO_Output</code>，将按键引脚 PH2、PH3 引脚设置为 <code>GPIO_Input</code>，将 PA6 引脚设置为 <code>TIM3_CH1</code>。</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230408210843835.png" alt="image-20230408210843835" style="zoom:80%;" />
+
+<center>图 3.2 LED 灯、按键、PWM 引脚设置</center>
+
+<ol start="2">
+<li>将按键引脚 PH2、PH3 改为上拉（Pull-up）输入。</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230408213106845.png" alt="image-20230408213106845" style="zoom:80%;" />
+
+<center>图 3.3 按键引脚配置</center>
+
+<ol start="3">
+<li><p>定时器 TIM3 配置。</p>
+<blockquote>
+<p>180° 舵机周期为 20ms，则 ARR &#x3D; 20*10<sup>3</sup>-1。</p>
+</blockquote>
+</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230408213427558.png" alt="image-20230408213427558" style="zoom:80%;" />
+
+<center>图 3.4 定时器 TIM3_CH1 配置</center>
+
+<ol start="4">
+<li><p>定时器 TIM2 配置。</p>
+<blockquote>
+<ul>
+<li><p>每 200ms 翻转一次 LED0 电平，ARR &#x3D; 200*10<sup>3</sup>-1。</p>
+</li>
+<li><p>使能中断。</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230408214340107.png" alt="image-20230408214340107" style="zoom: 80%;" />
+
+<center>图 3.5 定时器 TIM2 ARR 配置</center>
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230408220018741.png" alt="image-20230408220018741" style="zoom:80%;" />
+
+<center>图 3.6 定时器 TIM2 中断使能</center>
+
+<ol start="5">
+<li><p>配置完成后生成代码。打开 Keil5 MDK 工程文件，按照 <code>Keil5 MDK 通用配置</code><sup>[1]</sup>配置完成后，开始编写代码。</p>
+<p><strong>分步代码</strong>：</p>
+<p>① 开启定时器中断和 PWM：打开 <code>main.c</code> 文件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数内↓↓↓</span><br><span class="line">-----------------------  </span><br><span class="line"><span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line">HAL_TIM_Base_Start_IT(&amp;htim2); <span class="comment">//开启定时器中断</span></span><br><span class="line">HAL_TIM_PWM_Start(&amp;htim3, TIM_CHANNEL_1); <span class="comment">//开启 PWM</span></span><br><span class="line"><span class="comment">/* USER CODE END 2 */</span></span><br></pre></td></tr></table></figure>
+
+<p>② 使用定时器 TIM2 中断控制 LED0 的闪烁：打开 <code>main.c</code> 文件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数外↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_TIM_PeriodElapsedCallback</span><span class="params">(TIM_HandleTypeDef *htim)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* TIM2--LED0 每 20ms 翻转一次电平 */</span></span><br><span class="line">	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br></pre></td></tr></table></figure>
+
+<p>③ KEY1 控制 LED1 亮灭：打开<code>main.c</code> 文件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数外↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="comment">/* 宏定义 KEY0、KEY1 */</span></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> KEY0 HAL_GPIO_ReadPin(GPIOH,GPIO_PIN_3)</span></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> KEY1 HAL_GPIO_ReadPin(GPIOH,GPIO_PIN_2)</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Scan_Keys</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* KEY1--LED1 按下控制亮灭 */</span></span><br><span class="line">	<span class="keyword">if</span>(KEY1 == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		HAL_Delay(<span class="number">200</span>); <span class="comment">//延时函数去抖动</span></span><br><span class="line">		<span class="keyword">if</span>(KEY1 == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);</span><br><span class="line">			<span class="keyword">while</span>(KEY1 == <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数内↓↓↓</span><br><span class="line">-----------------------   </span><br><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    Scan_Keys();</span><br><span class="line"><span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line">     <span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure>
+
+<p>④ KEY0 控制 PWM 输出：打开 <code>main.c</code> 文件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数外↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="comment">/* 宏定义 KEY0、KEY1 */</span></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> KEY0 HAL_GPIO_ReadPin(GPIOH,GPIO_PIN_3)</span></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> KEY1 HAL_GPIO_ReadPin(GPIOH,GPIO_PIN_2)</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Scan_Keys</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* KEY0--PWM 按下控制舵机旋转 90° */</span></span><br><span class="line">	<span class="keyword">if</span>(KEY0 == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		HAL_Delay(<span class="number">200</span>); <span class="comment">//延时函数去抖动</span></span><br><span class="line">		<span class="keyword">if</span>(KEY0 == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">            <span class="comment">/* 运行逻辑：开始舵机在 0° 位置，1500 表示转到 90°，500 表示转到 0°，此处代码的意思是按下 KEY0，舵机由初始位置 0° 旋转到 90°，然后再回到初始位置 0° */</span></span><br><span class="line">            __HAL_TIM_SET_COMPARE(&amp;htim3, TIM_CHANNEL_1, <span class="number">1500</span>);</span><br><span class="line">			HAL_Delay(<span class="number">1000</span>); <span class="comment">// 延时 1s，为了让舵机旋转到 90° 时停一下再旋转</span></span><br><span class="line">			__HAL_TIM_SET_COMPARE(&amp;htim3, TIM_CHANNEL_1, <span class="number">500</span>);</span><br><span class="line">			<span class="keyword">while</span>(KEY0 == <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line">-----------------------</span><br></pre></td></tr></table></figure>
+
+<p><strong>完整代码</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数外↓↓↓</span><br><span class="line">-----------------------  </span><br><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> KEY0 HAL_GPIO_ReadPin(GPIOH,GPIO_PIN_3)</span></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> KEY1 HAL_GPIO_ReadPin(GPIOH,GPIO_PIN_2) </span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* TIM2 中断回调函数：控制 LED0 闪烁 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_TIM_PeriodElapsedCallback</span><span class="params">(TIM_HandleTypeDef *htim)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* TIM2--LED0 每 20ms 翻转一次电平 */</span></span><br><span class="line">	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 功能函数：扫描按键 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Scan_Keys</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">/* KEY0--PWM 按下控制舵机旋转 90° */</span></span><br><span class="line">	<span class="keyword">if</span>(KEY0 == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		HAL_Delay(<span class="number">100</span>); <span class="comment">//延时函数去抖动</span></span><br><span class="line">		<span class="keyword">if</span>(KEY0 == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">/* 运行逻辑：开始舵机在 0° 位置，1500 表示转到 90°，500 表示转到 0°，此处代码的意思是按下 KEY0，舵机由初始位置 0° 旋转到 90°，然后再回到初始位置 0° */</span></span><br><span class="line">			__HAL_TIM_SET_COMPARE(&amp;htim3, TIM_CHANNEL_1, <span class="number">1500</span>);</span><br><span class="line">			HAL_Delay(<span class="number">1000</span>); <span class="comment">// 延时 1s，为了让舵机旋转到 90° 时停一下再旋转</span></span><br><span class="line">			__HAL_TIM_SET_COMPARE(&amp;htim3, TIM_CHANNEL_1, <span class="number">500</span>);</span><br><span class="line">			<span class="keyword">while</span>(KEY0 == <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* KEY1--LED1 按下控制亮灭 */</span></span><br><span class="line">	<span class="keyword">if</span>(KEY1 == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		HAL_Delay(<span class="number">200</span>); <span class="comment">//延时函数去抖动</span></span><br><span class="line">		<span class="keyword">if</span>(KEY1 == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_0);</span><br><span class="line">			<span class="keyword">while</span>(KEY1 == <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line"></span><br><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数内↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line">HAL_TIM_Base_Start_IT(&amp;htim2); <span class="comment">//开启定时器中断</span></span><br><span class="line">HAL_TIM_PWM_Start(&amp;htim3, TIM_CHANNEL_1); <span class="comment">//开启 PWM</span></span><br><span class="line"><span class="comment">/* USER CODE END 2 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    Scan_Keys();</span><br><span class="line"><span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译代码，下载到开发板。例程成功运行，各功能均已实现。</p>
+</li>
+</ol>
+<h5 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h5><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>[1] <a class="link"   target="_blank" rel="noopener" href="https://storybeginswhen.icu/2023/04/04/054-%E6%88%90%E4%B8%BA%E7%82%B9%E7%81%AF%E5%A4%A7%E5%B8%88-LED-Master/" >成为点灯大师 LED Master | Story Begins…… <i class="fas fa-external-link-alt"></i></a></p>
+<p>[2] <a class="link"   target="_blank" rel="noopener" href="https://storybeginswhen.icu/2023/04/03/053-STM32-HAL-%E5%BA%93%E5%AE%9E%E7%8E%B0%E8%88%B5%E6%9C%BA%E6%97%8B%E8%BD%AC/" >STM32 HAL 库实现舵机旋转 | Story Begins…… <i class="fas fa-external-link-alt"></i></a></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">PWM 从入门到入土</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-04-07 16:02:07</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/04/07/055-PWM-从入门到入土/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/PWM/">#PWM</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/04/10/056-STM32-HAL-%E5%BA%93%E5%AE%9E%E7%8E%B0%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">STM32 HAL 库实现串口通信</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/04/03/053-STM32-HAL-%E5%BA%93%E5%AE%9E%E7%8E%B0%E8%88%B5%E6%9C%BA%E6%97%8B%E8%BD%AC/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">STM32 HAL 库实现舵机旋转</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%93%8D"><span class="nav-number">3.</span> <span class="nav-text">实操</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E7%A8%8B-1%EF%BC%9APWM-%E5%91%BC%E5%90%B8%E7%81%AF"><span class="nav-number">3.1.</span> <span class="nav-text">例程 1：PWM 呼吸灯</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.1.1.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.1.2.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E7%A8%8B-2%EF%BC%9APWM-%E8%88%B5%E6%9C%BA"><span class="nav-number">3.2.</span> <span class="nav-text">例程 2：PWM 舵机</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            使用 Docker 搭建 Memos |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">使用 Docker 搭建 Memos</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-03-01 11:16:51</span>
+        <span class="mobile">2023-03-01 11:16</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Docker/">Docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Memos/">Memos</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">内网穿透</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.6k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h2 id="虚拟机-内网穿透"><a href="#虚拟机-内网穿透" class="headerlink" title="虚拟机 + 内网穿透"></a>虚拟机 + 内网穿透</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
+<li>虚拟机：Ubuntu 22.04 LTS 系统</li>
+<li>SakuraFrp 工具</li>
+</ul>
+<h3 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h3><p>默认是一台没有装过 Docker 的机器。如果存在旧版本的 Docker 并且想要卸载，请执行以下命令（非必要）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置存储库"><a href="#设置存储库" class="headerlink" title="设置存储库"></a>设置存储库</h4><p>更新 apt 包索引，并安装包以允许 apt 通过 HTTPS 使用存储库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install ca-certificates curl gnupg lsb-release</span><br></pre></td></tr></table></figure>
+
+<p>添加 Docker 的官方 GPG 密钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> -p /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令设置存储库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> \</span><br><span class="line">  <span class="string">&quot;deb [arch=<span class="subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \</span></span><br><span class="line"><span class="string">  <span class="subst">$(lsb_release -cs)</span> stable&quot;</span> | sudo <span class="built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装-Docker-引擎"><a href="#安装-Docker-引擎" class="headerlink" title="安装 Docker 引擎"></a>安装 Docker 引擎</h4><p>更新 apt 包索引。安装最新版本的 Docker Engine、containerd 和 Docker Compose：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span><br></pre></td></tr></table></figure>
+
+<h4 id="验证-Docker-运行情况"><a href="#验证-Docker-运行情况" class="headerlink" title="验证 Docker 运行情况"></a>验证 Docker 运行情况</h4><p>当 <code>Active: active (running)</code> 为 <code>running</code> 时，说明 Docker 运行正常：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status docker.service</span><br></pre></td></tr></table></figure>
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301120319501.png" alt="image-20230301120319501" style="zoom: 80%;" />
+
+<p>当进行到这一步的时候，说明 Docker 服务已经成功安装。</p>
+<h3 id="Memos-服务部署"><a href="#Memos-服务部署" class="headerlink" title="Memos 服务部署"></a>Memos 服务部署</h3><p>Memos 的仓库：<code>https://github.com/usememos/memos</code></p>
+<h4 id="创建存储卷"><a href="#创建存储卷" class="headerlink" title="创建存储卷"></a>创建存储卷</h4><p>切换到 root 用户，在根目录下创建一个目录用来存储 Memos 数据（也可以创建到用户目录里）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xiaoma@xiaoma-vm:~$ sudo -i</span><br><span class="line">root@xiaoma-vm:~<span class="comment"># mkdir memos</span></span><br></pre></td></tr></table></figure>
+
+<p>然后需要将创建的目录挂载到 Docker 的容器里。先查看 memos 的路径，下面启动 Memos 时需要指定此路径：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@xiaoma-vm:~/memos<span class="comment"># pwd</span></span><br><span class="line">---</span><br><span class="line">/root/memos</span><br></pre></td></tr></table></figure>
+
+<h4 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h4><p>启动 Memos 容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@xiaoma-vm:~/memos<span class="comment"># docker run -d --name memos -p 5230:5230 -v /root/memos/:/var/opt/memos neosmemo/memos:latest</span></span><br></pre></td></tr></table></figure>
+
+<p>这条命令的参数意思是：将容器内的 5230 端口映射到宿主机（指虚拟机）的 5230 端口上，同时将容器内 <code>/var/opt/memos</code> 路径下的内容挂载到宿主机（指虚拟机）的 <code>/root/memos</code> 路径下，路径映射的好处是防止容器被误删导致数据丢失。</p>
+<p>查看容器运行状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@xiaoma-vm:~/memos<span class="comment"># docker ps -a</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301122614653.png" alt="image-20230301122614653"></p>
+<p>看到容器状态为 Up（红框）时，说明已成功部署好 Memos 服务。在浏览器中访问 <code>127.0.0.1:5230</code> 或 <code>localhost:5230</code> 就可以打开 Memos 的初始界面了。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301123134290.png" alt="image-20230301123134290" style="zoom: 67%;" />
+
+<h4 id="体验-Memos"><a href="#体验-Memos" class="headerlink" title="体验 Memos"></a>体验 Memos</h4><p>输入用户名和密码，创建管理员账号。进入后可以体验完整服务。可在设置中改为中文。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301123714374.png" alt="image-20230301123714374" style="zoom: 67%;" />
+
+<blockquote>
+<p><strong>注</strong>：Memos 的数据存储在本地 <code>/root/memos</code> 路径下名为  <code>memos_prod.db</code> 的文件（包括用户名密码等），每次升级前请做好备份。</p>
+</blockquote>
+<h3 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h3><p>由于目前我们只能通过内网（<code>127.0.0.1:5230</code>、<code>localhost:5230 </code>或虚拟机 IP：<code>192.168.43.190:5230</code>）访问该服务，如果我们没有公网 IP 又该如何实现可以 Memos 的公网访问呢？这就引出了一个技术——内网穿透。什么是内网穿透？简单的说，内网穿透就是使用一台具有公网 IP 地址的电脑（服务器）作为“<strong>中间人</strong>”来与没有公网 IP 的设备建立连接，实现数据连通。此处选择别人提供的内网穿透服务。</p>
+<p>本方案使用 Windows 平台。</p>
+<h4 id="注册-SakuraFrp-账号"><a href="#注册-SakuraFrp-账号" class="headerlink" title="注册 SakuraFrp 账号"></a>注册 SakuraFrp 账号</h4><p>注册入口：<a class="link"   target="_blank" rel="noopener" href="https://openid.13a.com/register" >https://openid.13a.com/register<i class="fas fa-external-link-alt"></i></a></p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301140251895.png" alt="image-20230301140251895" style="zoom:67%;" />
+
+<h4 id="用户中心"><a href="#用户中心" class="headerlink" title="用户中心"></a>用户中心</h4><p>点击 Sakura Frp 跳转链接。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301140437689.png" alt="image-20230301140437689" style="zoom: 60%;" />
+
+<h4 id="实名认证"><a href="#实名认证" class="headerlink" title="实名认证"></a>实名认证</h4><p>根据提示进行操作。支付宝扫码支付 1 元钱，然后人脸识别验证。免费用户可创建两条隧道，创建隧道需要下载客户端。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301140728555.png" alt="image-20230301140728555" style="zoom:84%;" />
+
+<h4 id="Sakura-Frp-启动器"><a href="#Sakura-Frp-启动器" class="headerlink" title="Sakura Frp 启动器"></a>Sakura Frp 启动器</h4><ol>
+<li>下载位置如图所示：</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301141146154.png" alt="image-20230301141146154" style="zoom:60%;" />
+
+<ol start="2">
+<li>安装成功后运行，需要<strong>访问密钥</strong>登录。在官网首页点击【查看访问密钥】复制。</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301141411952.png" alt="image-20230301141411952" style="zoom:60%;" />
+
+<ol start="3">
+<li>点击客户端 <code>+</code> 创建隧道。</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301141639831.png" alt="image-20230301141639831" style="zoom:60%;" />
+
+<ul>
+<li><p>本地 IP 填写虚拟机的 IP 192.168.43.190。</p>
+</li>
+<li><p>端口填 5230。</p>
+</li>
+<li><p>隧道名称随便写三个字母就可以。</p>
+</li>
+<li><p>备注（可空）。</p>
+</li>
+<li><p>隧道类型为 TCP。远程端口默认 0。</p>
+</li>
+<li><p>选择穿透节点时，先延迟测试，选择一条延迟低的。</p>
+<ul>
+<li>国内节点需要开启 HTTPS（如下图）。国外节点不需要但访问慢。</li>
+</ul>
+</li>
+</ul>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301142240777.png" alt="image-20230301142240777" style="zoom:75%;" />
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301142431797.png" alt="image-20230301142431797" style="zoom: 55%;" />
+
+<ol start="4">
+<li>打开隧道开关，查看日志，找到公网 IP。</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301142751534.png" alt="image-20230301142751534" style="zoom:62%;" />
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301145031393.png" alt="image-20230301145031393" style="zoom:62%;" />
+
+<ol start="5">
+<li>在浏览器中输入公网地址或 IP（红框内容），可以成功访问到内网的页面。</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301145155605.png" alt="image-20230301145155605" style="zoom:58.5%;" />
+
+<h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><h3 id="准备工作-1"><a href="#准备工作-1" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
+<li>一台轻量服务器。</li>
+<li>XShell 工具（其他能够远程 SSH 的工具也可以）。</li>
+</ul>
+<h3 id="购置服务器"><a href="#购置服务器" class="headerlink" title="购置服务器"></a>购置服务器</h3><p>登录阿里云，选择购买轻量应用服务器。地址：<a class="link"   target="_blank" rel="noopener" href="https://www.aliyun.com/product/swas?spm=5176.8789780.J_3207526240.40.753945b5tQXi9v" >轻量应用服务器_web服务器_个人建站_弹性计算-阿里云 (aliyun.com)<i class="fas fa-external-link-alt"></i></a></p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301150422834.png" alt="image-20230301150422834" style="zoom: 50%;" />
+
+<ul>
+<li>实例类型：服务器示例</li>
+<li>地区和可用区：亚太 → 新加坡（香港 24 元&#x2F;月的已售罄）</li>
+<li>镜像：系统镜像 → Ubuntu 20.04</li>
+<li>套餐配置：24 元&#x2F;月</li>
+<li>数据盘：0GB</li>
+<li>购买时长&#x2F;数量：按需</li>
+</ul>
+<h3 id="配置服务器"><a href="#配置服务器" class="headerlink" title="配置服务器"></a>配置服务器</h3><p>进入所购买的服务器界面：</p>
+<ul>
+<li>左菜单栏中选择 <code>远程连接</code>。采用第 2 种方法，设置密钥，使用 XShell 连接。（XShell 用法见：<a class="link"   target="_blank" rel="noopener" href="https://storybeginswhen.icu/2023/01/19/023-Xshell-%E8%BF%9E%E6%8E%A5-VM-%E8%99%9A%E6%8B%9F%E6%9C%BA/" >Xshell 连接 VM 虚拟机<i class="fas fa-external-link-alt"></i></a>）。</li>
+<li>左菜单栏中选择 <code>防火墙</code>，添加规则，打开 5230 端口。</li>
+</ul>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230301152153738.png" alt="image-20230301152153738" style="zoom:67%;" />
+
+<p>在 XShell 中对服务器进行配置，与上述在虚拟机 Ubuntu 22.04 LTS 系统中的操作一致。最后在浏览器中输入 <code>IP:5230</code> 就可以访问 Memos 了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看服务器 IP</span></span><br><span class="line">curl ip.sb</span><br></pre></td></tr></table></figure>
+
+<h2 id="备份与迁移"><a href="#备份与迁移" class="headerlink" title="备份与迁移"></a>备份与迁移</h2><p>正如前面所说：</p>
+<blockquote>
+<p><strong>注</strong>：Memos 的数据存储在本地 <code>/root/memos</code> 路径下名为  <code>memos_prod.db</code> 的文件（包括用户名密码等），每次升级前请做好备份。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">sudo -i            //切到管理员命令（如果已经是 <span class="comment"># 则不需要切）</span></span><br><span class="line">docker ps -a       //查看 docker 运行情况</span><br><span class="line">docker stop memos  //停止 memos 服务（容器）</span><br><span class="line">docker <span class="built_in">rm</span> -f memos //删除 memos 容器</span><br><span class="line"></span><br><span class="line"><span class="built_in">cp</span> -r ~/memos ~/memosarchive //备份数据，切记</span><br><span class="line"><span class="built_in">rm</span> -rf ~/memos/memos_prod.db  //删除数据</span><br><span class="line"></span><br><span class="line">tar -czvf memosarchive.tar.gz memosarchive //打包</span><br><span class="line">scp -p 22 -r memosarchive.tar.gz root@192.248.190.156:/root //迁移到新地址</span><br><span class="line">tar -zxvf memosarchive.tar.gz //解包</span><br><span class="line"><span class="built_in">mv</span> memosarchive memos  //把 memosarchive 重命名为 memos</span><br><span class="line"></span><br><span class="line">//切到根目录下，开启 memos 服务（容器）</span><br><span class="line">docker run -d --name memos -p 5230:5230 -v /root/memos/:/var/opt/memos neosmemo/memos:latest</span><br><span class="line">docker ps -a //查看 docker 运行情况</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a class="link"   target="_blank" rel="noopener" href="https://sspai.com/post/76247" >Memos 一个开源且免费的自托管知识库 - 少数派 (sspai.com)<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://sspai.com/post/76584" >分享我日常使用的两种内网穿透方案 - 少数派 (sspai.com)<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.laoda.de/archives/docker-install-memos" >【好玩儿的Docker项目】10分钟搭建一个碎片化知识卡片管理工具——Memos (laoda.de)<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.laoda.de/archives/docker-issues" >【有用的小知识】Docker容器如何更新？如何迁移应用？如何卸载？ (laoda.de)<i class="fas fa-external-link-alt"></i></a></li>
+</ol>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">使用 Docker 搭建 Memos</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-03-01 11:16:51</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/03/01/031-使用-Docker-搭建-Memos/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Docker/">#Docker</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Memos/">#Memos</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">#服务器</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">#内网穿透</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/03/05/032-%E4%BD%BF%E7%94%A8%E5%90%91%E6%97%A5%E8%91%B5%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%B9%B3%E5%8F%B0%E8%81%94%E5%8A%A8/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">使用向日葵实现全平台联动</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/02/28/030-%E4%BD%BF%E7%94%A8-Python-%E7%88%AC%E5%8F%96%E5%A4%A7%E4%B9%90%E9%80%8F%E4%B8%AD%E5%A5%96%E5%8F%B7%E7%A0%81/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">使用 Python 爬取大乐透中奖号码</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA-%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="nav-number">1.</span> <span class="nav-text">虚拟机 + 内网穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">Docker 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%AD%98%E5%82%A8%E5%BA%93"><span class="nav-number">1.2.1.</span> <span class="nav-text">设置存储库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Docker-%E5%BC%95%E6%93%8E"><span class="nav-number">1.2.2.</span> <span class="nav-text">安装 Docker 引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81-Docker-%E8%BF%90%E8%A1%8C%E6%83%85%E5%86%B5"><span class="nav-number">1.2.3.</span> <span class="nav-text">验证 Docker 运行情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memos-%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2"><span class="nav-number">1.3.</span> <span class="nav-text">Memos 服务部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">1.3.1.</span> <span class="nav-text">创建存储卷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">运行容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%93%E9%AA%8C-Memos"><span class="nav-number">1.3.3.</span> <span class="nav-text">体验 Memos</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="nav-number">1.4.</span> <span class="nav-text">内网穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C-SakuraFrp-%E8%B4%A6%E5%8F%B7"><span class="nav-number">1.4.1.</span> <span class="nav-text">注册 SakuraFrp 账号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%B8%AD%E5%BF%83"><span class="nav-number">1.4.2.</span> <span class="nav-text">用户中心</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E5%90%8D%E8%AE%A4%E8%AF%81"><span class="nav-number">1.4.3.</span> <span class="nav-text">实名认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sakura-Frp-%E5%90%AF%E5%8A%A8%E5%99%A8"><span class="nav-number">1.4.4.</span> <span class="nav-text">Sakura Frp 启动器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C-1"><span class="nav-number">2.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%AD%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">购置服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.3.</span> <span class="nav-text">配置服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E4%B8%8E%E8%BF%81%E7%A7%BB"><span class="nav-number">3.</span> <span class="nav-text">备份与迁移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            STM32 入门篇 |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">STM32 入门篇</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2022-11-03 19:08:29</span>
+        <span class="mobile">2022-11-03 19:08</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/STM32/">STM32</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/F429/">F429</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>6.9k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h2 id="软件安装与环境配置"><a href="#软件安装与环境配置" class="headerlink" title="软件安装与环境配置"></a>软件安装与环境配置</h2><ul>
+<li>SetupSTM32CubeMX-6.2.0-Win.exe：STM32CubeMX 本体，免费</li>
+<li>jre-8u211-windows-x64.exe：JAVA 环境，免费</li>
+<li>MDK521A.exe：Keil5，开发环境，收费</li>
+<li>Keil.STM32F4xx_DFP.2.9.0.pack：F429 芯片支持包</li>
+<li>keygen_new2032.exe：破解 Keil5</li>
+<li>XCOM V2.3.exe：串口调试助手（正点原子开发）</li>
+</ul>
+<h3 id="GPIO-开发基础"><a href="#GPIO-开发基础" class="headerlink" title="GPIO 开发基础"></a>GPIO 开发基础</h3><ul>
+<li>STM32 最多拥有 GPIOA、GPIOB……GPIOG 等 7 组端口。每组端口最多拥有 Pin0、Pin1……Pin15 共 16 个引脚。（最多拥有 7 * 16 &#x3D; 112 个引脚）（有的引脚会直接命名为 PA3、PB3 这种，是端口和引脚号写在了一起）</li>
+<li>STM32 的每个 I&#x2F;O 端口都可以自由编程，但 I&#x2F;O 端口寄存器必须按 32 位字被访问。</li>
+<li>STM32 的每个 I&#x2F;O 端口都由 7 个寄存器控制。</li>
+<li>STM32 的 I&#x2F;O 端口可以由软件配置成 8 种模式。（通过 STM32CubeMX 里的图像化界面，配置好功能，直接生成初始化代码）<ul>
+<li>输出<ul>
+<li><strong>推挽输出</strong>：指普通的高低电平输出。</li>
+<li>开漏输出</li>
+<li>推挽式复用功能</li>
+<li>开漏式复用功能</li>
+</ul>
+</li>
+<li>输入<ul>
+<li>模拟输入（AD 转换的模拟信号）</li>
+<li>浮空输入</li>
+<li>下拉输入</li>
+<li>上拉输入</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="三个-GPIO-输出的-HAL-库函数"><a href="#三个-GPIO-输出的-HAL-库函数" class="headerlink" title="三个 GPIO 输出的 HAL 库函数"></a>三个 GPIO 输出的 HAL 库函数</h3><ul>
+<li><p>GPIO 电平输出 HAL 库函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">HAL_GPIO_WritePin</span><span class="params">(GPIO_TypeDef* GPIOx, <span class="type">uint16_t</span> GPIO_Pin, GPIO_PinState PinState)</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>GPIOx：目标引脚的端口号（填 A、B、C……）。</li>
+<li>GPIO_Pin：目标引脚的引脚号。</li>
+<li>PinState：高电平 <code>GPIO_PIN_SET</code>；低电平 <code>GPIO_PIN_RESET</code>。</li>
+</ul>
+<p>【例】：向 PB8 引脚输出高电平。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_SET);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>GPIO 电平翻转 HAL 库函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">HAL_GPIO_TogglePin</span><span class="params">(GPIO_Type* GPIOx, <span class="type">unit16_t</span> GPIO_Pin)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>【例】：将 PA3 引脚输出电平翻转。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_3);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>GPIO 电平输入 HAL 库函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GPIO_PinState <span class="title function_">HAL_GPIO_ReadPin</span><span class="params">(GPIO_TypeDef* GPIOx, <span class="type">uint16_t</span> GPIO_Pin)</span>; <span class="comment">//具有返回值</span></span><br></pre></td></tr></table></figure>
+
+<p>【例】：判断 PC13 引脚的输入信号，若为高电平，则将 PB9 引脚控制的 LED 等的开关状态切换。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET)</span><br><span class="line">&#123;</span><br><span class="line">    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_9);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="GPIO-的重要数据结构"><a href="#GPIO-的重要数据结构" class="headerlink" title="GPIO 的重要数据结构"></a>GPIO 的重要数据结构</h3><p>（待补充）</p>
+<h3 id="实训：跑马灯实现流程"><a href="#实训：跑马灯实现流程" class="headerlink" title="实训：跑马灯实现流程"></a>实训：跑马灯实现流程</h3><ol>
+<li><p>打开 STM32CubeMX 软件。</p>
+</li>
+<li><p>选择对应的 MCU：<code>ACCESS TO MCU SELECTOR</code>。</p>
+</li>
+<li><p>把自己开发板芯片的型号输入到搜索框中，选中后，点击 <code>Start Project</code>。</p>
+</li>
+<li><p>进行基本配置。</p>
+<ol>
+<li>System Core，SYS。配置仿真口。可选择 <code>SW</code> 或 <code>JTAG</code> 口。 </li>
+<li>System Core，RCC。配置时钟。选完后可以看到有针脚变颜色。然后还需配置<strong>时钟树</strong>。</li>
+</ol>
+</li>
+<li><p>配置 LED 灯所对应的针脚。每个针脚只能选一个功能。</p>
+</li>
+<li><p>配置完成后。对项目进行命名。选择开发环境 <code>MDK-ARM</code> <code>V5</code>。在代码器（Code Generator）勾选 <strong>Generate peripheral initialization as a pair of ‘.c&#x2F;.h’ files per peripheral</strong>。点击右上角 <code>GENERATE CODE</code>。</p>
+</li>
+<li><p>打开文件夹，在 MDK-ARM 文件夹中，找到带有 Keil5 工程图标的文件，双击打开。</p>
+</li>
+<li><p>打开项目后，先进行一次编译，目的是检查默认代码有没有问题，同时把 <code>main.c</code> 文件相关的头文件关联出来。</p>
+</li>
+<li><p>应用代码写在以下注释中间。重新配置工程文件时，放在这里面的代码会被保留下来，其他代码会覆盖掉。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 <code>int main(void)</code> 中的 <code>MX_GPIO_Init()</code> 写代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Infinite loop */</span></span><br><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">		</span><br><span class="line">    <span class="comment">/* LED0 RED 闪烁，方式 1，写高低电平。阿波罗的板子，低电平亮，高电平灭 */</span></span><br><span class="line">    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);</span><br><span class="line">    HAL_Delay(<span class="number">1000</span>);</span><br><span class="line">    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);</span><br><span class="line">    HAL_Delay(<span class="number">1000</span>);</span><br><span class="line">		</span><br><span class="line">    <span class="comment">/* LED0 RED 闪烁，方式 2，写翻转电平 */</span></span><br><span class="line">	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1);</span><br><span class="line">	HAL_Delay(<span class="number">200</span>);	</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure>
+
+<p>编译后，下载到开发板上。按下开发板的复位键，可以看到 <code>LED0 RED</code> 闪烁。</p>
+</li>
+</ol>
+<h2 id="STM32-的按键开发基础"><a href="#STM32-的按键开发基础" class="headerlink" title="STM32 的按键开发基础"></a>STM32 的按键开发基础</h2><h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><ul>
+<li>按键信号的识别：一般来说，按键的两个引脚的一端通过电阻上拉到高电平，另一端则接地。没有按键按下时，输入引脚为高电平。当有按键按下，输入引脚则为低电平。通过反复读取按键输入引脚的信号，然后识别高低电平来判断是否有按键触发。</li>
+<li>去抖动：按键的输入引脚有低电平产生不代表一定是有按键按下，也许是干扰信号。因此需要通过去抖动处理将这些干扰信号过滤，从而获得真实的按键触发信号。方法：首次检测到按键输入引脚有低电平后，稍作延时，再次读取该引脚，如果还是低电平，则确认有按键触发信号；否则，判断为干扰信号，不予处理。</li>
+</ul>
+<h3 id="实训：按键控制-LED-灯开关"><a href="#实训：按键控制-LED-灯开关" class="headerlink" title="实训：按键控制 LED 灯开关"></a>实训：按键控制 LED 灯开关</h3><p>利用 STM32CubeMX 和 Keil5 进行 STM32 应用开发，完成以下功能：</p>
+<ol>
+<li>按下 KEY0（PH3）按键，松开后，切换 LED0（PB1）的开关状态。</li>
+<li>按下 KEY1（PH2）按键，切换 LED1（PB0）的开关状态。</li>
+<li>按下 KEY2（PC13）按键，把点亮的 LED 灯全部关闭。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KEY0 HAL_GPIO_ReadPin(GPIOH, GPIO_PIN_3)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KEY1 HAL_GPIO_ReadPin(GPIOH, GPIO_PIN_2)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KEY2 HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13)</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Scan_Keys</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(KEY0 == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		HAL_Delay(<span class="number">100</span>);                           <span class="comment">//直接用 HAL 库的延时函数</span></span><br><span class="line">		<span class="keyword">if</span>(KEY0 == <span class="number">0</span>)                             <span class="comment">//按下为低电平，可以直接用 0 表示，不过最好还是用 GPIO_PIN_RESET</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">while</span>(KEY0 == <span class="number">0</span>);                     <span class="comment">//while 很好用</span></span><br><span class="line">			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(KEY1 == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		HAL_Delay(<span class="number">100</span>);</span><br><span class="line">		<span class="keyword">if</span>(KEY1 == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);</span><br><span class="line">			<span class="keyword">while</span>(KEY1 == <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(KEY2 == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		HAL_Delay(<span class="number">100</span>);</span><br><span class="line">		<span class="keyword">if</span>(KEY2 == <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 | GPIO_PIN_1, GPIO_PIN_SET);</span><br><span class="line">			<span class="keyword">while</span>(KEY2 == <span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line">----------------------------------------------------------------------------</span><br><span class="line"><span class="comment">/* Infinite loop */</span></span><br><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    Scan_Keys();</span><br><span class="line">	<span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="STM32-的中断系统与外部中断基础"><a href="#STM32-的中断系统与外部中断基础" class="headerlink" title="STM32 的中断系统与外部中断基础"></a>STM32 的中断系统与外部中断基础</h2><h3 id="名词扫盲"><a href="#名词扫盲" class="headerlink" title="名词扫盲"></a>名词扫盲</h3><ul>
+<li>中断：</li>
+<li>中断源：</li>
+<li>中断向量：</li>
+<li>中断优先级：</li>
+<li>中断服务函数：</li>
+</ul>
+<h3 id="中断系统"><a href="#中断系统" class="headerlink" title="中断系统"></a>中断系统</h3><p>ARM Cortex M3 内核支持 256 个中断，包括 16 个内核中断和 240 个外设中断，拥有 256 个中断优先级别。</p>
+<p>STM32 的中断通道可能会由多个中断源共用。这就意味着，某一个中断服务函数也可能被多个中断源所共用。所以，在中断服务函数的入口处，需要有一个判断机制，用以辨别是哪个中断出发了中断。</p>
+<p>STM32 中有 2 个优先级的概念：抢占优先级和响应优先级，每个中断都需要指定这两种优先级。</p>
+<p>Cortex M3 内核中有一个称为嵌套向量中断控制器（NVIC）的设备，对中断进行统一的协调和控制。其中最主要的工作就是控制中断使能和确定中断优先级。</p>
+<h3 id="外部中断"><a href="#外部中断" class="headerlink" title="外部中断"></a>外部中断</h3><p>外部中断 EXTI 是 STM32 芯片实时处理外部事件的一种机制，由于中断请求来自 GPIO 端口的引脚，所以称为外部中断。</p>
+<p>STM32 芯片有 16 个外部中断源 EXTI0~EXTI15，分别对应这 7 个中断向量，也就是对应着 7 个中断服务函数。</p>
+<ul>
+<li>EXTI0、1、2、3、4：专用。（5:5）</li>
+<li>EXTI5~9：共用。（5:1）</li>
+<li>EXTI10~15：共用。（6:1）</li>
+</ul>
+<p>EXTI0 的连接引脚是：PA0~PG0，即每个端口组的 0 号引脚。以此类推。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20221021112657259.png" alt="image-20221021112657259" style="zoom:50%;" />
+
+<p>外部中断触发条件：上升沿触发、下降沿触发或双边沿触发。注意：不能配置成高电平触发和低电平触发。</p>
+<p>外部中断的程序设计思路：</p>
+<p>传统的：</p>
+<ul>
+<li>将 GPIO 初始化为输入端口。</li>
+<li>配置相关 I&#x2F;O 引脚与中断线的映射关系。</li>
+<li>设置该 I&#x2F;O 引脚对应的中断触发条件。</li>
+<li>配置 NVIC，并使能中断。</li>
+<li>编写中断服务函数。</li>
+</ul>
+<p>基于 STM32CubeMX 的外部中断设计步骤：</p>
+<ul>
+<li>在 STM32CubeMX 中指定引脚，配置中断初始化参数。</li>
+<li>重写该 I&#x2F;O 引脚对应的中断回调函数。</li>
+</ul>
+<p>【例】将 PC13 引脚设置为外部中断，下降沿触发，在中断服务函数中，翻转 PB9 引脚的电平信号。1. </p>
+<ol>
+<li>初始化配置<ol>
+<li>将 GPIO 设置为：GPIO_EXTI 功能。</li>
+<li>设置中断触发条件：上升沿、下降沿、上升沿或下降沿。</li>
+<li>使能相关的 NVIC 通道。</li>
+</ol>
+</li>
+<li>中断服务函数编写</li>
+</ol>
+<h3 id="实训：外部中断信号控制-LED-灯开关"><a href="#实训：外部中断信号控制-LED-灯开关" class="headerlink" title="实训：外部中断信号控制 LED 灯开关"></a>实训：外部中断信号控制 LED 灯开关</h3><p>利用 STM32CubeMX 和 Keil5 进行 STM32 应用开发，完成以下功能：</p>
+<ol>
+<li>将 KEY0，即 PH3 设置为外部中断输入，下降沿触发。在中断服务函数中，切换 LED0（PB1）的开关状态。</li>
+<li>将 KEY1，即 PH2 设置为外部中断输入，上升沿触发。在中断服务函数中，切换 LED1（PB0） 的开关状态。</li>
+</ol>
+<p>【注】这个题目的代码很简单，重写虚函数（weak void）即可。主要在于 STM32 中的参数配置，这里折腾了很久，调试经验如下：</p>
+<ul>
+<li>配置 RCC：选择 Crystal&#x2F;Ceramic Resonator 即可，不需要去 Clock Configuration 中进行修改。（原理之后学到来补充，占坑）</li>
+<li>配置 GPIO：上升&#x2F;下降沿分别是 External Interrupt Mode with Rising&#x2F;Falling edge trigger detection。一定都选择上拉（Pull-up）。</li>
+<li>最后按键按的时候，可能会出现时亮时不亮，这是因为没有进行按键消抖，触发两次或者是没有触发。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_GPIO_EXTI_Callback</span><span class="params">(<span class="type">uint16_t</span> GPIO_Pin)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(GPIO_Pin == GPIO_PIN_3)</span><br><span class="line">	&#123;</span><br><span class="line">		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(GPIO_Pin == GPIO_PIN_2)</span><br><span class="line">	&#123;</span><br><span class="line">		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="STM32-的定时器开发基础"><a href="#STM32-的定时器开发基础" class="headerlink" title="STM32 的定时器开发基础"></a>STM32 的定时器开发基础</h2><h3 id="常见定时器资源"><a href="#常见定时器资源" class="headerlink" title="常见定时器资源"></a>常见定时器资源</h3><ul>
+<li><p>系统嘀嗒定时器 SysTick</p>
+<p>集成在 Cortex M3 内核。</p>
+</li>
+<li><p>看门狗定时器 WatchDog</p>
+</li>
+<li><p>实时时钟 RTC</p>
+</li>
+<li><p>基本定时器：TIM6、TIM7</p>
+</li>
+<li><p>通用定时器：TIM2、TIM3、TIM4、TIM5</p>
+<p>在基本定时器的基础上，实现输出比较、输入捕获、PWM 生成、单脉冲模式输出等功能。这类定时器最具代表性，使用也最广泛。</p>
+</li>
+<li><p>高级定时器：TIM1、TIM8</p>
+</li>
+</ul>
+<h3 id="通用定时器"><a href="#通用定时器" class="headerlink" title="通用定时器"></a>通用定时器</h3><p>STM32 的通用定时器是一个通过可编程预分频器（Prescaler）驱动的 16 位自动重装主计数器（Counter Period）构成。可以对内部时钟或触发源以及外部时钟或触发源进行计数。</p>
+<ul>
+<li><p>基本工作原理</p>
+<p>首先，定时器时钟信号送入 16 位可编程预分频器（Prescaler），该预分配器系数为 0~65535 之间的任意数值。预分配器溢出后，会向 16 位的主计数器（Counter Period）发出一个脉冲信号。</p>
+<p>预分频器，本质上是一个加法计数器。预分频系数实际上就是加计数的溢出值。</p>
+</li>
+<li><p>定时器发生中断时间的计算方法</p>
+<p>定时时间 &#x3D; （Prescaler + 1）X（Counter Period + 1）X 1&#x2F;定时器时钟频率S</p>
+</li>
+</ul>
+<p>【例】时钟信号 1KHz，Prescaler 为 9，Counter Period 为 999，定时时间？</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20221024105011992.png" alt="image-20221024105011992" style="zoom:50%;" />
+
+<h3 id="STM32CubeMX-中关于-TIM-的配置"><a href="#STM32CubeMX-中关于-TIM-的配置" class="headerlink" title="STM32CubeMX 中关于 TIM 的配置"></a>STM32CubeMX 中关于 TIM 的配置</h3><p>【例】时钟信号 32MHz，每隔 500ms 翻转一次 PB9 的输出电平</p>
+<ul>
+<li>设置 Clock Source 时钟源</li>
+<li>设置 Prescaler 和 Counter Period 参数</li>
+<li>设置 NVIC 嵌套向量中断控制器</li>
+</ul>
+<p>如何得到 500ms：32000 X 500 X 1&#x2F;32000000 &#x3D; 0.5s &#x3D; 500ms</p>
+<p>因此，Prescaler 为 31999，Counter Period 为 499。</p>
+<h3 id="时钟树相关知识"><a href="#时钟树相关知识" class="headerlink" title="时钟树相关知识"></a>时钟树相关知识</h3><ul>
+<li>STM32F429 时钟源<ul>
+<li>HSI：高速内部时钟，RC 振荡器，16MHz</li>
+<li>LSI：低速内部时钟，RC 振荡器，32KHz</li>
+<li>HSE：高速外部时钟，4-26MHz</li>
+<li>LSE：低速外部时钟，32.768KHz</li>
+</ul>
+</li>
+<li>系统时钟 SYSCLK 来源<ul>
+<li>HSI</li>
+<li>HSE</li>
+<li>PLL（Phase Locked Loop）：锁相环。用来统一整合时钟信号。</li>
+</ul>
+</li>
+<li>其他常用名词扫盲<ul>
+<li>AHB（Advanced High-performance Bus）总线</li>
+<li>APB（Advanced Peripheral Bus）总线</li>
+<li>HCLK：AHB 总线的时钟。</li>
+<li>PCLK1：APB1 总线的时钟</li>
+<li>PCLK2：APB2 总线的时钟</li>
+<li>RTC 实时时钟：一个独立的定时&#x2F;计数器。</li>
+</ul>
+</li>
+</ul>
+<h3 id="实训：外部中断信号控制-LED-灯开关-1"><a href="#实训：外部中断信号控制-LED-灯开关-1" class="headerlink" title="实训：外部中断信号控制 LED 灯开关"></a>实训：外部中断信号控制 LED 灯开关</h3><p>在 STM32F429 进行 STM32 应用开发，完成以下功能：</p>
+<ul>
+<li>利用 TIM2 实现间隔定时，每隔 0.2s 将 LED0（PB1）的开关状态翻转。</li>
+<li>利用 TIM3 实现间隔定时，每隔 1s 将 LED1（PB0）的开关状态翻转。</li>
+<li>修改 TIM2 的初始化代码，改为每隔 0.5s 将 LED1 的开关状态翻转。（在 <code>time.c</code> 文件中，找到 TIM2 的配置代码 <code>void MX_TIM2_Init(void)</code>，把对应的 <code>htim2.Init.Period = 199;</code> 修改为 500 即可。</li>
+</ul>
+<p>【注】同样代码很简单，把虚函数放到 <code>main.c</code> 文件中重写即可。主要是在 STM32CubeMX 中配置 TIM2、TIM3。</p>
+<ul>
+<li>找到 TIM2&#x2F;3，首先 Clock Source 设置为 Internal Clock；</li>
+<li>因为是 32MHz，所以 Prescaler &#x3D; 31999。</li>
+<li>因为是 0.2s，所以 Period &#x3D; 199（200ms -1）。</li>
+<li>最后一定要勾选上 NVIC。</li>
+</ul>
+<p>另外，写完虚函数后，要在 main 函数中启动 TIM2、TIM3。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_TIM_PeriodElapsedCallback</span><span class="params">(TIM_HandleTypeDef *htim)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(htim-&gt;Instance == TIM2)   <span class="comment">//如果实例为 TIM2，就运行</span></span><br><span class="line">	&#123;</span><br><span class="line">		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(htim-&gt;Instance == TIM3)</span><br><span class="line">	&#123;</span><br><span class="line">		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line">------------------------------------------------------------</span><br><span class="line"><span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line"></span><br><span class="line">	HAL_TIM_Base_Start_IT(&amp;htim2); <span class="comment">//启动函数，前面&amp;表示传地址</span></span><br><span class="line">	HAL_TIM_Base_Start_IT(&amp;htim3);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 2 */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="STM32-的串口数据收发基础"><a href="#STM32-的串口数据收发基础" class="headerlink" title="STM32 的串口数据收发基础"></a>STM32 的串口数据收发基础</h2><h3 id="名词扫盲-1"><a href="#名词扫盲-1" class="headerlink" title="名词扫盲"></a>名词扫盲</h3><ul>
+<li><p>并行&#x2F;串行通信</p>
+</li>
+<li><p>单工、半双工、全双工</p>
+</li>
+<li><p>异步串行通信：通信双方在没有同步时钟的前提下，将一个字符（包括特定的附加位）按位进行传输的通信方式。</p>
+</li>
+<li><p>波特率：每秒钟传输的二进制位数，如 9600bps。</p>
+</li>
+<li><p>TTL电平←→RS232：MAX3232 SP3232</p>
+<p>串口←→USB 接口：CH340 CP2012</p>
+</li>
+<li><p>STM32 芯片的串口 USART 功能十分强大，但对于日常编程而言，使用最多的还是异步串行通信。</p>
+</li>
+</ul>
+<h3 id="STM32CubeMX-中关于-USART-的配置"><a href="#STM32CubeMX-中关于-USART-的配置" class="headerlink" title="STM32CubeMX 中关于 USART 的配置"></a>STM32CubeMX 中关于 USART 的配置</h3><p>（待补充）</p>
+<h3 id="HAL-库中串口发送的重要函数"><a href="#HAL-库中串口发送的重要函数" class="headerlink" title="HAL 库中串口发送的重要函数"></a>HAL 库中串口发送的重要函数</h3><ul>
+<li><p>阻塞式发送函数（推荐使用）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Transmit</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *pData, <span class="type">uint16_t</span> Size, <span class="type">unit32_t</span> Timeout)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非阻塞式发送函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Transmit_IT</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *pData, <span class="type">uint16_t</span> Size)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发送完毕中断回调函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_TxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>【例】使用非阻塞式的串口发送函数，将发送缓存数组 dat_Txd 中的前 5 个数据发送到 USART1，在数据发送完成后，翻转 PB9 引脚的输出电平。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HAL_UART_Transmit_IT(&amp;huart1, dat_Txd, <span class="number">5</span>);</span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_TxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(huart-&gt;Instance == USART1)</span><br><span class="line">    &#123;</span><br><span class="line">        HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_9);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 使用阻塞式串口发送函数 */</span></span><br><span class="line">HAL_UART_Transmit(&amp;huart1, dat_Txd, <span class="number">5</span>, <span class="number">10000</span>);</span><br><span class="line">HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_9);</span><br></pre></td></tr></table></figure>
+
+<h3 id="HAL-库中串口接收的重要函数"><a href="#HAL-库中串口接收的重要函数" class="headerlink" title="HAL 库中串口接收的重要函数"></a>HAL 库中串口接收的重要函数</h3><ul>
+<li><p>阻塞式发送函数（不推荐使用）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Receive</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *pData, <span class="type">uint16_t</span> Size, <span class="type">unit32_t</span> Timeout)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非阻塞式发送函数（推荐使用）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Receive_IT</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *pData, <span class="type">uint16_t</span> Size)</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接收完成中断回调函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>【例】使用非阻塞式的串口接收函数，接收USART1中的一个字节，将其保存在 dat_Rxd 变量中，在数据发送完成后，若该字节为 0x5A，则翻转 PB8 引脚的输出电平。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HAL_UART_Receive_IT(&amp;huart1, &amp;dat_Rxd, <span class="number">1</span>);</span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(huart-&gt;Instance == USART1)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(dat_Rxd == <span class="number">0x5A</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_8);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实训：外部中断信号控制-LED-灯开关-2"><a href="#实训：外部中断信号控制-LED-灯开关-2" class="headerlink" title="实训：外部中断信号控制 LED 灯开关"></a>实训：外部中断信号控制 LED 灯开关</h3><p>在 F429 中进行 STM32 应用开发，完成以下功能。</p>
+<ul>
+<li>开机后，向串口 1 发送”Hello World!”。</li>
+<li>串口 1 收到字节指令”0xA1”，关闭 LED0（PB1），发送”LED1 Closed!”。</li>
+<li>串口 1 收到字节指令”0xA2”，打开 LED0（PB0），发送”LED1 Open!”。</li>
+<li>在串口发送过程中，打开 LED1 作为发送数据指示灯。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);</span></span><br><span class="line"></span><br><span class="line"><span class="type">uint8_t</span> Tx_str1[] = <span class="string">&quot;Hello World!\r\n&quot;</span>;</span><br><span class="line"><span class="type">uint8_t</span> Tx_str2[] = <span class="string">&quot;LED1 Open!\r\n&quot;</span>;</span><br><span class="line"><span class="type">uint8_t</span> Tx_str3[] = <span class="string">&quot;LED1 Closed!\r\n&quot;</span>;</span><br><span class="line"><span class="type">uint8_t</span> Rx_dat = <span class="number">0</span>;                                       <span class="comment">//创建一个接收的数据，先是 0</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span>   <span class="comment">//发送完毕中断回调函数，用于接收指令</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(huart-&gt;Instance == USART1)                         <span class="comment">//先进行判断是不是串口 1</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(Rx_dat == <span class="number">0xa1</span>)                                <span class="comment">//发送指令 A1</span></span><br><span class="line">		&#123;</span><br><span class="line">			LED1_OFF();                                   <span class="comment">//LED1 灭</span></span><br><span class="line">			</span><br><span class="line">			LED0_OFF();                                   <span class="comment">//LED0 作为数据发送指示灯</span></span><br><span class="line">			HAL_UART_Transmit(&amp;huart1, Tx_str3, <span class="keyword">sizeof</span>(Tx_str3), <span class="number">10000</span>);</span><br><span class="line">			LED0_ON();</span><br><span class="line">			</span><br><span class="line">			HAL_UART_Receive_IT(&amp;huart1, &amp;Rx_dat, <span class="number">1</span>);     <span class="comment">//还要再用一遍非阻塞式发送函数</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(Rx_dat == <span class="number">0xa2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			LED1_ON();</span><br><span class="line">			</span><br><span class="line">			LED0_OFF();</span><br><span class="line">			HAL_UART_Transmit(&amp;huart1, Tx_str2, <span class="keyword">sizeof</span>(Tx_str2), <span class="number">10000</span>);</span><br><span class="line">			LED0_ON();</span><br><span class="line">			</span><br><span class="line">			HAL_UART_Receive_IT(&amp;huart1, &amp;Rx_dat, <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line">---------------------------------------------------------</span><br><span class="line"><span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line">	HAL_Delay(<span class="number">1000</span>);                                      <span class="comment">//开机运行，发送 Hello World 表示开机了</span></span><br><span class="line">	LED0_OFF();</span><br><span class="line">	HAL_UART_Transmit(&amp;huart1, Tx_str1, <span class="keyword">sizeof</span>(Tx_str1), <span class="number">10000</span>);</span><br><span class="line">	HAL_Delay(<span class="number">1000</span>);</span><br><span class="line">	LED0_ON();</span><br><span class="line">	</span><br><span class="line">	HAL_UART_Receive_IT(&amp;huart1, &amp;Rx_dat, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 2 */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="STM32-的定时器与串口综合训练"><a href="#STM32-的定时器与串口综合训练" class="headerlink" title="STM32 的定时器与串口综合训练"></a>STM32 的定时器与串口综合训练</h2><h3 id="关于常用函数-sprintf-的用法"><a href="#关于常用函数-sprintf-的用法" class="headerlink" title="关于常用函数 sprintf() 的用法"></a>关于常用函数 sprintf() 的用法</h3><ul>
+<li><p>sprintf()，指的是字符串格式化函数，把格式化的数据写入某个字符串中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">sprintf</span><span class="params">(<span class="type">char</span>*<span class="built_in">string</span>, <span class="type">char</span> *format[,argument,…])</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>需要引用头文件：#include “stdio.h”。</p>
+</li>
+</ul>
+<p>【例】有一个表示温度的整型变量 tmp，现在要将其格式化为字符串“温度是：XX 摄氏度”，并将其通过串口 1 发送出去。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint8_t</span> Str_buff[<span class="number">64</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">sprintf</span>((<span class="type">char</span>*)Strbuff, <span class="string">&quot;温度是：%d摄氏度&quot;</span>, tmp); <span class="comment">//%d 是占位符</span></span><br><span class="line"></span><br><span class="line">HAL_UART_Transmit(&amp;huart, Str_buff, <span class="keyword">sizeof</span>(Str_buff), <span class="number">0xFFFF</span>); <span class="comment">//简单来说，0x 后面的值为十六进制</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="实训：定时器与串口综合训练"><a href="#实训：定时器与串口综合训练" class="headerlink" title="实训：定时器与串口综合训练"></a>实训：定时器与串口综合训练</h3><p>在 F429 中进行 STM32 应用开发，完成以下的功能。</p>
+<ul>
+<li><p>开机后，LED0 与LED1 依次点亮，然后熄灭，进行灯光检测。（LED0 接到 STM32 的 PB1，LED1 接到 STM32 的 PB0，低电平点亮）</p>
+</li>
+<li><p>系统通过串口 1 向上位机发送一个字符串”STM32F429 欢迎您!”。</p>
+</li>
+<li><p>LED0 作为一个秒闪灯，系统向上位机发送完字符串后，开始亮 0.5 秒，灭 0.5 秒……循环闪烁，并开始启动系统运行时间的记录，其时分秒格式为”XX:XX:XX”。</p>
+</li>
+<li><p>上位机通过一个由 3 个字节组成的命令帧控制 LED1 灯的开关。该命令帧的格式为”0xBF 控制字 OxFB”。</p>
+<p>0xBF 为帧头，0xFB 为帧尾，控制字的定义如下：</p>
+<p>0xA1：打开 LED1，返回信息”XX:XX:XX LED1 打开”。</p>
+<p>0xA2：关闭 LED1，返回信息”XX:XX:XX LED1 关闭”。</p>
+<p>其他：返回信息”XX:XX:XX 这是一个错误指令!”。</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_TOG() HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_TOG() HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0)</span></span><br><span class="line"></span><br><span class="line"><span class="type">uint8_t</span> str1[] = <span class="string">&quot;********* STM32F429 欢迎您！*********\r\n&quot;</span>;</span><br><span class="line"><span class="type">uint8_t</span> hh = <span class="number">0</span>, mm = <span class="number">0</span>, ss = <span class="number">0</span>, ss05 = <span class="number">0</span>;                         <span class="comment">//定义时分秒，以及 0.5s</span></span><br><span class="line"><span class="type">uint8_t</span> str_buff[<span class="number">64</span>];                                             <span class="comment">//定义一个字符串的缓冲数组，64 个字节</span></span><br><span class="line"><span class="type">uint8_t</span> Rx_dat[<span class="number">16</span>];                                               <span class="comment">//串口接收的数组，16 个字节</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Check_LED</span><span class="params">()</span>                                                  <span class="comment">//灯光检测的函数</span></span><br><span class="line">&#123;</span><br><span class="line">	HAL_Delay(<span class="number">1000</span>);</span><br><span class="line">	</span><br><span class="line">	LED0_OFF();</span><br><span class="line">	HAL_Delay(<span class="number">500</span>);</span><br><span class="line">	LED1_OFF();</span><br><span class="line">	HAL_Delay(<span class="number">500</span>);</span><br><span class="line">	</span><br><span class="line">	LED0_ON();</span><br><span class="line">	HAL_Delay(<span class="number">500</span>);</span><br><span class="line">	LED1_ON();</span><br><span class="line">	HAL_Delay(<span class="number">500</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_TIM_PeriodElapsedCallback</span><span class="params">(TIM_HandleTypeDef *htim)</span>        <span class="comment">//回调函数（虚函数），用定时器做秒闪灯，LED0 闪烁</span></span><br><span class="line">&#123;</span><br><span class="line">	LED0_TOG();</span><br><span class="line">	</span><br><span class="line">	ss05++;</span><br><span class="line">	<span class="keyword">if</span>(ss05 == <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ss05 = <span class="number">0</span>;</span><br><span class="line">		ss++;</span><br><span class="line">		<span class="keyword">if</span>(ss == <span class="number">60</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			ss = <span class="number">0</span>;</span><br><span class="line">			mm++;</span><br><span class="line">			<span class="keyword">if</span>(mm == <span class="number">60</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				mm = <span class="number">0</span>;</span><br><span class="line">				hh++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(huart-&gt;Instance == USART1)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(Rx_dat[<span class="number">0</span>] == <span class="number">0xBF</span> &amp;&amp; Rx_dat[<span class="number">2</span>] == <span class="number">0xFB</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">switch</span>(Rx_dat[<span class="number">1</span>])</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">case</span> <span class="number">0xa1</span>:</span><br><span class="line">					LED1_OFF();</span><br><span class="line">					<span class="built_in">sprintf</span>((<span class="type">char</span> *)str_buff, <span class="string">&quot;%d:%d:%d    LED1 关闭！\r\n&quot;</span>, hh, mm, ss);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">case</span> <span class="number">0xa2</span>:</span><br><span class="line">					LED1_ON();</span><br><span class="line">					<span class="built_in">sprintf</span>((<span class="type">char</span> *)str_buff, <span class="string">&quot;%d:%d:%d    LED2 打开！\r\n&quot;</span>, hh, mm, ss);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">default</span>:</span><br><span class="line">					<span class="built_in">sprintf</span>((<span class="type">char</span> *)str_buff, <span class="string">&quot;%d:%d:%d    这是一个错误的命令！\r\n&quot;</span>, hh, mm, ss);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			HAL_UART_Transmit(&amp;huart1, str_buff, <span class="keyword">sizeof</span>(str_buff), <span class="number">10000</span>);       <span class="comment">//向串口发送缓冲区字符串</span></span><br><span class="line">			HAL_UART_Receive_IT(&amp;huart1, Rx_dat, <span class="number">3</span>);                             <span class="comment">//写完发送，就要记得写接收，因为是为了继续接收</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line">----------------------------------------------------------------------</span><br><span class="line"><span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line">    </span><br><span class="line">	Check_LED();             <span class="comment">//需要放到主函数中运行</span></span><br><span class="line">	</span><br><span class="line">	HAL_UART_Transmit(&amp;huart1, str1, <span class="keyword">sizeof</span>(str1), <span class="number">10000</span>);</span><br><span class="line">	HAL_UART_Receive_IT(&amp;huart1, Rx_dat, <span class="number">3</span>); <span class="comment">//非阻塞式接收，接收到的字节放到 Rx_dat，当接收到完整的三个字节后，进入串口接收完成中断，然后调用它的回调函数。</span></span><br><span class="line">	</span><br><span class="line">	HAL_TIM_Base_Start_IT(&amp;htim2);    <span class="comment">//首先启动定时器，定时器里面是指针，所以要给个地址，即加上 &amp;。找到回调函数（重写虚函数），写在上面</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 2 */</span>    </span><br></pre></td></tr></table></figure>
+
+<h2 id="ADC-模数转换器的基本工作原理"><a href="#ADC-模数转换器的基本工作原理" class="headerlink" title="ADC 模数转换器的基本工作原理"></a>ADC 模数转换器的基本工作原理</h2><h3 id="数字系统基本结构"><a href="#数字系统基本结构" class="headerlink" title="数字系统基本结构"></a>数字系统基本结构</h3><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20221025105706894.png" alt="image-20221025105706894" style="zoom:50%;" />
+
+<p>【例】一个恒温锅炉的基本结构：</p>
+<ol>
+<li>通过温度传感器，将温度变化转换为电压变化。</li>
+<li>通过 ADC 将模拟的电压变化，转换为数字变化，将其编码。</li>
+<li>中央处理器根据温度数据，进行计算和逻辑控制。</li>
+<li>计算结果通过 DAC 转换为电压&#x2F;电流信号，控制加热和冷却。</li>
+</ol>
+<h3 id="Analog-to-Digital-Converter"><a href="#Analog-to-Digital-Converter" class="headerlink" title="Analog-to-Digital Converter"></a>Analog-to-Digital Converter</h3><p>将时间和幅值连续的模拟量转化为时间和幅值离散的数字量，A&#x2F;D 转换一般要经过采样、保持、量化和编码 4 个过程。</p>
+<p>常用 ADC：逐次逼近型（大多数）、双积分型、$\Sigma-\Delta$ 型。</p>
+<p>AD 转换器的几个技术指标：</p>
+<ul>
+<li>量程（参考电压）：指 ADC 所能输入模拟信号的类型和电压范围。信号类型包括单极性和双极性（差分电压）。</li>
+<li>转换位数：量化过程中的量化位数 n。AD 转换后的输出结果用 n 位二进制来表示。（如 10 位 AD 的输出值为 0~1023，即 1024）</li>
+<li>分辨率：ADC 能够分辨的模拟信号最小变化量。<ul>
+<li>公式：分辨率 &#x3D; 量程 &#x2F; $2^n$。（如量程为单极性 0-5V，8 位 ADC 的分辨率是：5&#x2F;256 &#x3D; 0.0195V，意味着能够分辨出 19.5mV 以上的信号变化）</li>
+</ul>
+</li>
+<li>转换时间：ADC 完成一次完整的 AD 转换所需要的时间，包括采样、保持、量化、编码的全过程。</li>
+</ul>
+<h3 id="ADC-数据采样的计算应用"><a href="#ADC-数据采样的计算应用" class="headerlink" title="ADC 数据采样的计算应用"></a>ADC 数据采样的计算应用</h3><p>有一个温度测控系统，已知温度传感器在 0 到 100 度之间为线性输出，参考电压为 5V，采用 8 位的 AD 转换器，0 度的时候，测的电压是 1.8V，100 度的时候，测的电压是 4.3V。问：系统的分辨率是多少？采集到数据 10010001，表示多大电压？温度是多少？</p>
+<ul>
+<li><p>最小能分辨的电压：0.0195V。</p>
+</li>
+<li><p>由于温度是线性变化，先求得斜率 K &#x3D; (100-0)&#x2F;(4.3-1.8) &#x3D; 40，得到温度（ $y$ ）和电压（ $x$ ）的关系表达式， $y&#x3D;40\times(x-1.8)$ 。</p>
+<p>最小能分辨的温度：0.0195 * 40 &#x3D; 0.78 度。</p>
+<p>10010001B &#x3D; 91H &#x3D; 145，所以 0.0195 * 145 &#x3D; 2.83V。</p>
+<p>(2.83V - 1.8V) * 40 &#x3D; 41.2 度。</p>
+</li>
+</ul>
+<h2 id="STM32-的-ADC-开发基础"><a href="#STM32-的-ADC-开发基础" class="headerlink" title="STM32 的 ADC 开发基础"></a>STM32 的 ADC 开发基础</h2><p>STM32F103ZE 芯片（144 脚）中有 ADC1、ADC2、ADC3 共 3 个 12（4096） 位逐次逼近型模数转换器，具有 18 个测量通道，可测量 16 个外部和 2 个内部信号源（内部温度和内部参考电压）。这两个内部信号源只能连接到 ADC1。</p>
+<p>各个通道的 AD 转换可以单次、连续、扫描或间断模式执行。</p>
+<p>按照 AD 转换的组织形式来划分，ADC 的模拟输入通道分为规则组和注入组两种。</p>
+<ul>
+<li>规则组：ADC 可以对一组最多 16 个通道按照指定的顺序逐个进行转换，这组指定的通道称为规则组。</li>
+<li>注入组：在实际应用中，可能需要中断规则组的转换，临时对某些通道进行转换，好像这些通道注入了原来的规则组，故称注入组，最多由 4 个通道组成。</li>
+</ul>
+<p>AD 转换结果有 2 种存储方式：左对齐、右对齐（默认）。</p>
+<h3 id="STM32CubeMX-中关于-ADC-的配置"><a href="#STM32CubeMX-中关于-ADC-的配置" class="headerlink" title="STM32CubeMX 中关于 ADC 的配置"></a>STM32CubeMX 中关于 ADC 的配置</h3><p>(待补充)</p>
+<h3 id="查询方式和中断方式的-HAL-库函数应用"><a href="#查询方式和中断方式的-HAL-库函数应用" class="headerlink" title="查询方式和中断方式的 HAL 库函数应用"></a>查询方式和中断方式的 HAL 库函数应用</h3><ul>
+<li><p>查询方式：阻塞式的 AD 转换</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unit16_t</span> ADC_Value = <span class="number">0</span>;                              <span class="comment">//定义一个 16 位的变量，接收 ADC 返回的结果</span></span><br><span class="line">HAL_ADC_Start(&amp;hadc);                                <span class="comment">//启动 ADC，给它一个地址（通过参数告诉它启动的是哪一个 ADC）</span></span><br><span class="line"><span class="keyword">if</span>(HAL_OK == HAL_ADC_PollForConversion(&amp;hadc, <span class="number">10</span>))   <span class="comment">//转换过程函数，第一个参数是表示转换哪个 AD，第二个参数是表示超时的时间，执行完毕返回一个 OK</span></span><br><span class="line">&#123;</span><br><span class="line">    ADC_Value = HAL_ADC_GetValue(&amp;hadc);            <span class="comment">//读取相应 AD 的转换结果。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中断方式：非阻塞式的 AD 转换</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint16_t</span> ADC_Value = <span class="number">0</span>;</span><br><span class="line">HAL_ADC_Start_IT(&amp;hadc);                                  <span class="comment">//带有中断功能的启动函数，会调用一个中断回调函数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_ADC_ConvCpltCallback</span><span class="params">(ADC_HandleTypeDef* hadc1)</span>   <span class="comment">//AD 转换完成回调函数</span></span><br><span class="line">&#123;</span><br><span class="line">    ADC_Value = HAL_ADC_GetValue(&amp;hadc);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DMA</p>
+</li>
+</ul>
+<h3 id="实训：ADC-单次数据采样与电压换算"><a href="#实训：ADC-单次数据采样与电压换算" class="headerlink" title="实训：ADC 单次数据采样与电压换算"></a>实训：ADC 单次数据采样与电压换算</h3><p>在 F429 中进行 STM32 应用开发，完成以下的功能。</p>
+<ul>
+<li>将 ADC_IN0 设置为 12 位 ADC，右对齐，启用中断。</li>
+<li>分别用查询和中断这 2 种方式，每隔 0.5 秒采样一次 ADC 数据。</li>
+<li>将每次读取到的 ADC 采样值转换为对应的电压值，发送到上位机。</li>
+<li>LED1 作为采样指示灯，在 ADC 转换过程中点亮，其余时间熄灭。</li>
+</ul>
+<p>【注】配置 GPIO、ADC1、USART1。</p>
+<ol>
+<li>GPIO 比较好配置，就 LED0、LED1 的引脚设为 Output。</li>
+<li>配置 ADC1，PA0 设为 ADC1_IN0，然后勾选 IN0。参数设置模块的 Data Alignment 默认 Right alignment（右对齐）即可，同样其他都默认，NVIC 中断使能勾选。</li>
+<li>配置 USART1，Mode 选 Asynchronous（异步），参数设置模块波特率改为 9600 Bits&#x2F;s，其他默认。由于串口没有用到中断，所以 NVIC 模块不需要使能。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* USER CODE BEGIN Includes */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span>                  <span class="comment">//为后面 sprintf 做准备</span></span></span><br><span class="line"><span class="comment">/* USER CODE END Includes */</span></span><br><span class="line">------------------------------------------------</span><br><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET)</span></span><br><span class="line"></span><br><span class="line"><span class="type">uint16_t</span> ADC_Value = <span class="number">0</span>, ADC_Volt = <span class="number">0</span>;  <span class="comment">//定义一个 16 位的变量，接收 ADC1 的采样值和转换后的电压值</span></span><br><span class="line"><span class="type">uint8_t</span> str_buff[<span class="number">64</span>];                  <span class="comment">//具有 64 字节的缓冲区，发送</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">UR1_Send_Info</span><span class="params">()</span>                   <span class="comment">//串口发送函数</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">sprintf</span>((<span class="type">char</span> *)str_buff, <span class="string">&quot;采样值：%d，电压值：%d.%d%d%dv\r\n&quot;</span>, ADC_Value, ADC_Volt/<span class="number">1000</span>, (ADC_Volt%<span class="number">1000</span>)/<span class="number">100</span>, (ADC_Volt%<span class="number">100</span>)/<span class="number">10</span>, ADC_Volt%<span class="number">10</span>);       <span class="comment">//视频中没有 /1000，是因为下面的 3300 用的是 330。这点要理解。下面少了个 0，所以上面跟着少了个 0，其实是为了计算简便。</span></span><br><span class="line">	HAL_UART_Transmit(&amp;huart1, str_buff, <span class="keyword">sizeof</span>(str_buff), <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*方式2：中断方式</span></span><br><span class="line"><span class="comment">void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)  //中断回调函数(启动函数在死循环中)</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">	if(hadc-&gt;Instance == ADC1)         //如果有多个 ADC，就要先用 if 来判断是不是 ADC1</span></span><br><span class="line"><span class="comment">	&#123;</span></span><br><span class="line"><span class="comment">		ADC_Value = HAL_ADC_GetValue(&amp;hadc1);   //得到 ADC1 的值</span></span><br><span class="line"><span class="comment">		ADC_Volt = ADC_Value * 3300 / 4096;     //转换公式，3300mv = 3.3v，4096 是 2 的 12 次方</span></span><br><span class="line"><span class="comment">		UR1_Send_Info();</span></span><br><span class="line"><span class="comment">		LED1_ON();      //在下面有写已经灭掉</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 方式1：查询方式</span></span><br><span class="line"><span class="comment">void ADC1_Get_Value()                  //用来做换算</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">	HAL_ADC_Start(&amp;hadc1);               //启动 ADC1</span></span><br><span class="line"><span class="comment">	LED1_OFF();                          //关闭 LED1，表示 ADC 开始转化</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	if(HAL_ADC_PollForConversion(&amp;hadc1, 10) == HAL_OK)  //转化函数</span></span><br><span class="line"><span class="comment">	&#123;</span></span><br><span class="line"><span class="comment">		ADC_Value = HAL_ADC_GetValue(&amp;hadc1);   //得到 ADC1 的值</span></span><br><span class="line"><span class="comment">		ADC_Volt = ADC_Value * 3300 / 4096;     //转换公式，3300mv = 3.3v，4096 是 2 的 12 次方</span></span><br><span class="line"><span class="comment">	&#125;</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	UR1_Send_Info();</span></span><br><span class="line"><span class="comment">	LED1_ON();</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	HAL_ADC_Stop(&amp;hadc1);     //关闭 ADC1</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line">--------------------------------------------------</span><br><span class="line"><span class="comment">/* Infinite loop */</span></span><br><span class="line"><span class="comment">/* USER CODE BEGIN WHILE */</span></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/*方式1：查询方式</span></span><br><span class="line"><span class="comment">	ADC1_Get_Value();        //查询方式函数执行</span></span><br><span class="line"><span class="comment">	HAL_Delay(500);</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*方式2：中断方式</span></span><br><span class="line"><span class="comment">	LED1_OFF();                //中断启动前关掉 LED1</span></span><br><span class="line"><span class="comment">	HAL_ADC_Start_IT(&amp;hadc1);  //放在死循环例，每隔 0.5s 以中断的方式启动 ADC1</span></span><br><span class="line"><span class="comment">	HAL_Delay(500);</span></span><br><span class="line"><span class="comment">	HAL_ADC_Stop_IT(&amp;hadc1);   //关闭 ADC1</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* USER CODE END 3 */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="STM32-的-OLED-开发基础"><a href="#STM32-的-OLED-开发基础" class="headerlink" title="STM32 的 OLED 开发基础"></a>STM32 的 OLED 开发基础</h2><h3 id="OLED-概述"><a href="#OLED-概述" class="headerlink" title="OLED 概述"></a>OLED 概述</h3><ul>
+<li>Organic Light-Emitting Display，有机发光显示</li>
+<li>OLED 具备自发光、厚度薄、视角广、功耗低、对比度高、响应速度快、可用于挠曲性面板、使用温度范围广、构造及其制作过程较简单等优异特性，并认为是一种比液晶显示更为先进的新一代平板显示技术。</li>
+<li>基于 STM32 的 OLED 应用，要做那些事情<ul>
+<li>移植 OLED 的底层驱动函数库（针对不同的芯片，会有不同的库）</li>
+<li>准备需要的中文字符和图片等数据</li>
+<li>调用 OLED 驱动库中的底层函数进行应用开发</li>
+</ul>
+</li>
+</ul>
+<h3 id="OLED-开发相关资源下载"><a href="#OLED-开发相关资源下载" class="headerlink" title="OLED 开发相关资源下载"></a>OLED 开发相关资源下载</h3><ul>
+<li>基于 STM32CubeMX 的 OLED 屏驱动程序库（内含 4 个文件）<ul>
+<li>XMF_OLED_STM32Cube.c：驱动程序的源文件</li>
+<li>XMF_OLED_STM32Cube.h：驱动程序的头文件</li>
+<li>XMF_OLED_Font.h：字库数据文件</li>
+<li>XMF_OLED_BMP.h：图片数据文件</li>
+</ul>
+</li>
+<li>取字模软件 PCtoLCD2002：生产字符和图片数据的工具</li>
+</ul>
+<h3 id="OLED-底层驱动函数移植"><a href="#OLED-底层驱动函数移植" class="headerlink" title="OLED 底层驱动函数移植"></a>OLED 底层驱动函数移植</h3><ol>
+<li>将 4 个驱动文件拷贝到工程文件中，和 main.c 放在同一目录，并将 XMF_OLED_STM32Cube.c 添加到工程代码文件中，并在 main.c 中引入头文件 XMF_OLED_STM32Cube.h。</li>
+<li>根据所选用的芯片型号，修改 XMF_OLED_STM32Cube.h 头文件中所用的芯片头文件。</li>
+<li>根据硬件电路原理图，修改 XMF_OLED_STM32Cube.h 中 OLED 的引脚定义。</li>
+<li>查看 OLED_Init(void) 初始化函数的源码，根据电路接口和应用需要进行修改。</li>
+</ol>
+<h3 id="OLED-驱动库中常用的函数"><a href="#OLED-驱动库中常用的函数" class="headerlink" title="OLED 驱动库中常用的函数"></a>OLED 驱动库中常用的函数</h3><ul>
+<li><p>OLED 初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">OLED_Init</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>（未完待续……）</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><strong>Video</strong>：<a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1m7411H7oT/?spm_id_from=333.337.search-card.all.click&vd_source=988bef447181962dfedd9c12da816e87" >【小蜜蜂笔记】基于STM32CubeMX的嵌入式开发基础教程_哔哩哔哩_bilibili<i class="fas fa-external-link-alt"></i></a></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">STM32 入门篇</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2022-11-03 19:08:29</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2022/11/03/004-STM32-入门篇/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/STM32/">#STM32</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/F429/">#F429</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2022/11/03/005-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%B0-GitHub/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">上传文件夹到 GitHub</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2022/10/25/001-hello-world/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Hello World</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">软件安装与环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GPIO-%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80"><span class="nav-number">1.1.</span> <span class="nav-text">GPIO 开发基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E4%B8%AA-GPIO-%E8%BE%93%E5%87%BA%E7%9A%84-HAL-%E5%BA%93%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">三个 GPIO 输出的 HAL 库函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPIO-%E7%9A%84%E9%87%8D%E8%A6%81%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.</span> <span class="nav-text">GPIO 的重要数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%AE%AD%EF%BC%9A%E8%B7%91%E9%A9%AC%E7%81%AF%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">实训：跑马灯实现流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32-%E7%9A%84%E6%8C%89%E9%94%AE%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80"><span class="nav-number">2.</span> <span class="nav-text">STM32 的按键开发基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%AE%AD%EF%BC%9A%E6%8C%89%E9%94%AE%E6%8E%A7%E5%88%B6-LED-%E7%81%AF%E5%BC%80%E5%85%B3"><span class="nav-number">2.2.</span> <span class="nav-text">实训：按键控制 LED 灯开关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32-%E7%9A%84%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD%E5%9F%BA%E7%A1%80"><span class="nav-number">3.</span> <span class="nav-text">STM32 的中断系统与外部中断基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E6%89%AB%E7%9B%B2"><span class="nav-number">3.1.</span> <span class="nav-text">名词扫盲</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.2.</span> <span class="nav-text">中断系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD"><span class="nav-number">3.3.</span> <span class="nav-text">外部中断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%AE%AD%EF%BC%9A%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6-LED-%E7%81%AF%E5%BC%80%E5%85%B3"><span class="nav-number">3.4.</span> <span class="nav-text">实训：外部中断信号控制 LED 灯开关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32-%E7%9A%84%E5%AE%9A%E6%97%B6%E5%99%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80"><span class="nav-number">4.</span> <span class="nav-text">STM32 的定时器开发基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%AE%9A%E6%97%B6%E5%99%A8%E8%B5%84%E6%BA%90"><span class="nav-number">4.1.</span> <span class="nav-text">常见定时器资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="nav-number">4.2.</span> <span class="nav-text">通用定时器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32CubeMX-%E4%B8%AD%E5%85%B3%E4%BA%8E-TIM-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">4.3.</span> <span class="nav-text">STM32CubeMX 中关于 TIM 的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%92%9F%E6%A0%91%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86"><span class="nav-number">4.4.</span> <span class="nav-text">时钟树相关知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%AE%AD%EF%BC%9A%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6-LED-%E7%81%AF%E5%BC%80%E5%85%B3-1"><span class="nav-number">4.5.</span> <span class="nav-text">实训：外部中断信号控制 LED 灯开关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32-%E7%9A%84%E4%B8%B2%E5%8F%A3%E6%95%B0%E6%8D%AE%E6%94%B6%E5%8F%91%E5%9F%BA%E7%A1%80"><span class="nav-number">5.</span> <span class="nav-text">STM32 的串口数据收发基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E6%89%AB%E7%9B%B2-1"><span class="nav-number">5.1.</span> <span class="nav-text">名词扫盲</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32CubeMX-%E4%B8%AD%E5%85%B3%E4%BA%8E-USART-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">5.2.</span> <span class="nav-text">STM32CubeMX 中关于 USART 的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HAL-%E5%BA%93%E4%B8%AD%E4%B8%B2%E5%8F%A3%E5%8F%91%E9%80%81%E7%9A%84%E9%87%8D%E8%A6%81%E5%87%BD%E6%95%B0"><span class="nav-number">5.3.</span> <span class="nav-text">HAL 库中串口发送的重要函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HAL-%E5%BA%93%E4%B8%AD%E4%B8%B2%E5%8F%A3%E6%8E%A5%E6%94%B6%E7%9A%84%E9%87%8D%E8%A6%81%E5%87%BD%E6%95%B0"><span class="nav-number">5.4.</span> <span class="nav-text">HAL 库中串口接收的重要函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%AE%AD%EF%BC%9A%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD%E4%BF%A1%E5%8F%B7%E6%8E%A7%E5%88%B6-LED-%E7%81%AF%E5%BC%80%E5%85%B3-2"><span class="nav-number">5.5.</span> <span class="nav-text">实训：外部中断信号控制 LED 灯开关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32-%E7%9A%84%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8E%E4%B8%B2%E5%8F%A3%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83"><span class="nav-number">6.</span> <span class="nav-text">STM32 的定时器与串口综合训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0-sprintf-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">6.1.</span> <span class="nav-text">关于常用函数 sprintf() 的用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%AE%AD%EF%BC%9A%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8E%E4%B8%B2%E5%8F%A3%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83"><span class="nav-number">6.2.</span> <span class="nav-text">实训：定时器与串口综合训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ADC-%E6%A8%A1%E6%95%B0%E8%BD%AC%E6%8D%A2%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">ADC 模数转换器的基本工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="nav-number">7.1.</span> <span class="nav-text">数字系统基本结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Analog-to-Digital-Converter"><span class="nav-number">7.2.</span> <span class="nav-text">Analog-to-Digital Converter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ADC-%E6%95%B0%E6%8D%AE%E9%87%87%E6%A0%B7%E7%9A%84%E8%AE%A1%E7%AE%97%E5%BA%94%E7%94%A8"><span class="nav-number">7.3.</span> <span class="nav-text">ADC 数据采样的计算应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32-%E7%9A%84-ADC-%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80"><span class="nav-number">8.</span> <span class="nav-text">STM32 的 ADC 开发基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STM32CubeMX-%E4%B8%AD%E5%85%B3%E4%BA%8E-ADC-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">8.1.</span> <span class="nav-text">STM32CubeMX 中关于 ADC 的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E4%B8%AD%E6%96%AD%E6%96%B9%E5%BC%8F%E7%9A%84-HAL-%E5%BA%93%E5%87%BD%E6%95%B0%E5%BA%94%E7%94%A8"><span class="nav-number">8.2.</span> <span class="nav-text">查询方式和中断方式的 HAL 库函数应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%AE%AD%EF%BC%9AADC-%E5%8D%95%E6%AC%A1%E6%95%B0%E6%8D%AE%E9%87%87%E6%A0%B7%E4%B8%8E%E7%94%B5%E5%8E%8B%E6%8D%A2%E7%AE%97"><span class="nav-number">8.3.</span> <span class="nav-text">实训：ADC 单次数据采样与电压换算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STM32-%E7%9A%84-OLED-%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80"><span class="nav-number">9.</span> <span class="nav-text">STM32 的 OLED 开发基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OLED-%E6%A6%82%E8%BF%B0"><span class="nav-number">9.1.</span> <span class="nav-text">OLED 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OLED-%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD"><span class="nav-number">9.2.</span> <span class="nav-text">OLED 开发相关资源下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OLED-%E5%BA%95%E5%B1%82%E9%A9%B1%E5%8A%A8%E5%87%BD%E6%95%B0%E7%A7%BB%E6%A4%8D"><span class="nav-number">9.3.</span> <span class="nav-text">OLED 底层驱动函数移植</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OLED-%E9%A9%B1%E5%8A%A8%E5%BA%93%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">9.4.</span> <span class="nav-text">OLED 驱动库中常用的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">10.</span> <span class="nav-text">Reference</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

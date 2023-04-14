@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            把 Ubuntu 22.04 LTS 安装到移动硬盘 |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">把 Ubuntu 22.04 LTS 安装到移动硬盘</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-02-10 09:49:01</span>
+        <span class="mobile">2023-02-10 09:49</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Ubuntu/">Ubuntu</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.4k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
+<li>U 盘：金士顿 64G USB3.2</li>
+<li>移动硬盘：三星 250G SSD 970 EVO Plus</li>
+<li>镜像文件：ubuntu-22.04.1-desktop-amd64.iso（3.56G）</li>
+<li>烧录工具：balenaEtcher-Setup-1.14.3.exe</li>
+</ul>
+<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><ol>
+<li><p>烧录，创建安装介质。插入准备好的 U 盘，选择镜像文件和 U 盘，按提示进行操作。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210095952580.png" alt="image-20230210095952580" style="zoom: 75%;" />
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210100033862.png" alt="image-20230210100033862" style="zoom: 75%;" />
+</li>
+<li><p>关机。分别插入烧录好的 U 盘和准备装系统的移动硬盘。</p>
+</li>
+<li><p>开机。闪过 Logo 时，按 <code>ESC</code> 键，选择带有 Kingston 的选项。（注：本次操作的硬件平台为华硕幻 16 笔记本电脑，<code>ESC</code> 选择启动项，<code>F2</code> 进入 Bios 面板）</p>
+</li>
+<li><p>进入选择是否安装 Ubuntu 界面，按下 <code>e</code> 键，进入编辑开机指令的模式，找到 <strong>quite splash</strong> 字样，在后面加上 <strong>nomodeset</strong> 字样，用于屏蔽独立显卡，以免出现黑屏或死机的情况。 按 <code>Ctrl + X</code> 组合键启动系统。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/2023-02-10_101840.png" alt="2023-02-10_101840" style="zoom: 99%;" />
+</li>
+<li><p>进入 Ubuntu 22.04 安装界面，按照提示操作。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/2023-02-10_102749.png" alt="2023-02-10_102749" style="zoom: 65%;" />
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210103413576.png" alt="image-20230210103413576" style="zoom:72%;" />
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/2023-02-10_103534.png" alt="2023-02-10_103534" style="zoom:74%;" />
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/2023-02-10_103712.png" alt="2023-02-10_103712" style="zoom:76%;" />
+</li>
+<li><p>找到想要安装系统的移动硬盘，将下面的分区全部删掉或新建分区表，得到下图所示的情况。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210104315181.png" alt="image-20230210104315181" style="zoom:75%;" />
+</li>
+<li><p>对空闲的 20G 空间进行操作。点击 <code>+</code> 创建分区。一般情况下，需要一个 <strong>EFI 分区</strong>，用于系统启动的引导，分配 1G 就可以；需要一个<strong>交换空间</strong>，笔记本的内存多大，它分配多大就行；需要一个 <strong>&#x2F; 根目录分区</strong>，分配剩余空间即可。主分区最多只能有 4 个，但一般只分配三个，为了之后好划分逻辑分区。注意最后一步，安装启动引导器的设备，一定要选类型为 efi 的 <code>/dev/sda1</code> 的分区。</p>
+<table>
+<thead>
+<tr>
+<th><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210105232765.png" alt="image-20230210105232765" style="zoom:79%;" /></th>
+<th><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210105726917.png" alt="image-20230210105726917" style="zoom:79%;" /></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210105914815.png" alt="image-20230210105914815" style="zoom:80%;" /></td>
+<td><img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/2023-02-10_110022.png" alt="2023-02-10_110022" style="zoom:80%;" /></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>按照提示依次点击“继续”。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210110429839.png" alt="image-20230210110429839" style="zoom:80%;" />
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210110514098.png" alt="image-20230210110514098" style="zoom:80%;" />
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210110619923.png" alt="image-20230210110619923" style="zoom:82.2%;" />
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210110751357.png" alt="image-20230210110751357" style="zoom:83.8%;" />
+</li>
+<li><p>安装完毕。（注：如果用虚拟机安装，则不需要进行自定义安装，不然无法读取 EFI 分区，进不了系统。本文使用 VMware Workstation 16 Pro 进行演示截图）</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210112324423.png" alt="image-20230210112324423" style="zoom:88.5%;" />
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210135801266.png" alt="image-20230210135801266" style="zoom:94.2%;" /></li>
+</ol>
+<h3 id="新装-Ubuntu-后必做的小事"><a href="#新装-Ubuntu-后必做的小事" class="headerlink" title="新装 Ubuntu 后必做的小事"></a>新装 Ubuntu 后必做的小事</h3><h4 id="查看窗口系统"><a href="#查看窗口系统" class="headerlink" title="查看窗口系统"></a>查看窗口系统</h4><p>窗口系统为 Wayland，22.04 默认开启。注销后可点击右下角的齿轮图标更换成 X11（点击用户名，在输入密码的界面才有小齿轮）。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230211213335730.png" alt="image-20230211213335730" style="zoom:97%;" />
+
+<h4 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h4><p>打开<strong>软件和更新</strong>，选择最佳服务器，进行换源。点击关闭后会自动更新软件缓存。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210115526782.png" alt="image-20230210115526782" style="zoom:75%;" />
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230211212907912.png" alt="image-20230211212907912" style="zoom:91%;" />
+
+<h4 id="命令行更新软件包"><a href="#命令行更新软件包" class="headerlink" title="命令行更新软件包"></a>命令行更新软件包</h4><p>打开<strong>终端</strong>，输入以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade</span><br></pre></td></tr></table></figure>
+
+<p><strong>APT</strong> 介绍：</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230210201646846.png" alt="image-20230210201646846" style="zoom:88%;" />
+
+<h4 id="在-Dock-Click-上启用最小化"><a href="#在-Dock-Click-上启用最小化" class="headerlink" title="在 Dock Click 上启用最小化"></a>在 Dock Click 上启用最小化</h4><p>即单击任务栏应用图标可以最小化界面。默认是关闭的，在命令行窗口中使用以下命令激活：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gsettings <span class="built_in">set</span> org.gnome.shell.extensions.dash-to-dock click-action <span class="string">&#x27;minimize&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="更改主目录文件名为英文"><a href="#更改主目录文件名为英文" class="headerlink" title="更改主目录文件名为英文"></a>更改主目录文件名为英文</h4><p>先更改系统语言为英文，在询问是否将目录转化为英文的窗口中选择同意。然后将系统语言再改回中文，关机重启，在询问是否将目录转化为中文的窗口中选择不同意。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LANG=en_US</span><br><span class="line">xdg-user-dirs-gtk-update</span><br><span class="line">---</span><br><span class="line"><span class="built_in">export</span> LANG=zh_CN</span><br></pre></td></tr></table></figure>
+
+<h4 id="如何更改系统语言"><a href="#如何更改系统语言" class="headerlink" title="如何更改系统语言"></a>如何更改系统语言</h4><p>参考：<a class="link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1747409" >如何使Ubuntu的语言变成中文？？ - 腾讯云开发者社区-腾讯云 (tencent.com)<i class="fas fa-external-link-alt"></i></a></p>
+<p>提示：<strong>拖拽移动</strong>。</p>
+<h4 id="安装-openssh"><a href="#安装-openssh" class="headerlink" title="安装 openssh"></a>安装 openssh</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install openssh-server</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装-Clash"><a href="#安装-Clash" class="headerlink" title="安装 Clash"></a>安装 Clash</h4><p><strong>虚拟机方式</strong>：</p>
+<p>通过 XShell 连接虚拟机，打开 Xftp，将 Clash 安装包传到 Ubuntu。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf file.tar.gz //解压tar.gz</span><br></pre></td></tr></table></figure>
+
+<p><strong>物理机方式</strong></p>
+<p>从官网下载：<a class="link"   target="_blank" rel="noopener" href="https://github.com/Fndroid/clash_for_windows_pkg/releases" >Releases · Fndroid&#x2F;clash_for_windows_pkg (github.com)<i class="fas fa-external-link-alt"></i></a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf file.tar.gz //解压tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>解压后，双击 CFW 文件即可使用。</p>
+<h4 id="安装-Pigcha"><a href="#安装-Pigcha" class="headerlink" title="安装 Pigcha"></a>安装 Pigcha</h4><ol>
+<li><p>官网地址：<a class="link"   target="_blank" rel="noopener" href="https://run.pigcha.com/" >https://run.pigcha.com<i class="fas fa-external-link-alt"></i></a></p>
+</li>
+<li><p>根据提示安装缺失的 fuse2 库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install libfuse2 -y</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压下载的安装包（.zip）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip PigchaClient_deb.zip</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 Pigcha：注意查看文件夹里的文档</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg --add-architecture i386 &amp; sudo dpkg -i PigchaClient.deb</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="安装-Chrome-浏览器"><a href="#安装-Chrome-浏览器" class="headerlink" title="安装 Chrome 浏览器"></a>安装 Chrome 浏览器</h4><ol>
+<li><p>官网下载 &#x2F; 命令行下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 deb 软件包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mv</span> google-chrome-stable_current_amd64.deb /usr/local //第三方软件一般安装到这个目录</span><br><span class="line"><span class="built_in">cd</span> /usr/local</span><br><span class="line">sudo dpkg -i google-chrome-stable_current_amd64.deb</span><br><span class="line">---</span><br><span class="line">//如果提示有依赖库未安装</span><br><span class="line">sudo apt --fix-broken install</span><br><span class="line">sudo dpkg -i google-chrome-stable_current_amd64.deb</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="安装-Zotero"><a href="#安装-Zotero" class="headerlink" title="安装 Zotero"></a>安装 Zotero</h4><ol>
+<li>官网下载 deb 包<br>镜像地质：<a class="link"   target="_blank" rel="noopener" href="https://mirror.mwt.me/zotero/deb/" >https://mirror.mwt.me/zotero/deb/<i class="fas fa-external-link-alt"></i></a></li>
+<li>安装步骤与上述 Chrome 浏览器的一致。可能会提示有依赖库未安装，执行以上命令即可。</li>
+<li></li>
+</ol>
+<h4 id="卸载-Snap"><a href="#卸载-Snap" class="headerlink" title="卸载 Snap"></a>卸载 Snap</h4><p>参考：<a class="link"   target="_blank" rel="noopener" href="https://linux.cn/article-14567-1.html" >技术|怎样在 Ubuntu Linux 中移除 Snap 软件包<i class="fas fa-external-link-alt"></i></a></p>
+<p>注：由于命令过多，可使用 Shell 自动化完成。</p>
+<h4 id="安装新立得"><a href="#安装新立得" class="headerlink" title="安装新立得"></a>安装新立得</h4><p>可以解决有些软件包无法升级的问题。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230212001343316.png" alt="image-20230212001343316" style="zoom:85%;" />
+
+<p>参考：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/bluebird_shao/article/details/125092727" >Ubuntu 软件包管理利器 - 新立得 (Synaptic)_新立得软件包管理器_iBlackAngel的博客-CSDN博客<i class="fas fa-external-link-alt"></i></a></p>
+<h4 id="Shell-编程小知识"><a href="#Shell-编程小知识" class="headerlink" title="Shell 编程小知识"></a>Shell 编程小知识</h4><p>如果使用 Windows 系统中的 Notepad++ 编写，则要转为 Unix 格式，才能在 Linux 中运行。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230212001955481.png" alt="image-20230212001955481" style="zoom:66%;" />
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">命令1</span><br><span class="line">命令2</span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./filename.sh</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装-Ubuntu-restricted-extras-包：编码器、微软字体"><a href="#安装-Ubuntu-restricted-extras-包：编码器、微软字体" class="headerlink" title="安装 Ubuntu-restricted-extras 包：编码器、微软字体"></a>安装 Ubuntu-restricted-extras 包：编码器、微软字体</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ubuntu-restricted-extras </span><br></pre></td></tr></table></figure>
+
+<p>在安装过程中，使用 Tab 来选择 OK，并按 Enter。</p>
+<p>参考：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/xiaochong0302/article/details/127038865" >安装完 Ubuntu 22.04 后推荐做的11件事情_ubuntu22.04安装后_鸠摩智首席音效师的博客-CSDN博客<i class="fas fa-external-link-alt"></i></a></p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230212013113767.png" alt="image-20230212013113767" style="zoom:52%;" />
+
+<h4 id="安装-GNOME-tweaks"><a href="#安装-GNOME-tweaks" class="headerlink" title="安装 GNOME tweaks"></a>安装 GNOME tweaks</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gnome-tweaks -y</span><br></pre></td></tr></table></figure>
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230212013314231.png" alt="image-20230212013314231" style="zoom:63%;" />
+
+<h4 id="安装-open-vm-tools"><a href="#安装-open-vm-tools" class="headerlink" title="安装 open-vm-tools"></a>安装 open-vm-tools</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install open-vm-tools</span><br><span class="line">sudo apt install open-vm-tools-desktop</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<p>open-vm-tools：这个装上之后虚机就有了显示驱动，屏幕可以自适应大小</p>
+<p>open-vm-tools-desktop：作用主要是主机和虚拟机之间的复制粘贴（共享粘贴板，大文件不行）。</p>
+<p>参考：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41571459/article/details/114630738" >安装Vmware Tools和open-vm-tools_强钦钦的博客-CSDN博客_open-vm-tools<i class="fas fa-external-link-alt"></i></a></p>
+<h4 id="安装-Gnome-扩展管理器"><a href="#安装-Gnome-扩展管理器" class="headerlink" title="安装 Gnome 扩展管理器"></a>安装 Gnome 扩展管理器</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gnome-shell-extension-manager -y</span><br></pre></td></tr></table></figure>
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230212014938534.png" alt="image-20230212014938534" style="zoom:65%;" />
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">把 Ubuntu 22.04 LTS 安装到移动硬盘</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-02-10 09:49:01</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/02/10/026-把-Ubuntu-22.04-LTS-安装到移动硬盘/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Ubuntu/">#Ubuntu</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Linux/">#Linux</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/02/19/027-%E6%88%90%E4%B8%BA%E5%B0%8A%E8%B4%B5%E7%9A%84-ChatGPT-Plus-%E7%94%A8%E6%88%B7/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">成为尊贵的 ChatGPT Plus 用户</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/01/29/025-Git-Bash-%E7%9A%84%E5%AD%97%E4%BD%93%E8%83%8C%E6%99%AF%E5%92%8C%E9%A2%9C%E8%89%B2%E6%98%BE%E7%A4%BA/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Git Bash 的字体背景和颜色显示</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">安装步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E8%A3%85-Ubuntu-%E5%90%8E%E5%BF%85%E5%81%9A%E7%9A%84%E5%B0%8F%E4%BA%8B"><span class="nav-number">3.</span> <span class="nav-text">新装 Ubuntu 后必做的小事</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%AA%97%E5%8F%A3%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.1.</span> <span class="nav-text">查看窗口系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8D%A2%E6%BA%90"><span class="nav-number">3.2.</span> <span class="nav-text">换源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%9B%B4%E6%96%B0%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-number">3.3.</span> <span class="nav-text">命令行更新软件包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8-Dock-Click-%E4%B8%8A%E5%90%AF%E7%94%A8%E6%9C%80%E5%B0%8F%E5%8C%96"><span class="nav-number">3.4.</span> <span class="nav-text">在 Dock Click 上启用最小化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E4%B8%BB%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6%E5%90%8D%E4%B8%BA%E8%8B%B1%E6%96%87"><span class="nav-number">3.5.</span> <span class="nav-text">更改主目录文件名为英文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9B%B4%E6%94%B9%E7%B3%BB%E7%BB%9F%E8%AF%AD%E8%A8%80"><span class="nav-number">3.6.</span> <span class="nav-text">如何更改系统语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-openssh"><span class="nav-number">3.7.</span> <span class="nav-text">安装 openssh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Clash"><span class="nav-number">3.8.</span> <span class="nav-text">安装 Clash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Pigcha"><span class="nav-number">3.9.</span> <span class="nav-text">安装 Pigcha</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Chrome-%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="nav-number">3.10.</span> <span class="nav-text">安装 Chrome 浏览器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Zotero"><span class="nav-number">3.11.</span> <span class="nav-text">安装 Zotero</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD-Snap"><span class="nav-number">3.12.</span> <span class="nav-text">卸载 Snap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%96%B0%E7%AB%8B%E5%BE%97"><span class="nav-number">3.13.</span> <span class="nav-text">安装新立得</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shell-%E7%BC%96%E7%A8%8B%E5%B0%8F%E7%9F%A5%E8%AF%86"><span class="nav-number">3.14.</span> <span class="nav-text">Shell 编程小知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Ubuntu-restricted-extras-%E5%8C%85%EF%BC%9A%E7%BC%96%E7%A0%81%E5%99%A8%E3%80%81%E5%BE%AE%E8%BD%AF%E5%AD%97%E4%BD%93"><span class="nav-number">3.15.</span> <span class="nav-text">安装 Ubuntu-restricted-extras 包：编码器、微软字体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-GNOME-tweaks"><span class="nav-number">3.16.</span> <span class="nav-text">安装 GNOME tweaks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-open-vm-tools"><span class="nav-number">3.17.</span> <span class="nav-text">安装 open-vm-tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Gnome-%E6%89%A9%E5%B1%95%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number">3.18.</span> <span class="nav-text">安装 Gnome 扩展管理器</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

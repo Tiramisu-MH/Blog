@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            STM32 HAL 库实现串口通信 |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">STM32 HAL 库实现串口通信</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-04-10 10:59:03</span>
+        <span class="mobile">2023-04-10 10:59</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/STM32/">STM32</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/TIM/">TIM</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/USART/">USART</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>3.5k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h3 id="引脚定义"><a href="#引脚定义" class="headerlink" title="引脚定义"></a>引脚定义</h3><p>在 STM32F429IGT6 这块开发板中：</p>
+<ul>
+<li>USART1_TX 与 PA9 复用，USART1_RX 与 PA10 复用。</li>
+<li>USART2_TX 与 PA2 复用，USART2_RX 与 PA3 复用。</li>
+<li>USART3_TX 与 PB10 复用，USART3_RX 与 PB11 复用。</li>
+</ul>
+<h3 id="HAL-库串口发送重要函数"><a href="#HAL-库串口发送重要函数" class="headerlink" title="HAL 库串口发送重要函数"></a>HAL 库串口发送重要函数</h3><ul>
+<li><p><strong>阻塞式发送函数</strong>（<em>新手推荐使用</em>）</p>
+<p>阻塞式发送函数是指在向设备发送数据时，函数会一直阻塞（即一直等待）直到数据发送完毕后才返回。在这种发送方式下，发送函数会一直等待直到发送缓冲区中的数据全部被发送出去，才会返回函数执行结果。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Transmit</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *pData, <span class="type">uint16_t</span> Size, <span class="type">unit32_t</span> Timeout)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 参数解释 */</span></span><br><span class="line">句柄（哪个外设），指针，数据长度，超时时间</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>非阻塞式发送函数</strong>（<em>不推荐使用</em>）</p>
+<p>非阻塞式发送函数是指在向设备发送数据时，不会一直等待数据全部发送完毕后才返回，而是在发送数据时，将数据放入发送缓冲区中，然后立即返回函数执行结果，继续执行后续代码。这种方式下，发送函数不会阻塞当前线程或任务，可以提高系统的实时性和响应能力。但是，需要在发送函数中添加相应的错误处理机制，以避免因为发送过程中出现错误导致数据未发送完成的问题。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Transmit_IT</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *pData, <span class="type">uint16_t</span> Size)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 可以看到这个函数里面多了 IT（interrupt 中断），且没有了 Timeout（超时）参数 */</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>发送完毕中断回调函数</strong></p>
+<p>发送完毕中断回调函数指的是当使用 UART 或者其他通信方式向外部设备发送数据时，当数据全部发送完毕后，会产生一个发送完成中断（或称为发送完毕中断）。这个中断是外部设备向处理器发送的一种通知，用于告诉处理器数据已经全部发送完成，可以进行其他操作了。当发送完成中断触发时，可以通过调用对应的中断回调函数来处理这个中断事件。中断回调函数是在中断服务程序之后执行的一种特殊函数，它负责处理中断服务程序中未处理完的任务。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_TxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_TxHalfCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="举个🌰1"><a href="#举个🌰1" class="headerlink" title="举个🌰1"></a>举个🌰1</h4><p><strong>要求</strong>：使用（非）阻塞式的串口发送函数，将发送缓存数组 dat_Txd 中的前 5 个数据发送到 USART1，在数据发送完成后，翻转 PB1（LED0）引脚的输出电平。</p>
+<p><strong>代码</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 使用非阻塞式串口 1 发送函数 */</span></span><br><span class="line">HAL_UART_Transmit_IT(&amp;huart1, dat_Txd, <span class="number">5</span>); <span class="comment">//因为 dat_Txd 是数组，前面不用加 &amp;（取地址符号）</span></span><br><span class="line"><span class="comment">/* 发送完成后，使用中断回调函数来控制 LED0 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_TxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(huart-&gt;Instance == USART1)</span><br><span class="line">    &#123;</span><br><span class="line">        HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">---------------------------------------------------------</span><br><span class="line"><span class="comment">/* 使用阻塞式串口 1 发送函数 */</span></span><br><span class="line">HAL_UART_Transmit(&amp;huart1, dat_Txd, <span class="number">5</span>, <span class="number">10000</span>);</span><br><span class="line"><span class="comment">/* 发送完成后，直接使用 Toggle 控制 LED0 */</span></span><br><span class="line">HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1);</span><br></pre></td></tr></table></figure>
+
+<h3 id="HAL-库串口接收重要函数"><a href="#HAL-库串口接收重要函数" class="headerlink" title="HAL 库串口接收重要函数"></a>HAL 库串口接收重要函数</h3><ul>
+<li><p><strong>阻塞式接收函数</strong>（<em>不推荐使用</em>）</p>
+<p>阻塞式接收函数是指在从设备接收数据时，函数会一直阻塞（即一直等待）直到接收到完整的数据后才返回。在这种接收方式下，接收函数会一直等待直到接收缓冲区中的数据长度达到预定长度，或者接收超时时间到达后才返回函数执行结果。如果接收数据长度过短或者接收速率过慢，会导致阻塞时间较长，从而影响系统的实时性和响应性能。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Receive</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *pData, <span class="type">uint16_t</span> Size, <span class="type">unit32_t</span> Timeout)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 参数解释 */</span></span><br><span class="line">句柄（哪个外设），指针，数据长度，超时时间</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>非阻塞式接收函数</strong>（<em>推荐使用</em>）</p>
+<p>非阻塞式接收函数是指在从设备接收数据时，不会一直等待数据接收完成后才返回，而是在接收数据时，将接收到的数据存入接收缓冲区中，然后立即返回函数执行结果，继续执行后续代码。这种方式下，接收函数不会阻塞当前线程或任务，可以提高系统的实时性和响应能力。但是，需要在接收函数中添加相应的错误处理机制，以避免因为接收过程中出现错误导致数据未接收完成的问题。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HAL_StatusTypeDef <span class="title function_">HAL_UART_Receive_IT</span><span class="params">(UART_HandleTypeDef *huart, <span class="type">uint8_t</span> *pData, <span class="type">uint16_t</span> Size)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 可以看到这个函数里面多了 IT（interrupt 中断），且没有了 Timeout（超时）参数 */</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>接收完毕中断回调函数</strong></p>
+<p>接收完毕中断回调函数指的是当使用UART或者其他通信方式接收到完整的数据后，会产生一个接收完成中断（或称为接收完毕中断）。这个中断是外部设备向处理器发送的一种通知，用于告诉处理器数据已经接收完成，可以进行其他操作了。当接收完成中断触发时，可以通过调用对应的中断回调函数来处理这个中断事件。中断回调函数是在中断服务程序之后执行的一种特殊函数，它负责处理中断服务程序中未处理完的任务。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_RxHalfCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="举个🌰2"><a href="#举个🌰2" class="headerlink" title="举个🌰2"></a>举个🌰2</h4><p><strong>要求</strong>：使用非阻塞式的串口接收函数，接收USART1中的一个字节，将其保存在 dat_Rxd 变量中，在数据发送完成后，若该字节为 0x5A，则翻转 PB0（LED1） 引脚的输出电平。</p>
+<p><strong>代码</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 使用非阻塞式串口 1 发送函数 */</span></span><br><span class="line">HAL_UART_Receive_IT(&amp;huart1, &amp;dat_Rxd, <span class="number">1</span>);<span class="comment">//因为 dat_Rxd 是地址，前面需要加 &amp;（取地址符号）</span></span><br><span class="line"><span class="comment">/* 接收完成后，使用中断回调函数来控制 LED1 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span>;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(huart-&gt;Instance == USART1)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(dat_Rxd == <span class="number">0x5A</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="例程-1：通过串口通信开关灯"><a href="#例程-1：通过串口通信开关灯" class="headerlink" title="例程 1：通过串口通信开关灯"></a>例程 1：通过串口通信开关灯</h3><p><strong>要求</strong>：在 STM32F429IGT6 中进行 STM32 应用开发，完成以下功能。</p>
+<ul>
+<li>开机后，向串口 1 发送”Hello World!”。</li>
+<li>串口 1 收到字节指令”0xA1”，打开 LED0（PB1），发送”LED0 Opened!”。</li>
+<li>串口 1 收到字节指令”0xA2”，关闭 LED0（PB0），发送”LED0 Closed!”。</li>
+<li>在串口发送过程中，打开 LED1 作为发送数据指示灯。</li>
+</ul>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li>打开 STM32CubeMX 软件，按照 <code>STM32CubeMX 通用配置</code><sup>[1]</sup>配置完成后。将 PB0、PB1 引脚分别设置为 <code>GPIO_Out</code>。接着配置 USART1 的模式、参数及使能中断，如图所示：</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230410152306321.png" alt="image-20230410152306321" style="zoom:80%;" />
+
+<center>图 4.1 串口 USART1 配置</center>
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230410152508181.png" alt="image-20230410152508181" style="zoom:80%;" />
+
+<center>图 4.2 使能 USART1 中断</center>
+
+<ol start="2">
+<li><p>进行 <code>STM32CubeMX 通用配置</code> <sup>[1]</sup>的第 5 步：生成代码。</p>
+</li>
+<li><p>打开工程文件。按照 <code>Keil5 MDK 通用配置</code> <sup>[1]</sup>完成后开始编写代码。</p>
+<blockquote>
+<p>打开 <code>usart1.c</code> 文件，可以看到 huart1 的配置。</p>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230410153414008.png" alt="image-20230410153414008"  />
+
+<center>图 4.3 USART1 的代码初始化</center>
+</blockquote>
+<p>打开 <code>main.c</code> 文件。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数外↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 宏定义 LED0、LED1 亮灭 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 首先定义了无符号 8 位整数型（unsigned 8-bit integer）数组的语句，常用于表示一串 ASCII 字符。其中，Tx_str1 是数组的名称，方括号中没有指定数组长度，因此该数组长度将根据初始化时赋值的元素个数进行确定 */</span></span><br><span class="line"><span class="type">uint8_t</span> Tx_str1[] = <span class="string">&quot;Hello World!\r\n&quot;</span>; <span class="comment">// \r：回车，\n：换行</span></span><br><span class="line"><span class="type">uint8_t</span> Tx_str2[] = <span class="string">&quot;LED1 Opened!\r\n&quot;</span>;</span><br><span class="line"><span class="type">uint8_t</span> Tx_str3[] = <span class="string">&quot;LED1 Closed!\r\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 定义了一个无符号8位整数型（unsigned 8-bit integer）变量,通常用于存储通过UART接收到的单个字节数据，每次接收完成后将数据存储到该变量中 */</span></span><br><span class="line"><span class="type">uint8_t</span> Rx_dat = <span class="number">0</span>;</span><br><span class="line"><span class="comment">/* 中断回调函数, 在这里面实现接收到指令后的功能*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(huart-&gt;Instance == USART1)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(Rx_dat == <span class="number">0xa1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			LED0_ON();</span><br><span class="line">			</span><br><span class="line">            <span class="comment">/* LED1 作为指示灯，先设置高电平灭掉，然后发送数据，再点亮 */</span></span><br><span class="line">			LED1_OFF();</span><br><span class="line">			HAL_Delay(<span class="number">200</span>);</span><br><span class="line">			HAL_UART_Transmit(&amp;huart1, Tx_str2, <span class="keyword">sizeof</span>(Tx_str2), <span class="number">10000</span>);</span><br><span class="line">			HAL_Delay(<span class="number">200</span>);</span><br><span class="line">			LED1_ON();</span><br><span class="line">			</span><br><span class="line">			HAL_UART_Receive_IT(&amp;huart1, &amp;Rx_dat, <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(Rx_dat == <span class="number">0xa2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			LED0_OFF();</span><br><span class="line">			</span><br><span class="line">            <span class="comment">/* LED1 作为指示灯，先设置高电平灭掉，然后发送数据，再点亮 */</span></span><br><span class="line">			LED1_OFF();</span><br><span class="line">			HAL_Delay(<span class="number">200</span>);</span><br><span class="line">			HAL_UART_Transmit(&amp;huart1, Tx_str3, <span class="keyword">sizeof</span>(Tx_str3), <span class="number">10000</span>);</span><br><span class="line">			HAL_Delay(<span class="number">200</span>);</span><br><span class="line">			LED1_ON();</span><br><span class="line">			</span><br><span class="line">			HAL_UART_Receive_IT(&amp;huart1, &amp;Rx_dat, <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line"></span><br><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数内↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 功能 1：开机后向串口 1 发送 “Hello World!” */</span></span><br><span class="line"><span class="comment">/* LED1 作为指示灯，先设置高电平灭掉，然后发送数据，再点亮 */</span></span><br><span class="line">LED1_OFF();</span><br><span class="line">HAL_Delay(<span class="number">200</span>); <span class="comment">//加入延时函数，以便肉眼观察得到</span></span><br><span class="line">HAL_UART_Transmit(&amp;huart1, Tx_str1, <span class="keyword">sizeof</span>(Tx_str1), <span class="number">10000</span>);</span><br><span class="line">HAL_Delay(<span class="number">200</span>); <span class="comment">//加入延时函数，以便肉眼观察得到</span></span><br><span class="line">LED1_ON();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 功能 2、3：接收串口发来的数据” */</span></span><br><span class="line"><span class="comment">/* &amp;huart1 表示指向 UART1 外设的指针，&amp;Rx_dat 表示指向存储接收数据的缓冲区的指针， 1 表示要接收的数据长度 */</span></span><br><span class="line">HAL_UART_Receive_IT(&amp;huart1, &amp;Rx_dat, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 2 */</span>  </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><em>串口调试助手操作要点</em></p>
+<ol>
+<li>MicroUSB 接口要接到板子的左下角第二个口，写着 USB_232。才会显示 <code>COM4：USB-SERIAL</code>。<code>COM3</code> 不能用于串口调试。</li>
+<li>波特率要和 CubeMX 中设置的一致。</li>
+<li>在发送框中输入程序中所写的字符串，然后选择 <code>16 进制发送</code>。</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230410181007350.png" alt="image-20230410181007350" style="zoom:75%;" />
+
+<center>图 4.4 功能实现</center>
+
+<h3 id="例程-2：定时器与串口综合训练"><a href="#例程-2：定时器与串口综合训练" class="headerlink" title="例程 2：定时器与串口综合训练"></a>例程 2：定时器与串口综合训练</h3><p><strong>要求</strong>：在 STM32F429IGT6 中进行 STM32 应用开发，完成以下的功能。</p>
+<ol>
+<li><p>开机后，LED0 与 LED1 依次点亮，然后熄灭，进行灯光检测。</p>
+</li>
+<li><p>系统通过串口 1 向上位机发送一个字符串”STM32F429 欢迎您！”。</p>
+</li>
+<li><p>LED0 作为一个秒闪灯，系统向上位机发送完字符串后，开始亮 0.5 秒，灭 0.5 秒……循环闪烁，并开始启动系统运行时间的记录，其时分秒格式为”XX:XX:XX”。</p>
+</li>
+<li><p>上位机通过一个由 3 个字节组成的命令帧控制 LED1 灯的开关。该命令帧的格式为”0xBF 控制字 OxFB”。0xBF 为帧头，0xFB 为帧尾，控制字的定义如下：</p>
+<p>0xA1：打开 LED1，返回信息”XX:XX:XX LED1 打开”。</p>
+<p>0xA2：关闭 LED1，返回信息”XX:XX:XX LED1 关闭”。</p>
+<p>其他：返回信息”XX:XX:XX 这是一个错误指令!”。</p>
+</li>
+</ol>
+<p><strong>步骤</strong>：</p>
+<ol>
+<li>打开 STM32CubeMX 软件，按照 <code>STM32CubeMX 通用配置</code><sup>[1]</sup>配置完成后。将 PB0、PB1 引脚分别设置为 <code>GPIO_Out</code>。接着配置定时器 TIM2、串口 USART1，最后中断使能，如图所示：</li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230410224921634.png" alt="image-20230410224921634" style="zoom: 67%;" />
+
+<center>图 5.1 LED 灯引脚设置</center>
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230410224315250.png" alt="image-20230410224315250" style="zoom:80%;" />
+
+<center>图 5.2 定时器 TIM2 配置</center>
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230410224531718.png" alt="image-20230410224531718" style="zoom:80%;" />
+
+<center>图 5.3 串口 USART1 配置</center>
+
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230410224713093.png" alt="image-20230410224713093" style="zoom:80%;" />
+
+<center>图 5.4 中断使能</center>
+
+<ol start="2">
+<li><p>进行 <code>STM32CubeMX 通用配置</code> <sup>[1]</sup>的第 5 步：生成代码。</p>
+</li>
+<li><p>打开工程文件。按照 <code>Keil5 MDK 通用配置</code> <sup>[1]</sup>完成后开始编写代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数外↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN Includes */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br><span class="line"><span class="comment">/* USER CODE END Includes */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE BEGIN 0 */</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/* 第一步：宏定义 LED 灯，方便后续代码易读 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_RESET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, GPIO_PIN_SET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_ON() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_OFF() HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED0_TOG() HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED1_TOG() HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0)</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">/* 第二步：定义所要用到的字符串 */</span></span><br><span class="line"><span class="type">uint8_t</span> str1[] = <span class="string">&quot;= = = = = = = Welcome to Xiaoma&#x27;s codes = = = = = = =\r\n&quot;</span>; <span class="comment">//开机显示</span></span><br><span class="line"><span class="type">uint8_t</span> hh = <span class="number">0</span>, mm = <span class="number">0</span>, ss = <span class="number">0</span>, ss05 = <span class="number">0</span>; <span class="comment">//定义时分秒，以及 0.5s</span></span><br><span class="line"><span class="type">uint8_t</span> str_buff[<span class="number">64</span>]; <span class="comment">//定义一个字符串的缓冲数组，64 个字节</span></span><br><span class="line"><span class="type">uint8_t</span> Rx_dat[<span class="number">16</span>]; <span class="comment">//定义一个串口接收的数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第三步-1：功能函数：灯光检测 */</span></span><br><span class="line"><span class="comment">/* 跑马灯，LED0、LED1 轮流灭亮 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Check_LED</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	HAL_Delay(<span class="number">1000</span>);</span><br><span class="line">	</span><br><span class="line">	LED0_OFF();</span><br><span class="line">	HAL_Delay(<span class="number">500</span>);</span><br><span class="line">	LED1_OFF();</span><br><span class="line">	HAL_Delay(<span class="number">500</span>);</span><br><span class="line">	</span><br><span class="line">	LED0_ON();</span><br><span class="line">	HAL_Delay(<span class="number">500</span>);</span><br><span class="line">	LED1_ON();</span><br><span class="line">	HAL_Delay(<span class="number">500</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第五步-2：重写定时器 TIM2 的中断回调函数，使 LED0 按 0.5s 间隔闪烁，0.5 是在 CubeMX 中设置好的 500ms 产生一次中断 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_TIM_PeriodElapsedCallback</span><span class="params">(TIM_HandleTypeDef *htim)</span></span><br><span class="line">&#123;</span><br><span class="line">	LED0_TOG();</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/* 把时间变化记录到字符串时分秒中 */</span></span><br><span class="line">    <span class="comment">/* 逻辑：当记录两次 ss05，则 ss05 清零，记录 1s；当记录 60 次 ss，则 ss 清零，记录 1min；当记录 60 次 1min，则 mm 清零，记录 1h。依此循环*/</span></span><br><span class="line">	ss05++;</span><br><span class="line">	<span class="keyword">if</span>(ss05 == <span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ss05 = <span class="number">0</span>;</span><br><span class="line">		ss++;</span><br><span class="line">		<span class="keyword">if</span>(ss == <span class="number">60</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			ss = <span class="number">0</span>;</span><br><span class="line">			mm++;</span><br><span class="line">			<span class="keyword">if</span>(mm == <span class="number">60</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				mm = <span class="number">0</span>;</span><br><span class="line">				hh++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第六步-2：重写非阻塞式接收字符串的中断回调函数 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HAL_UART_RxCpltCallback</span><span class="params">(UART_HandleTypeDef *huart)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* 判断串口是否为 USART1 */</span></span><br><span class="line">	<span class="keyword">if</span>(huart-&gt;Instance == USART1)</span><br><span class="line">	&#123;</span><br><span class="line">        <span class="comment">/* 判断第一个字符是否为 BF 并且第三个字符是否为 FB */</span></span><br><span class="line">		<span class="keyword">if</span>(Rx_dat[<span class="number">0</span>] == <span class="number">0xBF</span> &amp;&amp; Rx_dat[<span class="number">2</span>] == <span class="number">0xFB</span>)</span><br><span class="line">		&#123;</span><br><span class="line">            <span class="comment">/* 使用 switch：case/break 来判断第二个字符是什么，共有三组判断 */</span></span><br><span class="line">            <span class="comment">/* 此处也可以使用 if/else 来判断，但使用 switch 使代码更整洁 */</span></span><br><span class="line">			<span class="keyword">switch</span>(Rx_dat[<span class="number">1</span>])</span><br><span class="line">			&#123;</span><br><span class="line">                <span class="comment">/* 接收到 a1 时，则 LED1 关闭 */</span></span><br><span class="line">				<span class="keyword">case</span> <span class="number">0xa1</span>:</span><br><span class="line">					LED1_OFF();</span><br><span class="line">                    <span class="comment">/* 要想使用 sprintf() 函数，需引入头文件 #include &quot;stdio.h&quot; */</span></span><br><span class="line">                    <span class="comment">/* %d 是占位符，在双引号的后面写对应的参数 */</span></span><br><span class="line">                    <span class="comment">/* 开头定义 str_buff 为无符号 8 位整型（uint8_t)，此处使用 (char *) 转化为字符型指针，因为 sprintf() 函数需要的参数是字符型指针*/</span></span><br><span class="line">					<span class="built_in">sprintf</span>((<span class="type">char</span> *)str_buff, <span class="string">&quot;%d:%d:%d    LED1 关闭!\r\n&quot;</span>, hh, mm, ss);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">				</span><br><span class="line">                <span class="comment">/* 接收到 a1 时，则 LED1 关闭 */</span></span><br><span class="line">				<span class="keyword">case</span> <span class="number">0xa2</span>:</span><br><span class="line">					LED1_ON();</span><br><span class="line">					<span class="built_in">sprintf</span>((<span class="type">char</span> *)str_buff, <span class="string">&quot;%d:%d:%d    LED2 打开!\r\n&quot;</span>, hh, mm, ss);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">default</span>:</span><br><span class="line">					<span class="built_in">sprintf</span>((<span class="type">char</span> *)str_buff, <span class="string">&quot;%d:%d:%d    这是一个错误的命令!\r\n&quot;</span>, hh, mm, ss);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">            <span class="comment">/* 向串口发送缓冲区 str_buff 字符串 */</span></span><br><span class="line">			HAL_UART_Transmit(&amp;huart1, str_buff, <span class="keyword">sizeof</span>(str_buff), <span class="number">10000</span>);</span><br><span class="line">            <span class="comment">/* 补一个接收中断函数，因为还要继续接收串口调试助手发来的字符串，同例程 1*/</span></span><br><span class="line">			HAL_UART_Receive_IT(&amp;huart1, Rx_dat, <span class="number">3</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 0 */</span></span><br><span class="line"></span><br><span class="line">-----------------------</span><br><span class="line">↓↓↓注：main() 函数外↓↓↓</span><br><span class="line">----------------------- </span><br><span class="line"><span class="comment">/* USER CODE BEGIN 2 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第三步-2：灯光检测功能运行 */</span></span><br><span class="line">Check_LED();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第四步：发送 str1 到串口调试助手*/</span></span><br><span class="line">HAL_UART_Transmit(&amp;huart1, str1, <span class="keyword">sizeof</span>(str1), <span class="number">10000</span>); <span class="comment">//阻塞式发送</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第五步-1：启动定时器 TIM2 中断 */</span></span><br><span class="line"><span class="comment">/* 此函数在 main.c 关联的 stm32f4xx_hal_tim.h 文件的最下面可以找到 */</span></span><br><span class="line">HAL_TIM_Base_Start_IT(&amp;htim2);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 第六步-1：采用非阻塞式接收字符串 */</span></span><br><span class="line"><span class="comment">/* 接收到的字节放到 Rx_dat，当接收到完整的三个字节后，进入串口接收完成中断，然后调用它的回调函数 */</span></span><br><span class="line">HAL_UART_Receive_IT(&amp;huart1, Rx_dat, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* USER CODE END 2 */</span>   </span><br></pre></td></tr></table></figure></li>
+</ol>
+<img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/image-20230411000329095.png" alt="image-20230411000329095" style="zoom:75%;" />
+
+<center>图 5.5 串口调试助手功能实现</center>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>[1] <a class="link"   target="_blank" rel="noopener" href="https://storybeginswhen.icu/2023/04/04/054-%E6%88%90%E4%B8%BA%E7%82%B9%E7%81%AF%E5%A4%A7%E5%B8%88-LED-Master/" >成为点灯大师 LED Master | Story Begins……<i class="fas fa-external-link-alt"></i></a></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">STM32 HAL 库实现串口通信</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-04-10 10:59:03</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/04/10/056-STM32-HAL-库实现串口通信/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/TIM/">#TIM</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/USART/">#USART</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/04/11/057-STM32-HAL-%E5%BA%93%E5%AE%9E%E7%8E%B0-ADC-%E9%87%87%E6%A0%B7/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">STM32 HAL 库实现 ADC 采样</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/04/07/055-PWM-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">PWM 从入门到入土</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%84%9A%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">引脚定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HAL-%E5%BA%93%E4%B8%B2%E5%8F%A3%E5%8F%91%E9%80%81%E9%87%8D%E8%A6%81%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">HAL 库串口发送重要函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BE%E4%B8%AA%F0%9F%8C%B01"><span class="nav-number">2.1.</span> <span class="nav-text">举个🌰1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HAL-%E5%BA%93%E4%B8%B2%E5%8F%A3%E6%8E%A5%E6%94%B6%E9%87%8D%E8%A6%81%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">HAL 库串口接收重要函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BE%E4%B8%AA%F0%9F%8C%B02"><span class="nav-number">3.1.</span> <span class="nav-text">举个🌰2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E7%A8%8B-1%EF%BC%9A%E9%80%9A%E8%BF%87%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%BC%80%E5%85%B3%E7%81%AF"><span class="nav-number">4.</span> <span class="nav-text">例程 1：通过串口通信开关灯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E7%A8%8B-2%EF%BC%9A%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%8E%E4%B8%B2%E5%8F%A3%E7%BB%BC%E5%90%88%E8%AE%AD%E7%BB%83"><span class="nav-number">5.</span> <span class="nav-text">例程 2：定时器与串口综合训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

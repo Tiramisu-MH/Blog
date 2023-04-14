@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="XiaoMa">
+    
+    <title>
+        
+            单片机名词解释 |
+        
+        Story Begins……
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066cc","logo":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","favicon":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png","avatar":"https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"Less than Zero || Do not Go Gentle into that Good Night","font_color":null,"hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":false,"use":"waline","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":false,"custom_label_list":["博士生"]},"word_count":{"enable":true,"wordcount":true,"min2read":false},"img_align":"center","copyright_info":true},"version":"3.6.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               Story Begins……
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">单片机名词解释</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="https://storybeginswhenicu.oss-cn-hangzhou.aliyuncs.com/img/avatar.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">XiaoMa</span>
+                            
+                                <span class="author-label">博士生</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-03-23 20:35:48</span>
+        <span class="mobile">2023-03-23 20:35</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-04-14 04:13:23</span>
+    </span>
+    
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/STM32/">STM32</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A/">名词解释</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>5k 字</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h3 id="引脚英文缩写解释"><a href="#引脚英文缩写解释" class="headerlink" title="引脚英文缩写解释"></a>引脚英文缩写解释</h3><h4 id="GND"><a href="#GND" class="headerlink" title="GND"></a>GND</h4><p>GND 是 Ground 的缩写，通常翻译为“地”或“接地”，是电路中的一个重要概念。在电路中，GND 通常指代电路的零电位或参考电位，它是一个共同的参考点，用于给电路中的各个部分提供一个共同的电位基准。</p>
+<p>在单片机中，GND 通常是微控制器芯片的引脚之一，用于连接到电路板的地线。在连接外设和其他电路元件时，通常需要将这些元件的 GND 连接到微控制器芯片的 GND 引脚上，以确保整个电路的电势参考是相同的，从而保证电路正常运行。</p>
+<h4 id="5V-amp-3-3V"><a href="#5V-amp-3-3V" class="headerlink" title="5V &amp; 3.3V"></a>5V &amp; 3.3V</h4><p>5V 和 3.3V 是单片机常用的两种电压。它们分别代表着 5 伏特和 3.3 伏特的电压水平。在单片机中，这些电压通常用于给微控制器芯片和其他电路元件提供电源电压。</p>
+<p>5V 通常是较高的电压，可以提供更大的电流和更高的功率，适合驱动需要较大功率的元件，如大型电机、继电器、LED 灯等。在单片机中，5V 通常是由外部电源提供的，比如 AC 电源经过整流、滤波、稳压等步骤得到的直流电源。</p>
+<p>而 3.3V 则是较低的电压，通常用于驱动数字电路、存储器、传感器等低功率元件。相较于 5V，3.3V 可以降低功耗，减少电路中元件的发热和寿命损耗。在单片机中，3.3V 通常是由内部稳压器产生的，通过对 5V 电压进行稳压而得到的。</p>
+<p>需要注意的是，单片机中的 5V 和 3.3V 电源引脚的电流输出能力是有限的，不能超过其规定的最大值，否则会造成电路故障或烧毁元件。因此，在设计电路时需要根据实际需求和元件的规格选择适当的电源电压。</p>
+<h4 id="RXD-amp-TXD"><a href="#RXD-amp-TXD" class="headerlink" title="RXD &amp; TXD"></a>RXD &amp; TXD</h4><p>RXD 和 TXD 分别是串行通信中的接收器数据线和传输器数据线，它们通常是单片机芯片上的引脚之一。在串行通信中，TXD 用于发送数据位序列，RXD 用于接收数据位序列。</p>
+<p>当一个设备向另一个设备发送数据时，发送器将数据位序列传输到 TXD 引脚，然后将这些数据位序列转换成一个数据帧，该数据帧包含用于标识和检测数据的同步和校验位。接收器通过 RXD 引脚接收数据帧，并根据同步和校验位确定是否正确接收了数据。如果接收器成功接收了数据，则可以将这些数据用于后续操作。</p>
+<p>在单片机系统中，TXD 和 RXD 引脚通常用于与外部设备进行串行通信，例如与传感器、显示屏、GPS 接收器等设备进行通信。单片机可以使用内置串行通信模块或外部串行通信芯片来实现与这些设备的通信。</p>
+<p>需要注意的是，不同的串行通信协议（如 UART、SPI、I2C 等）具有不同的数据传输方式和电信号特性，因此需要根据实际情况来选择正确的串行通信协议和接口引脚。</p>
+<h4 id="DAC、ADC-amp-TPAD"><a href="#DAC、ADC-amp-TPAD" class="headerlink" title="DAC、ADC &amp; TPAD"></a>DAC、ADC &amp; TPAD</h4><p>DAC、ADC 和 TPAD 都是单片机中常见的模拟电路模块，分别用于数字信号到模拟信号的转换、模拟信号到数字信号的转换和触摸检测。</p>
+<p>DAC（Digital-to-Analog Converter，数字模拟转换器）是一种电路，用于将数字信号转换为模拟信号。DAC 可以将数字数据（例如二进制数据）转换为模拟信号，如电压或电流。在单片机应用中，DAC 通常用于输出模拟电压，以控制电路的各种操作，例如输出音频信号、控制电机转速等。</p>
+<p>ADC（Analog-to-Digital Converter，模拟数字转换器）是一种电路，用于将模拟信号转换为数字信号。ADC 可以将模拟电压或电流转换为数字数据（例如二进制数据），以便单片机可以使用这些数据进行数字信号处理。在单片机应用中，ADC 通常用于读取传感器输出的模拟信号、检测电池电压、读取温度传感器等。</p>
+<p>TPAD（Touch Pad，触摸检测器）是一种用于检测触摸的电路模块。TPAD 通常使用传感器或电容触摸技术来检测用户触摸板上的位置和动作。在单片机应用中，TPAD 可以用于设计触摸开关、触摸屏、触摸按钮等应用场景。</p>
+<h4 id="PWR"><a href="#PWR" class="headerlink" title="PWR"></a>PWR</h4><p>在单片机系统中，PWR 通常是指电源或电源管理电路。PWR 是提供单片机系统所需电压的电源电路或芯片，它可以提供不同电压级别的电源输出，以满足单片机和外部电路的不同电源需求。</p>
+<p>PWR 的主要功能包括：稳定电压输出、保护电路和检测电源状态。PWR 通常包括稳压器、滤波器、过压保护、欠压保护和电源监测等功能，以确保单片机系统在不同的工作条件下都能正常工作。</p>
+<h4 id="VEXT"><a href="#VEXT" class="headerlink" title="VEXT"></a>VEXT</h4><p>VEXT 通常是指在某些嵌入式系统或单片机板上的扩展电源引脚，用于提供外部设备的电源。</p>
+<p>在一些嵌入式系统或单片机板上，VEXT 可能是一个电源引脚，通常用于提供外部设备的电源。VEXT 通常会被设计为可编程的，以便用户可以根据需要设置电源的电压和电流，以满足外部设备的电源要求。VEXT 通常需要在代码中进行配置和初始化，以确保其正确工作。</p>
+<h4 id="TX-amp-RX"><a href="#TX-amp-RX" class="headerlink" title="TX &amp; RX"></a>TX &amp; RX</h4><p>TX 和 RX 是串行通信中常用的引脚名称，分别表示发送（Transmit）和接收（Receive）数据的引脚。</p>
+<p>在串行通信中，TX 引脚用于将数据从发送端发送到接收端，而 RX 引脚用于将数据从接收端接收到发送端。这种通信方式通常使用串行通信协议，如UART、SPI、I2C等。</p>
+<p>例如，在UART通信中，数据通过TX引脚从发送器发送到接收器的RX引脚。在SPI通信中，数据通过主设备的TX引脚发送到从设备的RX引脚。在I2C通信中，数据通过SDA引脚进行双向传输，而SCL引脚用于时钟同步。</p>
+<h4 id="CLK"><a href="#CLK" class="headerlink" title="CLK"></a>CLK</h4><p>CLK 是时钟信号的缩写，通常用于指示系统中的时钟引脚或时钟信号。在数字系统中，时钟信号是一种特殊的信号，它用于同步系统中的各种操作和数据传输。</p>
+<p>在单片机系统中，CLK 通常用于指示时钟引脚或时钟信号。时钟信号通常由时钟发生器或外部时钟源产生，用于同步单片机内部操作和外部设备之间的数据传输。</p>
+<p>时钟信号的频率通常被称为时钟频率，它表示时钟信号在单位时间内变化的次数。时钟频率越高，系统的运行速度就越快，但同时也会增加系统的功耗和干扰。</p>
+<p>在单片机系统中，CLK 引脚通常用于连接时钟信号源或时钟发生器，以提供系统所需的时钟信号。CLK 引脚的特性和功能取决于具体的单片机型号和应用要求，有些单片机还可能具有多个 CLK 引脚，以支持不同的时钟频率和操作模式。</p>
+<h4 id="DIO"><a href="#DIO" class="headerlink" title="DIO"></a>DIO</h4><p>DIO 是数字输入&#x2F;输出（Digital Input&#x2F;Output）的缩写，通常用于指示数字信号输入&#x2F;输出引脚或数字信号输入&#x2F;输出模块。</p>
+<p>在电子系统中，数字信号是用离散的、二进制的方式表示的信号，通常由 0 和 1 两个状态组成。数字信号输入&#x2F;输出通常用于连接数字传感器、执行器、开关等数字设备或模块，用于接收或输出数字信号。</p>
+<p>DIO 引脚通常用于连接数字输入&#x2F;输出设备或模块，以实现数字信号的输入或输出。数字输入&#x2F;输出设备通常由数字电路和数字信号转换电路组成，可以将输入的数字信号转换为电压或电流信号，或者将输出的电压或电流信号转换为数字信号。</p>
+<p>在单片机系统中，DIO 引脚通常用于连接数字输入&#x2F;输出设备或模块，以实现与外部数字设备的通信和控制。DIO 引脚的数量、特性和功能取决于具体的单片机型号和应用要求，有些单片机还可能具有多个 DIO 引脚，以支持更多的数字输入&#x2F;输出设备或模块。</p>
+<h4 id="TRST-amp-NRST"><a href="#TRST-amp-NRST" class="headerlink" title="TRST &amp; NRST"></a>TRST &amp; NRST</h4><p>TRST 和 NRST 都是芯片或系统的复位引脚，但两者有着不同的特点和用途。</p>
+<p>TRST 是 Test Reset 的缩写，通常用于调试接口或测试引脚中的复位信号。TRST 引脚通常用于测试和调试芯片或系统，以实现调试和测试的目的。TRST 通常是一个可选的引脚，不是所有的芯片或系统都支持 TRST 功能。</p>
+<p>NRST 是 Negative Reset 的缩写，通常用于将芯片或系统复位到初始状态。NRST 引脚通常用于连接复位电路或复位按钮，以实现芯片或系统的复位。NRST 通常是必选的引脚，所有的芯片或系统都需要支持 NRST 功能。</p>
+<p>另外，TRST 和 NRST 的电平和信号特性也有所不同。TRST 通常需要提供低电平或负电平的复位信号，而 NRST 则需要提供高电平或正电平的复位信号。在使用 TRST 或 NRST 引脚时，需要根据具体的芯片或系统规格和需求，选择合适的电平和信号特性，以确保复位信号的正确性和可靠性。</p>
+<h4 id="TDI-amp-TDO"><a href="#TDI-amp-TDO" class="headerlink" title="TDI &amp; TDO"></a>TDI &amp; TDO</h4><p>TDI 是 Test Data Input 的缩写，通常用于指示调试接口或测试引脚中的测试数据输入引脚。TDI 通常用于在调试或测试过程中向目标系统或芯片输入测试数据，以进行测试或调试操作。</p>
+<p>TDO 是 Test Data Output 的缩写，通常用于指示调试接口或测试引脚中的测试数据输出引脚。TDO 通常用于在调试或测试过程中从目标系统或芯片输出测试数据，以进行测试或调试操作。</p>
+<h4 id="TMS"><a href="#TMS" class="headerlink" title="TMS"></a>TMS</h4><p>TMS 是 Test Mode Select 的缩写，通常用于指示调试接口或测试引脚中的测试模式选择引脚。TMS 通常用于在调试或测试过程中控制目标系统或芯片的测试模式，以进行测试或调试操作。</p>
+<h4 id="TCK"><a href="#TCK" class="headerlink" title="TCK"></a>TCK</h4><p>TCK 是 Test Clock 的缩写，通常用于指示调试接口或测试引脚中的测试时钟引脚。TCK 通常用于在调试或测试过程中提供目标系统或芯片的时钟信号，以进行测试或调试操作。</p>
+<h4 id="NC"><a href="#NC" class="headerlink" title="NC"></a>NC</h4><p>NC 通常是 Not Connected 的缩写，表示该引脚没有连接到任何电路或设备，即未连接（Not Connected）。在电路设计或器件规格中，NC 通常用于表示某些引脚或端口不需要使用，或者暂时没有使用。</p>
+<h3 id="其他英文缩写解释"><a href="#其他英文缩写解释" class="headerlink" title="其他英文缩写解释"></a>其他英文缩写解释</h3><h4 id="JTAG、SWD-amp-STP"><a href="#JTAG、SWD-amp-STP" class="headerlink" title="JTAG、SWD &amp; STP"></a>JTAG、SWD &amp; STP</h4><p><strong>JTAG</strong> 是 Joint Test Action Group 的缩写，也称为 IEEE 1149.1 标准，是一种用于测试和调试集成电路的标准接口协议。JTAG 通常用于连接调试工具和测试设备，实现对芯片或系统的测试和调试操作。</p>
+<p>JTAG 接口标准定义了一组标准化的测试和调试信号，包括 Test Clock (TCK)、Test Mode Select (TMS)、Test Data Input (TDI)、Test Data Output (TDO) 和 Test Reset (TRST) 等信号。这些信号通常通过一个标准的接口进行连接，以实现芯片或系统的测试和调试功能。</p>
+<p>JTAG 接口通常包括两种工作模式，一种是测试模式，用于对芯片或系统进行测试和调试；另一种是生产模式，用于生产过程中的编程和测试。JTAG 接口也支持芯片或系统的在线编程和调试，以及实时监测芯片或系统的运行状态和性能指标。</p>
+<p><strong>SWD</strong> 是 Serial Wire Debug 的缩写，是一种用于调试嵌入式系统的接口协议。SWD 接口是 ARM 公司开发的，通常用于连接调试工具和目标芯片，实现对芯片的调试和测试操作。</p>
+<p>SWD 接口包括两根线：SWDIO 和 SWCLK。其中，SWDIO 是双向数据线，用于在芯片和调试工具之间传输数据，包括调试命令和数据；SWCLK 是单向时钟线，用于提供时钟信号，控制数据的传输和接收。</p>
+<p>SWD 接口通常采用 2 线模式或 4 线模式。在 2 线模式下，只需要使用 SWDIO 和 SWCLK 两根线；在 4 线模式下，除了 SWDIO 和 SWCLK，还需要使用另外两根线，分别是 RESET 和 SWO。RESET 用于芯片的复位，SWO 用于从芯片输出调试数据。</p>
+<p><strong>STP</strong> 是 Serial Test and Programming 的缩写，是一种用于调试和编程集成电路的接口协议。STP 接口是 TI 公司开发的，通常用于连接调试工具和目标芯片，实现对芯片的调试和编程操作。</p>
+<p>STP 接口包括两根线：STPDI 和 STPDO。其中，STPDI 是双向数据线，用于在芯片和调试工具之间传输数据，包括调试命令和数据；STPDO 是单向数据线，用于芯片从调试工具读取数据。</p>
+<p>STP 接口支持多种操作模式，包括调试模式、编程模式、读出模式等。调试模式用于实时监测芯片的运行状态和性能指标；编程模式用于对芯片进行在线编程和调试；读出模式用于从芯片读取数据。</p>
+<p>三者的区别主要在于接口协议的实现方式、连接线的数量和接口功能的不同。它们的联系主要在于都是用于调试和编程集成电路的接口协议，都需要连接调试工具和目标芯片，实现对芯片的调试和编程操作。此外，JTAG、SWD 和 STP 的应用和实现也受到芯片和系统的具体要求和规格的影响。</p>
+<h4 id="J-Link"><a href="#J-Link" class="headerlink" title="J-Link"></a>J-Link</h4><p>J-Link 是一种由 SEGGER 公司开发的通用 JTAG&#x2F;SWD 调试器和仿真器，用于连接调试工具和目标芯片，实现对芯片的调试、测试和编程操作。J-Link 支持多种调试接口协议，包括 JTAG、SWD、STP 等，可以实现对多种芯片和系统的调试和编程功能。</p>
+<p>J-Link 通常包括硬件和软件两部分。硬件部分包括 J-Link 调试器本身，以及与芯片和目标系统连接的接口线。J-Link 调试器可以提供高速、稳定的调试和仿真功能，支持多种工作模式和操作模式，包括在线调试、离线调试、仿真模式等。接口线通常包括不同的接口头和线缆，以适配不同的芯片和目标系统。</p>
+<p>软件部分包括 J-Link 调试器驱动程序和调试工具软件。J-Link 调试器驱动程序用于与操作系统和调试工具软件通信，以实现对芯片和目标系统的调试和编程操作。调试工具软件包括多种调试工具和 IDE，如 J-Link GDB Server、J-Link Flash Programmer、J-Link Integrated Development Environment（IDE）等，以提供全面的调试和编程功能。</p>
+<h4 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h4><p>Integrated Development Environment（IDE）是一种集成的开发环境，用于开发、调试和测试软件应用程序。IDE 通常包括多个组件，如源代码编辑器、编译器、调试器、版本控制工具、图形界面设计工具、文档生成工具等，以提供全面的软件开发和测试功能。</p>
+<p>IDE 主要用于软件开发过程中的集成化、协同化和自动化，可以提高开发效率和软件质量，减少错误和重复工作。IDE 通常提供多种功能和工具，如代码自动补全、语法检查、代码重构、调试跟踪、性能分析、测试工具等，可以帮助开发人员在更短的时间内开发出高质量的软件应用程序。</p>
+<p>IDE 的实现和应用广泛，适用于多种软件开发环境和语言，如 C、C++、Java、Python 等。不同的 IDE 也具有不同的特点和优势，可以根据具体的软件开发需求和环境进行选择和使用。</p>
+<h4 id="Winbond-W9825G6KH-6"><a href="#Winbond-W9825G6KH-6" class="headerlink" title="Winbond W9825G6KH-6"></a>Winbond W9825G6KH-6</h4><p>Winbond W9825G6KH-6 是一种 SDRAM 存储器，属于 Winbond 公司生产的 W98 系列产品。该产品具有 256M 位的容量，数据传输速度为 166MHz，采用 4 个银河内部银行和 4 个独立外部银行的设计，支持 4bit 和 8bit 的预取数据。此外，W9825G6KH-6 还采用了低功耗设计，具有广泛的应用和优秀的性能特点。</p>
+<p>W9825G6KH-6 适用于各种存储设备和系统中，如智能手机、平板电脑、网络通讯、工业控制、汽车电子等领域。该产品采用了高速、稳定、可靠的设计，可以满足客户的不同需求，并且具有优秀的性能和可靠性，得到了广泛的应用和好评。</p>
+<p>（Winbond 是一家专门从事闪存存储器、DRAM 存储器、语音 IC、微控制器和系统软件等领域的半导体公司。其总部位于台湾，成立于1987年，目前已经成为全球领先的半导体公司之一。</p>
+<p>Winbond 公司主要的产品包括闪存存储器、DRAM 存储器、语音 IC、微控制器和系统软件等，广泛应用于智能手机、平板电脑、数码相机、网络通讯、工业控制、汽车电子等领域。其中，闪存存储器和DRAM 存储器是 Winbond 公司的核心业务之一，具有高速、稳定、可靠等优点，被广泛应用于各种存储设备和系统中。）</p>
+<h4 id="USART"><a href="#USART" class="headerlink" title="USART"></a>USART</h4><p>USART，全称为 Universal Synchronous&#x2F;Asynchronous Receiver Transmitter，是一种串行通信接口协议，用于实现数据的收发和传输。USART 接口通常包括 TXD（发送端）、RXD（接收端）和时钟等信号线，支持同步和异步两种通信方式，以及多种数据格式和传输速率。</p>
+<p>USART 接口主要应用于嵌入式系统中，可用于与外设或者其他设备进行数据的交换和通信。</p>
+<h4 id="USB-x2F-CAN"><a href="#USB-x2F-CAN" class="headerlink" title="USB&#x2F;CAN"></a>USB&#x2F;CAN</h4><p>USB&#x2F;CAN 是一种 USB 和 CAN 通信接口的组合，用于实现 USB 和 CAN 总线之间的数据交换和通信。USB&#x2F;CAN 接口通常包括 USB 接口和 CAN 总线接口两部分，可以通过 USB 端口与计算机或其他设备相连，实现数据的读写和传输。</p>
+<p>USB&#x2F;CAN 接口通常用于嵌入式系统中，可以用于与外设或其他设备进行数据的交换和通信。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">单片机名词解释</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">XiaoMa</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2023-03-23 20:35:48</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2023/03/23/041-单片机名词解释/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A/">#名词解释</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">#单片机</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/03/24/042-ChatGPT-Plus-%E7%BB%AD%E8%B4%B9%E5%A4%B1%E8%B4%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item">ChatGPT Plus 续费失败及解决方案</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/03/21/040-%E8%B7%AF%E7%94%B1%E5%99%A8%E6%B5%8B%E9%80%9F%E6%8A%A5%E5%91%8A/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">路由器测速报告</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%84%9A%E8%8B%B1%E6%96%87%E7%BC%A9%E5%86%99%E8%A7%A3%E9%87%8A"><span class="nav-number">1.</span> <span class="nav-text">引脚英文缩写解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GND"><span class="nav-number">1.1.</span> <span class="nav-text">GND</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5V-amp-3-3V"><span class="nav-number">1.2.</span> <span class="nav-text">5V &amp; 3.3V</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RXD-amp-TXD"><span class="nav-number">1.3.</span> <span class="nav-text">RXD &amp; TXD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DAC%E3%80%81ADC-amp-TPAD"><span class="nav-number">1.4.</span> <span class="nav-text">DAC、ADC &amp; TPAD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PWR"><span class="nav-number">1.5.</span> <span class="nav-text">PWR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VEXT"><span class="nav-number">1.6.</span> <span class="nav-text">VEXT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TX-amp-RX"><span class="nav-number">1.7.</span> <span class="nav-text">TX &amp; RX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CLK"><span class="nav-number">1.8.</span> <span class="nav-text">CLK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DIO"><span class="nav-number">1.9.</span> <span class="nav-text">DIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TRST-amp-NRST"><span class="nav-number">1.10.</span> <span class="nav-text">TRST &amp; NRST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TDI-amp-TDO"><span class="nav-number">1.11.</span> <span class="nav-text">TDI &amp; TDO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TMS"><span class="nav-number">1.12.</span> <span class="nav-text">TMS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCK"><span class="nav-number">1.13.</span> <span class="nav-text">TCK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NC"><span class="nav-number">1.14.</span> <span class="nav-text">NC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%8B%B1%E6%96%87%E7%BC%A9%E5%86%99%E8%A7%A3%E9%87%8A"><span class="nav-number">2.</span> <span class="nav-text">其他英文缩写解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JTAG%E3%80%81SWD-amp-STP"><span class="nav-number">2.1.</span> <span class="nav-text">JTAG、SWD &amp; STP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#J-Link"><span class="nav-number">2.2.</span> <span class="nav-text">J-Link</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IDE"><span class="nav-number">2.3.</span> <span class="nav-text">IDE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Winbond-W9825G6KH-6"><span class="nav-number">2.4.</span> <span class="nav-text">Winbond W9825G6KH-6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#USART"><span class="nav-number">2.5.</span> <span class="nav-text">USART</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#USB-x2F-CAN"><span class="nav-number">2.6.</span> <span class="nav-text">USB&#x2F;CAN</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2022</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">XiaoMa</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.1</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
